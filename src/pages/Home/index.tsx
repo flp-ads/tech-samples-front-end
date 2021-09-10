@@ -9,6 +9,9 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
+import { Link } from "react-router-dom";
+import { GlobalHeader } from "../../components/GlobalHeader";
+
 const Home = () => {
 
   const formSchema = yup.object().shape({
@@ -30,109 +33,148 @@ const Home = () => {
 
   return (
     <div>
-
-      {/* Aqui vai o Header */}
-
+      {/* MOBILE */}
       <Box
-        display='flex'
-        flexFlow='column nowrap'
-        alignItems='center'
-        justifyContent='center'
-        padding='16px'
-        textAlign='center'
-        bg='blue.300'>
+        display={{ base: "flex", sm: "flex", md: "none" }}
+        flexFlow='column nowrap'>
 
-        <Heading variant='h1' marginBottom='8'>
-          Otimização de processos com inteligência e tecnologia
-        </Heading>
+        <GlobalHeader>
+          <Link to="">Pesquisar Análise</Link>
+          <Link to="/aboutUs">Sobre Nós</Link>
+        </GlobalHeader>
 
         <Box
           display='flex'
-          flexFlow='row nowrap'
+          flexFlow='column nowrap'
           alignItems='center'
-          justifyContent='center'>
-          <img width='120px' src={Flask} alt='frasco'></img>
-          <img width='120px' src={Screen} alt='tela'></img>
-        </Box>
+          justifyContent='center'
+          padding='16px'
+          textAlign='center'
+          bg='blue.300'>
 
-      </Box>
-
-      <Box
-        display='flex'
-        flexFlow='column nowrap'
-        alignItems='center'
-        justifyContent='center'
-        padding='48px 0px'
-        textAlign='center'
-        bgImage={MobileBG}>
-
-        <Box
-          bgColor='gray.50'
-          w='280px'
-          boxShadow='0px 0px 20px rgba(0, 0, 0, 0.1)'
-          borderRadius='3xl'
-          p='10px'>
-
-          <Heading variant='h4' mb='8'>
-            Digite suas credenciais
+          <Heading variant='h1' marginBottom='8'>
+            Otimização de processos com inteligência e tecnologia
           </Heading>
-
-          <Input
-            variant='flushed'
-            marginBottom='1px solid'
-            borderColor='blue.600'
-            placeholder='Usuário'
-            mb='4'/>
-
-          <Input
-            variant='flushed'
-            marginBottom='1px solid'
-            borderColor='blue.600'
-            placeholder='Senha'
-            mb='4'/>
 
           <Box
             display='flex'
-            flexFlow='column nowrap'
+            flexFlow='row nowrap'
             alignItems='center'
             justifyContent='center'>
+            <img width='120px' src={Flask} alt='frasco'></img>
+            <img width='120px' src={Screen} alt='tela'></img>
+          </Box>
 
-            <Button w='260px' variant='default' mb='4' mt='4'>
-              Entrar
-            </Button>
+        </Box>
 
-            <img width='32px' src={Or} alt='frasco'></img>
+        <Box
+          display='flex'
+          flexFlow='column nowrap'
+          alignItems='center'
+          justifyContent='center'
+          padding='128px 0px'
+          textAlign='center'
+          bgImage={MobileBG}
+          bgSize='cover'>
 
-            <Button w='260px' variant='default' mb='4' mt='4'>
-              Pesquise uma amostra
-            </Button>
+          <Box
+            bgColor='gray.50'
+            w='280px'
+            boxShadow='0px 0px 20px rgba(0, 0, 0, 0.1)'
+            borderRadius='3xl'
+            p='10px'>
+
+            <Heading variant='h4' mb='8'>
+              Digite suas credenciais
+            </Heading>
+
+            <Input
+              variant='flushed'
+              marginBottom='1px solid'
+              borderColor='blue.600'
+              placeholder='Usuário'
+              mb='4'/>
+
+            <Input
+              variant='flushed'
+              marginBottom='1px solid'
+              borderColor='blue.600'
+              placeholder='Senha'
+              mb='4'/>
+
+            <Box
+              display='flex'
+              flexFlow='column nowrap'
+              alignItems='center'
+              justifyContent='center'>
+
+              <Button w='260px' variant='default' mb='4' mt='4'>
+                Entrar
+              </Button>
+
+              <img width='32px' src={Or} alt='frasco'></img>
+
+              <Button w='260px' variant='default' mb='4' mt='4'>
+                Pesquise uma amostra
+              </Button>
+            </Box>
           </Box>
         </Box>
+
+        <Box
+          display='flex'
+          flexFlow='column nowrap'
+          alignItems='left'
+          justifyContent='center'
+          padding='16px'
+          textAlign='center'
+          bg='blue.300'>
+          
+          <Heading variant='h4' mb='4' color='gray.50' stroke='1px black'>
+            Por quê a TechSamples?
+          </Heading>
+
+          <UnorderedList
+            color='gray.50'
+            textAlign='left'>
+
+            <ListItem>Agilidade</ListItem>
+            <ListItem>Disponibilidade</ListItem>
+            <ListItem>Garantia de resultados</ListItem>
+            <ListItem>Confidenciabilidade</ListItem>
+            
+          </UnorderedList>
+        </Box>
+
       </Box>
 
+      {/* DESKTOP */}
       <Box
-        display='flex'
-        flexFlow='column nowrap'
-        alignItems='center'
-        justifyContent='center'
-        padding='16px'
-        textAlign='center'
-        bg='blue.300'>
+        display={{ base: "none", sm: "none", md: "flex" }}
+        flexFlow='column nowrap'>
+
         
-        <Heading variant='h4' mb='4' color='gray.50' stroke='1px black'>
-          Por quê a TechSamples?
-        </Heading>
+        <GlobalHeader>
+          <Link to="">Pesquisar Análise</Link>
+          <Link to="/aboutUs">Sobre Nós</Link>
+        </GlobalHeader>
 
-        <UnorderedList
-          color='gray.50'
-          textAlign='left'>
 
-          <ListItem>Agilidade</ListItem>
-          <ListItem>Disponibilidade</ListItem>
-          <ListItem>Garantia de resultados</ListItem>
-          <ListItem>Confidenciabilidade</ListItem>
-          
-        </UnorderedList>
+          <Heading variant='h1' marginBottom='8'>
+            Otimização de processos com inteligência e tecnologia
+          </Heading>
+
+          <Box
+            display='flex'
+            flexFlow='row nowrap'
+            alignItems='center'
+            justifyContent='center'>
+            <img width='120px' src={Flask} alt='frasco'></img>
+            <img width='120px' src={Screen} alt='tela'></img>
+          </Box>
+        
+       
+
       </Box>
     </div>
   );
