@@ -67,6 +67,11 @@ const custonTheme = extendTheme({
       body: {
         bg: "white",
         color: "blue.600",
+        m: {
+          sm: "3",
+          md: "7",
+          lg: "8",
+        },
       },
     },
   },
@@ -129,3 +134,8 @@ export default custonTheme;
 // boxShadow="0px 0px 20px rgba(0, 0, 0, 0.1)"
 // borderRadius="3xl"
 // p="4"
+
+// select e input:
+// variant="flushed"
+// marginBottom="1px solid"
+// borderColor="blue.600"
