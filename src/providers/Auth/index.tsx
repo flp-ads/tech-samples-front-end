@@ -23,8 +23,15 @@ const AuthContext = createContext({});
 export const AuthProvider = ({ children }: Props) => {
   const token = localStorage.getItem("token") || "";
   const [auth, setAuth] = useState<string>(token);
-  const localUser = localStorage.getItem("user") || "";
-  const [user, setUser] = useState(JSON.parse(localUser));
+  const localUser = localStorage.getItem("user") || null;
+
+  const [user, setUser] = useState(() => {
+    if (localUser) {
+      return JSON.parse(localUser);
+    }
+    return {};
+  });
+
   const history = useHistory();
 
   const login = (
@@ -41,6 +48,8 @@ export const AuthProvider = ({ children }: Props) => {
       })
       .catch((err) => setError(true));
   };
+
+  console.log(typeof localUser, localUser);
 
   return (
     <AuthContext.Provider value={{ token: auth, setAuth, login, user }}>
