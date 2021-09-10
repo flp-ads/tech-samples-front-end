@@ -22,46 +22,47 @@ const custonTheme = extendTheme({
       600: "#168821",
       700: "#13801E",
     },
-    fonts: {
-      heading: "Montserrat",
-      body: "Montserrat",
-    },
-    fontSises: {
-      xs: "0.75rem",
-      sm: "0.875rem",
-      md: "1rem",
-      lg: "1.125rem",
-      xl: "1.25rem",
-      "2xl": "1.5rem",
-      "3xl": "1.875rem",
-      "4xl": "2.25rem",
-      "5xl": "3rem",
-      "6xl": "3.75rem",
-      "7xl": "4.5rem",
-      "8xl": "6rem",
-      "9xl": "8rem",
-    },
-    fontWeights: {
-      normal: 400,
-      medium: 500,
-      semibold: 600,
-      bold: 700,
-      extrabold: 800,
-      black: 900,
-    },
-
-    radii: {
-      none: "0",
-      sm: "0.125rem",
-      base: "0.25rem",
-      md: "0.375rem",
-      lg: "0.5rem",
-      xl: "0.75rem",
-      "2xl": "1rem",
-      "3xl": "1.5rem",
-      full: "9999px",
-    },
   },
+  fonts: {
+    heading: "Montserrat",
+    body: "Montserrat",
+  },
+  fontSises: {
+    xs: "0.75rem",
+    sm: "0.875rem",
+    md: "1rem",
+    lg: "1.125rem",
+    xl: "1.25rem",
+    "2xl": "1.5rem",
+    "3xl": "1.875rem",
+    "4xl": "2.25rem",
+    "5xl": "3rem",
+    "6xl": "3.75rem",
+    "7xl": "4.5rem",
+    "8xl": "6rem",
+    "9xl": "8rem",
+  },
+  fontWeights: {
+    normal: 400,
+    medium: 500,
+    semibold: 600,
+    bold: 700,
+    extrabold: 800,
+    black: 900,
+  },
+
+  radii: {
+    none: "0",
+    sm: "0.125rem",
+    base: "0.25rem",
+    md: "0.375rem",
+    lg: "0.5rem",
+    xl: "0.75rem",
+    "2xl": "1rem",
+    "3xl": "1.5rem",
+    full: "9999px",
+  },
+
   styles: {
     global: {
       body: {
@@ -129,3 +130,15 @@ export default custonTheme;
 // boxShadow="0px 0px 20px rgba(0, 0, 0, 0.1)"
 // borderRadius="3xl"
 // p="4"
+
+// select e input:
+// variant="flushed"
+// marginBottom="1px solid"
+// borderColor="blue.600"
+
+// Margin
+// //   m: {
+//   sm: "3",
+//   md: "7",
+//   lg: "8",
+// },
