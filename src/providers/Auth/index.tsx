@@ -21,9 +21,9 @@ interface Props {
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }: Props) => {
-  const token = localStorage.getItem("token") || "";
+  const token = localStorage.getItem("token") || "[]";
   const [auth, setAuth] = useState<string>(token);
-  const localUser = localStorage.getItem("user") || "";
+  const localUser = localStorage.getItem("user") || "[]";
   const [user, setUser] = useState(JSON.parse(localUser));
   const history = useHistory();
 
