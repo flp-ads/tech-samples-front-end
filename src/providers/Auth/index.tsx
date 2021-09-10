@@ -23,8 +23,8 @@ const AuthContext = createContext({});
 export const AuthProvider = ({ children }: Props) => {
   const token = localStorage.getItem("token") || "";
   const [auth, setAuth] = useState<string>(token);
-  const localUser = localStorage.getItem("user") || "";
-  const [user, setUser] = useState(JSON.parse(localUser));
+  // const localUser = localStorage.getItem("user") || "";
+  const [user, setUser] = useState('');
   const history = useHistory();
 
   const login = (
