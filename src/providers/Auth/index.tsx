@@ -49,8 +49,6 @@ export const AuthProvider = ({ children }: Props) => {
       .catch((err) => setError(true));
   };
 
-  console.log(typeof localUser, localUser);
-
   return (
     <AuthContext.Provider value={{ token: auth, setAuth, login, user }}>
       {children}
