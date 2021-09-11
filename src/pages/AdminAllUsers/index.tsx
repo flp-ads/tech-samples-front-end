@@ -2,7 +2,8 @@ import { Box, Button, Flex, Grid, Icon } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { BsArrowLeftShort } from "react-icons/bs";
 import { FaUserMinus, FaUserPlus, FaUserTie } from "react-icons/fa";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import GlobalHeader from "../../components/GlobalHeader";
 import { useAuth } from "../../providers/Auth";
 import api from "../../services/api";
 
@@ -17,9 +18,11 @@ interface typeUserData {
 const AdminAllUsers = () => {
   const [users, setUsers] = useState<typeUserData[]>([]);
   const history = useHistory();
-  const { token } = useAuth();
+  // const { token } = useAuth();
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxQHRlc3QuY29tIiwiaWF0IjoxNjMxMzg3NjE4LCJleHAiOjE2MzEzOTEyMTgsInN1YiI6IjEifQ._DuX_vM4pMWf5KspY6ffnlsl_wqCmZDeNNkz8DGjUNY";
 
-  useEffect(() => {
+  const getUsers = () => {
     api
       .get("/users", {
         headers: {
@@ -28,10 +31,32 @@ const AdminAllUsers = () => {
       })
       .then((res) => setUsers(res.data))
       .catch((err) => console.log(`Não Foi!: ${err}`));
+  };
+
+  const delUser = (userId: number) => {
+    api
+      .delete(`/users/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getUsers();
   }, []);
 
   return (
     <>
+      <GlobalHeader>
+        <Link to="/">Cadastrar Produto</Link>
+        <Link to="/">Editar Parâmetros</Link>
+        <Link to="/">
+          <strong>Usuários</strong>
+        </Link>
+        <Link to="/">Logout</Link>
+      </GlobalHeader>
       <Grid templateColumns="repeat(5, 1fr)" gap={4} m={30}>
         <Button
           variant="default"
@@ -89,7 +114,14 @@ const AdminAllUsers = () => {
               alignItems="flex-end"
               p={4}
             >
-              <Icon as={FaUserMinus} color="blue.300" w={6} h={6} />
+              <Icon
+                as={FaUserMinus}
+                onClick={() => delUser(item.id)}
+                color="blue.300"
+                cursor="pointer"
+                w={6}
+                h={6}
+              />
             </Flex>
           </Grid>
         ))}
