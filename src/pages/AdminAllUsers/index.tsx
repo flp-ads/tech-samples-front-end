@@ -4,7 +4,7 @@ import { BsArrowLeftShort } from "react-icons/bs";
 import { FaUserMinus, FaUserPlus, FaUserTie } from "react-icons/fa";
 import { Link, useHistory } from "react-router-dom";
 import GlobalHeader from "../../components/GlobalHeader";
-import { useAuth } from "../../providers/Auth";
+// import { useAuth } from "../../providers/Auth";
 import api from "../../services/api";
 
 interface typeUserData {
