@@ -1,15 +1,23 @@
-import { Flex } from "@chakra-ui/layout";
+import { Flex, Link } from "@chakra-ui/layout";
 import { Image, Text } from "@chakra-ui/react";
+import { ReactNode } from "toasted-notes/node_modules/@types/react";
+
 import glasses from "../../../assets/icons/test_glasses.svg";
 
 interface ClassData {
   name: string;
   id: number;
+  children: ReactNode;
 }
 
-const CardClass = (data: ClassData) => {
+const CardClass = ({ name, id, children }: ClassData) => {
   return (
-    <Flex m="3" minH="100px" minW="250px">
+    <Flex
+      m="3"
+      minH="100px"
+      minW="250px"
+      width={{ base: "20%", sm: "70%", md: "90%" }}
+    >
       <Flex
         w="20%"
         minW="16"
@@ -32,12 +40,13 @@ const CardClass = (data: ClassData) => {
       >
         <Flex wrap="wrap">
           <Text fontSize="xl" fontWeight="semibold">
-            Classe: {data.name}
+            Classe: {name}
           </Text>
         </Flex>
         <Flex wrap="wrap">
-          <Text fontWeight="semibold">ID: {data.id}</Text>
+          <Text fontWeight="semibold">ID: {id}</Text>
         </Flex>
+        <Flex alignSelf="flex-end">{children}</Flex>
       </Flex>
     </Flex>
   );

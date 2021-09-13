@@ -42,12 +42,14 @@ export const GlobalHeader = ({ children }: NavBarProps) => {
         fontWeight="semibold"
         fontSize="sm"
         marginRight={{ base: "0", sm: "0", md: "5" }}
+        
       >
         <Flex
           display={{ base: "none", sm: "none", md: "flex" }}
           w="100%"
           justifyContent="space-evenly"
           textAlign="center"
+          alignItems='center'
         >
           {children}
         </Flex>
