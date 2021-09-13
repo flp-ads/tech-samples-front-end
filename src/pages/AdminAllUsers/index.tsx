@@ -21,7 +21,7 @@ const AdminAllUsers = () => {
 
   useEffect(() => {
     getUsers();
-  }, [attPage]);
+  }, [attPage, getUsers]);
 
   return (
     <>
