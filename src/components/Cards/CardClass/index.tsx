@@ -23,7 +23,7 @@ const CardClass = (data: ClassData) => {
       </Flex>
       <Flex
         flex="1"
-        bg="blue.700"
+        bg="blue.600"
         flexDirection="column"
         justifyContent="space-between"
         p="2"

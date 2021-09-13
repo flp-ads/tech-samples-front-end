@@ -20,9 +20,9 @@ const CardUser = (data: UserData) => {
         align="center"
         justify="center"
       >
-        <Icon as={FaUserTie} boxSize={12} color="blue.700" />
+        <Icon as={FaUserTie} boxSize={12} color="blue.600" />
       </Flex>
-      <Flex flex="1" bg="blue.700" flexDirection="column" p="2" color="gray.50">
+      <Flex flex="1" bg="blue.600" flexDirection="column" p="2" color="gray.50">
         <Flex wrap="wrap">
           <Text fontSize="xl" fontWeight="semibold">
             {data.username}
@@ -33,7 +33,7 @@ const CardUser = (data: UserData) => {
       </Flex>
       <Flex
         borderRightRadius="15"
-        bg="blue.700"
+        bg="blue.600"
         p="2"
         w="10"
         flexDirection="column"

@@ -1,5 +1,4 @@
-import { Flex } from "@chakra-ui/layout";
-import { Image, Text } from "@chakra-ui/react";
+import { Image, Text, Flex } from "@chakra-ui/react";
 import clipboards from "../../../assets/icons/clipboards.svg";
 import scienceTools from "../../../assets/icons/science_tools.svg";
 
@@ -19,8 +18,8 @@ const CardDescription = (data: DescriptionData) => {
   return (
     <Flex m="3" minH="100px" minW="250px">
       <Flex
-        w="20%"
-        minW="16"
+        w={["5px", "20%", "20%"]}
+        minW={["5px", "16px", "16px"]}
         borderLeftRadius="15"
         bg="blue.300"
         p="2"
@@ -28,14 +27,22 @@ const CardDescription = (data: DescriptionData) => {
         justify="center"
       >
         {data.concluded ? (
-          <Image src={clipboards} boxSize={16} />
+          <Image
+            src={clipboards}
+            boxSize={["0", "16", "16"]}
+            display={["none", "block", "block"]}
+          />
         ) : (
-          <Image src={scienceTools} boxSize={16} />
+          <Image
+            src={scienceTools}
+            boxSize={["0", "16", "16"]}
+            display={["none", "block", "block"]}
+          />
         )}
       </Flex>
       <Flex
         flex="1"
-        bg="blue.700"
+        bg="blue.600"
         flexDirection="column"
         justifyContent="space-between"
         p="2"
@@ -45,32 +52,86 @@ const CardDescription = (data: DescriptionData) => {
         <Flex
           justifyContent="space-between"
           wrap="wrap"
-          flexDirection={{ base: "column", md: "row" }}
+          flexDirection={["column", "row", "row"]}
         >
-          <Text flex="1" fontSize="xl" fontWeight="semibold">
-            {data.name}
-          </Text>
-          <Text flex="1" fontSize="xl" fontWeight="semibold">
-            {data.batch}
-          </Text>
-          <Text flex="1" fontSize="xl" fontWeight="semibold">
-            {data.made}
-          </Text>
+          <Flex
+            flex="1"
+            direction={["row", "column", "row"]}
+            wrap="wrap"
+            pl="2"
+            align={["center", "start", "center"]}
+          >
+            <Text fontSize="sm" fontWeight="semibold">
+              Nome da amostra:
+            </Text>
+            <Text pl="2"> {data.name}</Text>
+          </Flex>
+          <Flex
+            flex="1"
+            direction={["row", "column", "row"]}
+            wrap="wrap"
+            pl="2"
+            align={["center", "start", "center"]}
+          >
+            <Text fontSize="sm" fontWeight="semibold">
+              Lote:
+            </Text>
+            <Text pl="2"> {data.batch}</Text>
+          </Flex>
+          <Flex
+            flex="1"
+            direction={["row", "column", "row"]}
+            wrap="wrap"
+            pl="2"
+            align={["center", "start", "center"]}
+          >
+            <Text fontSize="sm" fontWeight="semibold">
+              Fabricado em:
+            </Text>
+            <Text pl="2"> {data.made}</Text>
+          </Flex>
         </Flex>
         <Flex
           justifyContent="space-between"
           wrap="wrap"
-          flexDirection={{ base: "column", md: "row" }}
+          flexDirection={["column", "row", "row"]}
         >
-          <Text flex="1" fontSize="xl" fontWeight="semibold">
-            {data.category}
-          </Text>
-          <Text flex="1" fontSize="xl" fontWeight="semibold">
-            {data.class.className}
-          </Text>
-          <Text flex="1" fontSize="xl" fontWeight="semibold">
-            ID: {data.id}
-          </Text>
+          <Flex
+            flex="1"
+            direction={["row", "column", "row"]}
+            wrap="wrap"
+            pl="2"
+            align={["center", "start", "center"]}
+          >
+            <Text fontSize="sm" fontWeight="semibold">
+              Categoria:
+            </Text>
+            <Text pl="2"> {data.category}</Text>
+          </Flex>
+          <Flex
+            flex="1"
+            direction={["row", "column", "row"]}
+            wrap="wrap"
+            pl="2"
+            align={["center", "start", "center"]}
+          >
+            <Text fontSize="sm" fontWeight="semibold">
+              Classe de produto:
+            </Text>
+            <Text pl="2"> {data.class.className}</Text>
+          </Flex>
+          <Flex
+            flex="1"
+            direction={["row", "column", "row"]}
+            wrap="wrap"
+            pl="2"
+            align={["center", "start", "center"]}
+          >
+            <Text fontSize="sm" fontWeight="semibold">
+              ID:
+            </Text>
+            <Text pl="2"> {data.id}</Text>
+          </Flex>
         </Flex>
       </Flex>
     </Flex>
