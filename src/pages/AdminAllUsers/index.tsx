@@ -21,7 +21,8 @@ const AdminAllUsers = () => {
 
   useEffect(() => {
     getUsers();
-  }, [attPage, getUsers]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [attPage]);
 
   return (
     <>
