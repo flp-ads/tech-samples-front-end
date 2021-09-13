@@ -22,7 +22,7 @@ const AdminAllUsers = () => {
   const history = useHistory();
   // const { token } = useAuth();
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxQHRlc3QuY29tIiwiaWF0IjoxNjMxNTM3NjA4LCJleHAiOjE2MzE1NDEyMDgsInN1YiI6IjEifQ.g0jxWLBy6vzikH0FeNudrr_zsO4fTVEfxpSx_xwzMqs";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxQHRlc3QuY29tIiwiaWF0IjoxNjMxNTYyOTIxLCJleHAiOjE2MzE1NjY1MjEsInN1YiI6IjEifQ.NyAyeMf3ndwAUHn8PBK2G1wuH7bkL34w3L7RL0fgDLs";
 
   const getUsers = () => {
     api
