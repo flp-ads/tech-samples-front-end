@@ -11,10 +11,10 @@ interface UserData {
 
 interface CardUserData {
   data: UserData;
-  delUser: (userId: number) => void;
+  delUsers: (userId: number) => void;
 }
 
-const CardUser = ({ data, delUser }: CardUserData) => {
+const CardUser = ({ data, delUsers }: CardUserData) => {
   return (
     <Flex minH="100px" w="100%" minW="250px" maxW="1000px">
       <Flex
@@ -52,7 +52,7 @@ const CardUser = ({ data, delUser }: CardUserData) => {
             boxSize={6}
             color="blue.300"
             cursor="pointer"
-            onClick={() => delUser(data.id)}
+            onClick={() => delUsers(data.id)}
           />
         </>
       </Flex>
