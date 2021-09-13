@@ -5,12 +5,18 @@ import { Icon, Text } from "@chakra-ui/react";
 interface UserData {
   username: string;
   email: string;
-  isAdmin?: boolean;
+  type: string;
+  id: number;
 }
 
-const CardUser = (data: UserData) => {
+interface CardUserData {
+  data: UserData;
+  delUser: (userId: number) => void;
+}
+
+const CardUser = ({ data, delUser }: CardUserData) => {
   return (
-    <Flex m="3" minH="100px" minW="250px">
+    <Flex minH="100px" w="100%" minW="250px" maxW="1000px">
       <Flex
         w="20%"
         minW="16"
@@ -37,14 +43,18 @@ const CardUser = (data: UserData) => {
         p="2"
         w="10"
         flexDirection="column"
-        justify="space-between"
+        justify="flex-end"
       >
-        {data.isAdmin && (
-          <>
-            <Icon as={FaUserEdit} boxSize={6} color="blue.300" />
-            <Icon as={FaUserMinus} boxSize={6} color="blue.300" />
-          </>
-        )}
+        <>
+          {/* <Icon as={FaUserEdit} boxSize={6} color="blue.300" cursor="pointer" /> */}
+          <Icon
+            as={FaUserMinus}
+            boxSize={6}
+            color="blue.300"
+            cursor="pointer"
+            onClick={() => delUser(data.id)}
+          />
+        </>
       </Flex>
     </Flex>
   );
