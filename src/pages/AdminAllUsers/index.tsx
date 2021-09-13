@@ -7,15 +7,12 @@ import CardUser from "../../components/Cards/CardUser";
 import GlobalHeader from "../../components/GlobalHeader";
 import { useUsers } from "../../providers/Users";
 // import { useAuth } from "../../providers/Auth";
-import api from "../../services/api";
 
 const AdminAllUsers = () => {
   const [attPage, setAttPage] = useState<boolean>(false);
   const { getUsers, delUsers, users } = useUsers();
   const history = useHistory();
   // const { token } = useAuth();
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxQHRlc3QuY29tIiwiaWF0IjoxNjMxNTM3NjA4LCJleHAiOjE2MzE1NDEyMDgsInN1YiI6IjEifQ.g0jxWLBy6vzikH0FeNudrr_zsO4fTVEfxpSx_xwzMqs";
 
   const handleDelete = (id: number) => {
     delUsers(id);

@@ -1,5 +1,5 @@
 import { Flex, Spacer } from "@chakra-ui/layout";
-import { FaUserTie, FaUserMinus, FaUserEdit } from "react-icons/fa";
+import { FaUserTie, FaUserMinus } from "react-icons/fa";
 import { Icon, Text } from "@chakra-ui/react";
 
 interface UserData {
