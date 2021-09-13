@@ -6,33 +6,19 @@ import api from "../../services/api";
 import CardClass from "../../components/Cards/CardClass";
 import { useEffect } from "react";
 import { FaUserEdit } from "react-icons/fa";
+import { useClass } from "../../providers/Class";
+import { useAuth } from "../../providers/Auth";
 
-interface classesTypes {
-  name: string;
-  id: number;
-}
 
 const AdminProductClass = () => {
+  const { allClasses, getAllClasses } = useClass()
+  const { token } = useAuth()
   const tokenTeste = localStorage.getItem("token") || "[]";
   const [className, setClassName] = useState<string>("");
-  const [classes, setClasses] = useState<classesTypes[]>([] as classesTypes[]);
 
   useEffect(() => {
-    localStorage.setItem(
-      "token",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlQHRlc3RlLmNvbSIsImlhdCI6MTYzMTU1NjU4MSwiZXhwIjoxNjMxNTYwMTgxLCJzdWIiOiIzIn0.bN5HEele1mT1A17fbOgpijjU1Eeeia_pxz0iV4d8iFo"
-    );
-  }, []);
-
-  useEffect(() => {
-    api
-      .get("/classes", {
-        headers: {
-          Authorization: `Bearer ${tokenTeste}`,
-        },
-      })
-      .then((response) => setClasses(response.data));
-  }, [tokenTeste, classes]);
+    getAllClasses()
+  }, [allClasses]);
 
   const addNewClass = (value: any) => {
     api
@@ -41,7 +27,7 @@ const AdminProductClass = () => {
         { name: value, userId: 3 },
         {
           headers: {
-            Authorization: `Bearer ${tokenTeste}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       )
@@ -70,7 +56,7 @@ const AdminProductClass = () => {
       >
         <Box fontSize="xl" fontWeight="500" textAlign="center">
           {" "}
-          Username, existem <strong>{classes.length}</strong> classes de
+          Username, existem <strong>{allClasses.length}</strong> classes de
           produtos cadastrados
         </Box>
         <Flex
@@ -120,7 +106,7 @@ const AdminProductClass = () => {
           },
         }}
       >
-        {classes.map((item) => (
+        {allClasses.map((item) => (
           <CardClass key={item.id} name={item.name} id={item.id}>
             <Link to=''><FaUserEdit /></Link>
           </CardClass>
