@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { GlobalHeader } from "../../components/GlobalHeader";
+import Analysis from "../Analysis";
 
 const Home = () => {
   return (
@@ -8,6 +9,7 @@ const Home = () => {
         <Link to="">Pesquisar Análise</Link>
         <Link to="/aboutUs">Sobre Nós</Link>
       </GlobalHeader>
+      <Analysis />
     </div>
   );
 };
