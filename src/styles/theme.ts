@@ -9,7 +9,7 @@ const custonTheme = extendTheme({
     },
     gray: {
       50: "#F7FAFC",
-      300: "##CBD5E0",
+      300: "#CBD5E0",
       500: "#9e9ea7",
       700: "#848491",
       900: "#171923",
