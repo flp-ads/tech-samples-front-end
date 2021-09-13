@@ -8,6 +8,7 @@ import { Button } from "@chakra-ui/react";
 import { FiTrash2 } from "react-icons/fi";
 
 const AdminClassView = () => {
+
   const { id } = useParams<{ id: string }>();
   const { currentClass, classAnalyses, fetchClass, resetClass, removeClassType } = useClass();
 
@@ -186,7 +187,7 @@ const AdminClassView = () => {
                           color='blue.300'>
                           {item.unit}
                         </Box>
-
+                        
                         <Button w='55px' m='0 0'>
                           <FiTrash2 size={23} />
                         </Button>

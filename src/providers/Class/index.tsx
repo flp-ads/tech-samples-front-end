@@ -186,8 +186,9 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
     }
   }
 
-  const removeClassTypeParam = () => {
+  const removeClassTypeParam = ( id: string, an_name: string,  name: string ) => {
 
+    
   }
 
   return (
