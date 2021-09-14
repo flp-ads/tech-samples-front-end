@@ -1,8 +1,85 @@
-import { Flex, Box, Text, Heading, Button } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Flex, Box, Text, Heading, Button, Stack } from "@chakra-ui/react";
+import CardUser from "../../components/Cards/CardUser";
+import CardClass from "../../components/Cards/CardClass";
+import { Link, useHistory } from "react-router-dom";
 import NavBar from "../../components/GlobalHeader";
+import api from "../../services/api";
+
+interface userData {
+  email: string;
+  username: string;
+  type: string;
+  id: number;
+}
+
+interface classData {
+  name: string;
+  id: number;
+}
+
+interface analysisData {
+  name: string;
+  id: number;
+}
 
 const AdminDashboard = () => {
+  const [users, setUsers] = useState<userData[]>([]);
+  const [attPage, setAttPage] = useState<boolean>(false);
+  const [classes, setClasses] = useState<classData[]>([]);
+  const [analysis, setAnalysis] = useState<analysisData[]>([]);
+  const MAX_CARDS = 2;
+  const history = useHistory();
+  // const { token } = useAuth();
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxQHRlc3QuY29tIiwiaWF0IjoxNjMxNjA4ODkwLCJleHAiOjE2MzE2MTI0OTAsInN1YiI6IjEifQ.T8LMT8dERMCWQ-NTF_pWpXfXhrIETLfl5TpHfiQuyMk";
+
+  const getUsers = () => {
+    api
+      .get("/users", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => setUsers(res.data))
+      .catch((err) => console.log(`erro!: ${err}`));
+  };
+
+  const delUser = (userId: number) => {
+    api
+      .delete(`/users/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .catch((err) => console.log(err));
+    setAttPage(!attPage);
+  };
+
+  const getClasses = () => {
+    api
+      .get("/classes", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => setClasses(res.data))
+      .catch((err) => console.log(`erro!: ${err}`));
+  };
+
+  const getAnalysis = () => {
+    api
+      .get("/analysis")
+      .then((res) => setAnalysis(res.data))
+      .catch((err) => console.log(`erro!: ${err}`));
+  };
+
+  useEffect(() => {
+    getUsers();
+    getClasses();
+    getAnalysis();
+  }, [attPage]);
+
   return (
     <>
       <Box textAlign="center" fontSize="xs">
@@ -54,19 +131,19 @@ const AdminDashboard = () => {
             <Text fontSize="2xl" color="blue.300" mt="3">
               O sistêma possui <br />
               <Text fontWeight="semibold" color="blue.600">
-                20 usuários cadastrados
+                {users.length} usuários cadastrados
               </Text>
             </Text>
             <Text fontSize="2xl" color="blue.300" mt="3">
               O sistêma possui <br />
               <Text fontWeight="semibold" color="blue.600">
-                14 classes de produto
+                {classes.length} classes de produto
               </Text>
             </Text>
             <Text fontSize="2xl" color="blue.300" mt="3">
               O sistêma possui <br />
               <Text fontWeight="semibold" color="blue.600">
-                683 amostras finalizadas
+                {analysis.length} amostras cadastradas
               </Text>
             </Text>
           </Flex>
@@ -83,21 +160,15 @@ const AdminDashboard = () => {
             <Heading as="h4" mb="3" fontSize="3xl">
               Usuários cadastrados
             </Heading>
-            <Box
-              h="100px"
-              m="4"
-              bgGradient="linear(to-r, blue.300 , blue.600 70%)"
-            ></Box>
-            <Box
-              h="100px"
-              m="4"
-              bgGradient="linear(to-r, blue.300 , blue.600 70%)"
-            ></Box>
+            {users.slice(0, MAX_CARDS).map((user) => (
+              <CardUser data={user} delUser={delUser} key={user.id} />
+            ))}
             <Box textAlign="right" m="4">
               <Button
                 variant="link"
                 color="blue.600"
                 _hover={{ color: "blue.300" }}
+                onClick={() => history.push("/users")}
               >
                 ver todos
               </Button>
@@ -114,16 +185,13 @@ const AdminDashboard = () => {
             <Heading as="h4" mb="3" fontSize="3xl">
               Classes de produtos
             </Heading>
-            <Box
-              h="100px"
-              m="4"
-              bgGradient="linear(to-r, blue.300 , blue.600 70%)"
-            ></Box>
-            <Box
-              h="100px"
-              m="4"
-              bgGradient="linear(to-r, blue.300 , blue.600 70%)"
-            ></Box>
+            {classes.slice(0, MAX_CARDS).map((classData) => (
+              <CardClass
+                id={classData.id}
+                name={classData.name}
+                key={classData.id}
+              />
+            ))}
             <Box textAlign="right" m="4">
               <Button
                 variant="link"
