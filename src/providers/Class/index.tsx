@@ -42,8 +42,7 @@ interface ClassProviderProps {
 interface ClassProviderData {
   currentClass: IClass;
   classAnalyses: IClassAnalyses[];
-  allClasses: IClass[];
-  getAllClasses: () => void;
+
   fetchClass: (id: string) => void;
   resetClass: () => void;
   removeClassType: (id: string, an_name: string) => void;
@@ -55,22 +54,12 @@ const ClassContext = createContext<ClassProviderData>({} as ClassProviderData);
 
 export const ClassProvider = ({ children }: ClassProviderProps) => {
   const [currentClass, setCurrentClass] = useState<IClass>({} as IClass);
-  const [allClasses, setAllClasses] = useState<IClass[]>([] as IClass[]);
 
   const [classAnalyses, setClassAnalyses] = useState<IClassAnalyses[]>([]);
 
   const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlQHRlc3RlLmNvbSIsImlhdCI6MTYzMTU2Mzk0MiwiZXhwIjoxNjMxNTY3NTQyLCJzdWIiOiIzIn0.s-Z-TwjDQbOXarIrwsyI3c0da2SGon9ocIUTrZ4Pwx8";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlQHRlc3RlLmNvbSIsImlhdCI6MTYzMTU2NjU3NiwiZXhwIjoxNjMxNTcwMTc2LCJzdWIiOiIzIn0.6jNhg1ChytAn7RV_9Jf5BCFD_Q_o-vVwlYwD0suyAVo";
 
-  const getAllClasses = () => {
-    api
-      .get("/classes", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => setAllClasses(response.data));
-  };
 
   const fetchClass = (id: string) => {
     api
@@ -215,8 +204,6 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
       value={{
         currentClass,
         classAnalyses,
-        allClasses,
-        getAllClasses,
         fetchClass,
         resetClass,
         removeClassType,

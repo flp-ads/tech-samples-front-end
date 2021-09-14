@@ -2,38 +2,23 @@ import { Flex, Button, Box, Input } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { GlobalHeader } from "../../components/GlobalHeader";
-import api from "../../services/api";
 import CardClass from "../../components/Cards/CardClass";
 import { useEffect } from "react";
 import { FaUserEdit } from "react-icons/fa";
-import { useClass } from "../../providers/Class";
 import { useAuth } from "../../providers/Auth";
-
+import { useAllClass } from "../../providers/AllClass";
 
 const AdminProductClass = () => {
-  const { allClasses, getAllClasses } = useClass()
-  const { token } = useAuth()
-  const tokenTeste = localStorage.getItem("token") || "[]";
+  const { allClasses, getAllClasses, addNewClass } = useAllClass();
+  // const tokenTeste = localStorage.getItem("token") || "[]";
   const [className, setClassName] = useState<string>("");
+  const userId = 3;
+
+  //pegar userId na hora do login
 
   useEffect(() => {
-    getAllClasses()
+    getAllClasses();
   }, [allClasses]);
-
-  const addNewClass = (value: any) => {
-    api
-      .post(
-        "/classes",
-        { name: value, userId: 3 },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((response) => console.log(response.data));
-    setClassName("");
-  };
 
   return (
     <div>
@@ -77,7 +62,10 @@ const AdminProductClass = () => {
             marginTop="5"
             variant="default"
             w="fit-content"
-            onClick={() => addNewClass(className)}
+            onClick={() => {
+              addNewClass(className, userId);
+              setClassName("");
+            }}
           >
             Nova Classe
           </Button>
@@ -108,7 +96,9 @@ const AdminProductClass = () => {
       >
         {allClasses.map((item) => (
           <CardClass key={item.id} name={item.name} id={item.id}>
-            <Link to=''><FaUserEdit /></Link>
+            <Link to={`/classes/${item.id}`}>
+              <FaUserEdit />
+            </Link>
           </CardClass>
         ))}
       </Flex>
