@@ -7,6 +7,7 @@ import AdminAllUsers from "../pages/AdminAllUsers";
 import AboutUs from "../pages/AboutUs";
 import AdminProductClass from "../pages/AdminProductClass";
 import AdminEditParams from "../pages/AdminEditParams";
+import AnalistDashboard from "../pages/AnalistDashboard";
 
 const Routes = () => {
   return (
@@ -17,6 +18,7 @@ const Routes = () => {
       <Route exact path="/adminProductClass" component={AdminProductClass} />
 
       <Route exact path={`/classes/:id`} component={AdminEditParams} />
+      <Route exact path={"/analistdashboard"} component={AnalistDashboard} />
     </Switch>
   );
 };

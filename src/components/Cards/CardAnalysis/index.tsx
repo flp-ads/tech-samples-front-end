@@ -12,10 +12,10 @@ interface AnalysisData {
 
 const CardAnalysis = (data: AnalysisData) => {
   return (
-    <Flex m="3" minH="100px" minW="250px">
+    <Flex m="4" minH="100px">
       <Flex
         w="20%"
-        minW="16"
+        minW={["10", "16", "16"]}
         borderLeftRadius="15"
         bg="blue.300"
         p="2"
