@@ -52,6 +52,7 @@ interface ClassProviderData {
   removeClassType: (id: string, an_name: string) => void,
   addClassType: ( id: string, formData: INewTypeForm ) => void,
   addClassTypeParams: (id: string, formData: INewParamsForm) => void,
+  removeClassTypeParams: ( id: string, array: IClassAnalysesParams[]) => void,
 }
 
 const ClassContext = createContext<ClassProviderData>({} as ClassProviderData);
@@ -61,7 +62,7 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
 
   const [classAnalyses, setClassAnalyses] = useState<IClassAnalyses[]>([])
 
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxQHRlc3QuY29tIiwiaWF0IjoxNjMxNTU4NDAwLCJleHAiOjE2MzE1NjIwMDAsInN1YiI6IjEifQ.ETbg0q8s2qUABqFlOgV6omzX2egtON3uDRTx-Rp9u-Q"
+  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxQHRlc3QuY29tIiwiaWF0IjoxNjMxNTcxMTA3LCJleHAiOjE2MzE1NzQ3MDcsInN1YiI6IjEifQ.y_xukwtyBNPk66wWWn2lwka1yzange8iHTwRtByxAmw"
 
   const fetchClass = (id: string) => {
     api
@@ -186,9 +187,11 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
     }
   }
 
-  const removeClassTypeParam = ( id: string, an_name: string,  name: string ) => {
+  const removeClassTypeParams = ( id: string, array: IClassAnalysesParams[] ) => {
 
-    
+    // listar os arrays de parâmetros da classe 
+    const thisClassParams = classAnalyses.map((item) => item.parameters) 
+    console.log(thisClassParams)
   }
 
   return (
@@ -198,9 +201,10 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
         classAnalyses,
         fetchClass,
         resetClass,
-        removeClassType,
         addClassType,
+        removeClassType,
         addClassTypeParams,
+        removeClassTypeParams,
       }}>
       {children}
     </ClassContext.Provider>

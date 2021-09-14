@@ -10,7 +10,7 @@ import { FiTrash2 } from "react-icons/fi";
 const AdminClassView = () => {
 
   const { id } = useParams<{ id: string }>();
-  const { currentClass, classAnalyses, fetchClass, resetClass, removeClassType } = useClass();
+  const { currentClass, classAnalyses, fetchClass, resetClass, removeClassType, removeClassTypeParams } = useClass();
 
   const RefReset = useRef(resetClass);
   const RefFetch = useRef(fetchClass);
@@ -105,7 +105,7 @@ const AdminClassView = () => {
                     </Flex>
                   )}
 
-                  {item.parameters.map((item, index) => (
+                  {item.parameters.map((item, index, array) => (
                     <Flex key={index} mb={["8", "8", "8"]} justifyContent='center'>
                       <Flex
                         display={["flex", "flex", "none"]}
@@ -188,7 +188,7 @@ const AdminClassView = () => {
                           {item.unit}
                         </Box>
                         
-                        <Button w='55px' m='0 0'>
+                        <Button w='55px' m='0 0' onClick={() => removeClassTypeParams(id, array)}>
                           <FiTrash2 size={23} />
                         </Button>
                       </Flex>
