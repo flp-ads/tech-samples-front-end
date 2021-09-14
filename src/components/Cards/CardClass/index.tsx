@@ -1,10 +1,12 @@
 import { Flex } from "@chakra-ui/layout";
 import { Image, Text } from "@chakra-ui/react";
+import { ReactNode } from "toasted-notes/node_modules/@types/react";
 import glasses from "../../../assets/icons/test_glasses.svg";
 
 interface ClassData {
   name: string;
   id: number;
+  children: ReactNode;
 }
 
 const CardClass = (data: ClassData) => {
@@ -21,22 +23,26 @@ const CardClass = (data: ClassData) => {
       >
         <Image src={glasses} boxSize={12} />
       </Flex>
-      <Flex
-        flex="1"
-        bg="blue.600"
-        flexDirection="column"
-        justifyContent="space-between"
-        p="2"
-        color="gray.50"
-        borderRightRadius="15"
-      >
-        <Flex wrap="wrap">
-          <Text fontSize="xl" fontWeight="semibold">
-            Classe: {data.name}
-          </Text>
+      <Flex flex="1" bg="blue.600" color="gray.50" borderRightRadius="15">
+        <Flex flex="1" direction="column" justify="space-between" p="2">
+          <Flex wrap="wrap">
+            <Text fontSize="xl" fontWeight="semibold">
+              Classe: {data.name}
+            </Text>
+          </Flex>
+          <Flex wrap="wrap">
+            <Text fontWeight="semibold">ID: {data.id}</Text>
+          </Flex>
         </Flex>
-        <Flex wrap="wrap">
-          <Text fontWeight="semibold">ID: {data.id}</Text>
+        <Flex
+          bg="blue.600"
+          p="2"
+          w="10"
+          flexDirection="column"
+          justify="end"
+          borderRightRadius="15"
+        >
+          {data.children}
         </Flex>
       </Flex>
     </Flex>

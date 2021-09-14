@@ -1,5 +1,5 @@
 import { Flex, Spacer } from "@chakra-ui/layout";
-import { FaUserTie, FaUserMinus, FaUserEdit } from "react-icons/fa";
+import { FaUserTie, FaUserMinus } from "react-icons/fa";
 import { Icon, Text } from "@chakra-ui/react";
 
 interface UserData {
@@ -11,10 +11,10 @@ interface UserData {
 
 interface CardUserData {
   data: UserData;
-  delUser: (userId: number) => void;
+  delUsers: (userId: number) => void;
 }
 
-const CardUser = ({ data, delUser }: CardUserData) => {
+const CardUser = ({ data, delUsers }: CardUserData) => {
   return (
     <Flex minH="100px" maxW="1000px" m="4">
       <Flex
@@ -52,7 +52,7 @@ const CardUser = ({ data, delUser }: CardUserData) => {
             boxSize={["4", "6", "6"]}
             color="blue.300"
             cursor="pointer"
-            onClick={() => delUser(data.id)}
+            onClick={() => delUsers(data.id)}
           />
         </>
       </Flex>
