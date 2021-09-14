@@ -188,7 +188,7 @@ const AdminClassView = () => {
                           {item.unit}
                         </Box>
                         
-                        <Button w='55px' m='0 0' onClick={() => removeClassTypeParams(id, array)}>
+                        <Button w='55px' m='0 0' onClick={() => removeClassTypeParams(id, array, item.name)}>
                           <FiTrash2 size={23} />
                         </Button>
                       </Flex>

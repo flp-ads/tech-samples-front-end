@@ -52,7 +52,7 @@ interface ClassProviderData {
   removeClassType: (id: string, an_name: string) => void,
   addClassType: ( id: string, formData: INewTypeForm ) => void,
   addClassTypeParams: (id: string, formData: INewParamsForm) => void,
-  removeClassTypeParams: ( id: string, array: IClassAnalysesParams[]) => void,
+  removeClassTypeParams: ( id: string, array: IClassAnalysesParams[], name: string) => void, 
 }
 
 const ClassContext = createContext<ClassProviderData>({} as ClassProviderData);
@@ -62,7 +62,7 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
 
   const [classAnalyses, setClassAnalyses] = useState<IClassAnalyses[]>([])
 
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxQHRlc3QuY29tIiwiaWF0IjoxNjMxNTcxMTA3LCJleHAiOjE2MzE1NzQ3MDcsInN1YiI6IjEifQ.y_xukwtyBNPk66wWWn2lwka1yzange8iHTwRtByxAmw"
+  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxQHRlc3QuY29tIiwiaWF0IjoxNjMxNjI4NjgxLCJleHAiOjE2MzE2MzIyODEsInN1YiI6IjEifQ.LSkq5ZBRf2XbdTFtaA5TsZ3TZyOHyPZmppteUDZmuWk"
 
   const fetchClass = (id: string) => {
     api
@@ -143,9 +143,9 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
     const { an_name, name, vmin, vmax, unit } = formData
 
     const listedParamsNames = ['']
-    classAnalyses.forEach(( item ) => item.parameters.map( item => listedParamsNames.push(item.name)))
+    classAnalyses.forEach(( analysis ) => analysis.parameters.map( param => listedParamsNames.push(param.name)))
 
-    const removingOldName = classAnalyses.filter(item => item.an_name !== an_name)
+    const removingOldName = classAnalyses.filter(analysis => analysis.an_name !== an_name)
     
     const classToReplace = classAnalyses.find((item) => item.an_name === an_name)
 
@@ -187,11 +187,44 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
     }
   }
 
-  const removeClassTypeParams = ( id: string, array: IClassAnalysesParams[] ) => {
+  const removeClassTypeParams = ( id: string, array: IClassAnalysesParams[], name: string ) => {
 
     // listar os arrays de parâmetros da classe 
-    const thisClassParams = classAnalyses.map((item) => item.parameters) 
-    console.log(thisClassParams)
+    console.log(array)
+
+    const parentAnalysis = classAnalyses.find((analysis) => JSON.stringify(analysis.parameters) === JSON.stringify(array))
+
+    const parentAnalysisName = parentAnalysis?.an_name || ''
+
+    console.log(parentAnalysis)
+
+    const newArray = array.filter((param) => param.name !== name)
+
+    const removingOldName = classAnalyses.filter(analysis => analysis.an_name !== parentAnalysisName)
+
+    const newAnalysis = {
+      an_name: parentAnalysisName,
+      parameters: newArray,
+    }
+
+    const newAnalyses = [...removingOldName, newAnalysis]
+
+    api
+      .patch(`/classes/${id}`, 
+      {
+        analyses: newAnalyses,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((_) => {
+        setClassAnalyses(newAnalyses)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
   return (
