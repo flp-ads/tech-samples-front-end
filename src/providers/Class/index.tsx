@@ -1,57 +1,55 @@
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useState,
-} from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 
 import api from "../../services/api";
 
-import { INewTypeForm } from '../../components/AdminClassNewType';
+import { INewTypeForm } from "../../components/AdminClassNewType";
 import { INewParamsForm } from "../../components/AdminClassNewParams";
 
 import { toast } from "react-toastify";
+import { string } from "yup/lib/locale";
 
 interface IClassDefaultVals {
-  name: '',
-  category: '',
-  analyses: [],
-  userId: -1,
-  id: -1,
+  name: "";
+  category: "";
+  analyses: [];
+  userId: -1;
+  id: -1;
 }
 
 interface IClassAnalysesParams {
-  name: string,
-  unit: string,
-  vmin: string,
-  vmax: string,
+  name: string;
+  unit: string;
+  vmin: string;
+  vmax: string;
 }
 
 interface IClassAnalyses {
-  an_name: string,
-  parameters: IClassAnalysesParams[],
+  an_name: string;
+  parameters: IClassAnalysesParams[];
 }
 
 interface IClass {
-    name: string,
-    category: string,
-    analyses: [],
-    userId: number,
-    id: number,
+  name: string;
+  category: string;
+  analyses: [];
+  userId: number;
+  id: number;
 }
 
 interface ClassProviderProps {
-  children: ReactNode,
+  children: ReactNode;
 }
 
 interface ClassProviderData {
   currentClass: IClass,
   classAnalyses: IClassAnalyses[],
+  updateTrigger: boolean,
   fetchClass: (id: string) => void,
   resetClass: () => void,
   removeClassType: (id: string, an_name: string) => void,
   addClassType: ( id: string, formData: INewTypeForm ) => void,
   addClassTypeParams: (id: string, formData: INewParamsForm) => void,
+  removeClassTypeParams: ( id: string, array: IClassAnalysesParams[], name: string) => void, 
 }
 
 const ClassContext = createContext<ClassProviderData>({} as ClassProviderData);
@@ -59,9 +57,11 @@ const ClassContext = createContext<ClassProviderData>({} as ClassProviderData);
 export const ClassProvider = ({ children }: ClassProviderProps) => {
   const [currentClass, setCurrentClass] = useState<IClass>({} as IClass);
 
-  const [classAnalyses, setClassAnalyses] = useState<IClassAnalyses[]>([])
+  const [classAnalyses, setClassAnalyses] = useState<IClassAnalyses[]>([]);
 
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxQHRlc3QuY29tIiwiaWF0IjoxNjMxNTU4NDAwLCJleHAiOjE2MzE1NjIwMDAsInN1YiI6IjEifQ.ETbg0q8s2qUABqFlOgV6omzX2egtON3uDRTx-Rp9u-Q"
+  const [updateTrigger, setUpdateTrigger] = useState<boolean>(false)
+
+  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxQHRlc3QuY29tIiwiaWF0IjoxNjMxNjM5MDU4LCJleHAiOjE2MzE2NDI2NTgsInN1YiI6IjEifQ.JfgPD6K3IRjmsnPgznwE6Uw-dituURy-gUy1NG80wnE";
 
   const fetchClass = (id: string) => {
     api
@@ -71,8 +71,16 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
         },
       })
       .then((response) => {
+
+        const sortedAnalyses = response.data.analyses
+        .sort((a: IClassAnalyses, b:IClassAnalyses ) => {
+          let nameA = a.an_name.toUpperCase()
+          let nameB = b.an_name.toUpperCase()
+          return (nameA < nameB) ? -1 : (nameA > nameB) ? 1 : 0;
+        })
+
         setCurrentClass(response.data);
-        setClassAnalyses(response.data.analyses)
+        setClassAnalyses(sortedAnalyses);
       })
       .catch((err) => console.log(err));
   };
@@ -82,40 +90,13 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
   };
 
   const removeClassType = (id: string, an_nameToRemove: string) => {
-    const newClassAnalyses = classAnalyses.filter(item => item.an_name !== an_nameToRemove)
+    const newClassAnalyses = classAnalyses.filter(
+      (item) => item.an_name !== an_nameToRemove
+    );
 
     api
-      .patch(`/classes/${id}`, 
-      {
-        analyses: newClassAnalyses
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((_) => setClassAnalyses(newClassAnalyses))
-      .catch((err) => {
-        console.log(err)
-      })
-  }
-
-  const addClassType = ( id: string, formData: INewTypeForm ) => {
-
-    const alreadyListedTypes = classAnalyses.map(item => item.an_name)
-    const {an_name} = formData
-
-    const newClassType = {
-      an_name: an_name,
-      parameters: [],
-    }
-
-    const newClassAnalyses = [...classAnalyses, newClassType]
-
-    if (!alreadyListedTypes.includes(an_name)) {
-
-      api
-        .patch(`/classes/${id}`, 
+      .patch(
+        `/classes/${id}`,
         {
           analyses: newClassAnalyses,
         },
@@ -123,72 +104,135 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        })
+        }
+      )
+      .then((_) => setUpdateTrigger(!updateTrigger))
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const addClassType = (id: string, formData: INewTypeForm) => {
+    const alreadyListedTypes = classAnalyses.map((item) => item.an_name);
+    const { an_name } = formData;
+
+    const newClassType = {
+      an_name: an_name,
+      parameters: [],
+    };
+
+    const newClassAnalyses = [...classAnalyses, newClassType].sort()
+
+    if (!alreadyListedTypes.includes(an_name)) {
+      api
+        .patch(
+          `/classes/${id}`,
+          {
+            analyses: newClassAnalyses,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
         .then((_) => {
-          console.log(newClassAnalyses)
-          setClassAnalyses(newClassAnalyses)})
-        .catch((err) => {
-          console.log(err)
+          console.log(newClassAnalyses);
+          setUpdateTrigger(!updateTrigger);
         })
-
+        .catch((err) => {
+          console.log(err);
+        });
     } else {
-      toast.error('Tipo de análise já cadastrada!')
+      toast.error("Tipo de análise já cadastrada!");
     }
+  };
 
-  }
-
-  const addClassTypeParams = ( id: string, formData: INewParamsForm) => {
-    
-    const { an_name, name, vmin, vmax, unit } = formData
+  const addClassTypeParams = (id: string, formData: INewParamsForm) => {
+    const { an_name, name, vmin, vmax, unit } = formData;
 
     const listedParamsNames = ['']
-    classAnalyses.forEach(( item ) => item.parameters.map( item => listedParamsNames.push(item.name)))
+    classAnalyses.forEach(( analysis ) => analysis.parameters.map( param => listedParamsNames.push(param.name)))
 
-    const removingOldName = classAnalyses.filter(item => item.an_name !== an_name)
+    const removingOldName = classAnalyses.filter(analysis => analysis.an_name !== an_name)
     
-    const classToReplace = classAnalyses.find((item) => item.an_name === an_name)
+    const classToReplace = classAnalyses.find(( analysis ) => analysis.an_name === an_name)
 
-    const oldParams = classToReplace?.parameters || [null]
+    const oldParams = classToReplace?.parameters || [null];
 
     const newParams = {
       name: name,
       unit: unit,
       vmin: vmin,
       vmax: vmax,
-    }
+    };
 
     const newAnalysis = {
       an_name: an_name,
-      parameters: [...oldParams, newParams]
-    }
+      parameters: [...oldParams, newParams],
+    };
 
-    const newAnalyses = [...removingOldName, newAnalysis]
+    const newAnalyses = [...removingOldName, newAnalysis].sort()
 
     if (!listedParamsNames.includes(name)) {
-
       api
-        .patch(`/classes/${id}`, 
-        {
-          analyses: newAnalyses,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
+        .patch(
+          `/classes/${id}`,
+          {
+            analyses: newAnalyses,
           },
-        })
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
         .then((_) => {
-          console.log(removingOldName)
-          console.log(newAnalyses)
+          toast.success('Parâmetro cadrastado com sucesso!')
+          setUpdateTrigger(!updateTrigger)
         })
         .catch((err) => {
           console.log(err)
-        })
+        });
+    } else {
+      toast.error('Parâmetro já cadastrado!')
     }
   }
 
-  const removeClassTypeParam = ( id: string, an_name: string,  name: string ) => {
+  const removeClassTypeParams = ( id: string, array: IClassAnalysesParams[], name: string ) => {
 
-    
+    const parentAnalysis = classAnalyses.find((analysis) => JSON.stringify(analysis.parameters) === JSON.stringify(array))
+
+    const parentAnalysisName = parentAnalysis?.an_name || ''
+
+    const newArray = array.filter((param) => param.name !== name)
+
+    const removingOld = classAnalyses.filter(analysis => analysis.an_name !== parentAnalysisName)
+
+    const newAnalysis = {
+      an_name: parentAnalysisName,
+      parameters: newArray,
+    }
+
+    const newAnalyses = [...removingOld, newAnalysis].sort()
+
+    api
+      .patch(`/classes/${id}`, 
+      {
+        analyses: newAnalyses,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((_) => {
+      
+        setUpdateTrigger(!updateTrigger)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
   return (
@@ -196,11 +240,13 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
       value={{
         currentClass,
         classAnalyses,
+        updateTrigger,
         fetchClass,
         resetClass,
-        removeClassType,
         addClassType,
+        removeClassType,
         addClassTypeParams,
+        removeClassTypeParams,
       }}>
       {children}
     </ClassContext.Provider>

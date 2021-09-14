@@ -5,22 +5,15 @@ import { FaUserPlus } from "react-icons/fa";
 import { Link, useHistory } from "react-router-dom";
 import CardUser from "../../components/Cards/CardUser";
 import GlobalHeader from "../../components/GlobalHeader";
+import { useUsers } from "../../providers/Users";
 // import { useAuth } from "../../providers/Auth";
-import api from "../../services/api";
-
-interface typeUserData {
-  email: string;
-  password: string;
-  username: string;
-  type: string;
-  id: number;
-}
 
 const AdminAllUsers = () => {
-  const [users, setUsers] = useState<typeUserData[]>([]);
   const [attPage, setAttPage] = useState<boolean>(false);
+  const { getUsers, delUsers, users } = useUsers();
   const history = useHistory();
   // const { token } = useAuth();
+<<<<<<< HEAD
   const token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxQHRlc3QuY29tIiwiaWF0IjoxNjMxNTYyOTIxLCJleHAiOjE2MzE1NjY1MjEsInN1YiI6IjEifQ.NyAyeMf3ndwAUHn8PBK2G1wuH7bkL34w3L7RL0fgDLs";
 
@@ -34,20 +27,17 @@ const AdminAllUsers = () => {
       .then((res) => setUsers(res.data))
       .catch((err) => console.log(`Não Foi!: ${err}`));
   };
+=======
+>>>>>>> developer
 
-  const delUser = (userId: number) => {
-    api
-      .delete(`/users/${userId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .catch((err) => console.log(err));
+  const handleDelete = (id: number) => {
+    delUsers(id);
     setAttPage(!attPage);
   };
 
   useEffect(() => {
     getUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [attPage]);
 
   return (
@@ -89,7 +79,7 @@ const AdminAllUsers = () => {
         paddingTop="30px"
       >
         {users.map((user) => (
-          <CardUser key={user.id} data={user} delUser={delUser} />
+          <CardUser key={user.id} data={user} delUsers={handleDelete} />
         ))}
       </Flex>
     </>

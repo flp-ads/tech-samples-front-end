@@ -14,7 +14,7 @@ export interface INewTypeForm {
 const AdminClassNewType = () => {
 
     const { id } = useParams<{ id: string }>();
-    const { classAnalyses, fetchClass, resetClass, addClassType } = useClass();
+    const { classAnalyses, fetchClass, resetClass, addClassType, updateTrigger } = useClass();
 
     const RefReset = useRef(resetClass);
     const RefFetch = useRef(fetchClass);
@@ -24,7 +24,7 @@ const AdminClassNewType = () => {
         RefFetch.current(id);
     
         return RefReset.current;
-    }, [id, classAnalyses]);
+    }, [id, updateTrigger]);
 
     const formSchema = yup.object().shape({
         an_name: yup
