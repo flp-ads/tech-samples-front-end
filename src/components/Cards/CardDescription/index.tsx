@@ -16,7 +16,7 @@ interface DescriptionData {
 
 const CardDescription = (data: DescriptionData) => {
   return (
-    <Flex m="3" minH="100px" minW="250px">
+    <Flex m="3" minH="100px">
       <Flex
         w={["5px", "20%", "20%"]}
         minW={["5px", "16px", "16px"]}

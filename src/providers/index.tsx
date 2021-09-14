@@ -1,6 +1,7 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { ReactNode } from "react";
 import custonTheme from "../styles/theme";
+import { AllClassProvider } from "./AllClass";
 import { AuthProvider } from "./Auth";
 import { ClassProvider } from "./Class";
 import { UsersProvider } from "./Users";
@@ -14,7 +15,9 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     <AuthProvider>
       <UsersProvider>
         <ClassProvider>
-          <ChakraProvider theme={custonTheme}>{children}</ChakraProvider>
+          <AllClassProvider>
+            <ChakraProvider theme={custonTheme}>{children}</ChakraProvider>
+          </AllClassProvider>
         </ClassProvider>
       </UsersProvider>
     </AuthProvider>
