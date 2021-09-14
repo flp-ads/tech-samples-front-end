@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
-import NavBar from "../../components/GlobalHeader";
+import { GlobalHeader } from "../../components/GlobalHeader";
 
 const AboutUs = () => {
 
   return (
     <div>
-      <NavBar>
+      <GlobalHeader>
         <Link to='/'>Home</Link>
-      </NavBar>
+      </GlobalHeader>
     </div>
   );
 };

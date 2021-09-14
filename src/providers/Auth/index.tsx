@@ -18,7 +18,17 @@ interface Props {
   children: ReactNode;
 }
 
-const AuthContext = createContext({});
+interface AuthProviderData {
+  token: string;
+  setAuth: (value: string) => void;
+  login: (
+    userData: UserLoginData,
+    setError: Dispatch<SetStateAction<boolean>>
+  ) => void;
+  user: string;
+}
+
+const AuthContext = createContext<AuthProviderData>({} as AuthProviderData);
 
 export const AuthProvider = ({ children }: Props) => {
   const token = localStorage.getItem("token") || "[]";
