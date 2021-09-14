@@ -13,22 +13,6 @@ const AdminAllUsers = () => {
   const { getUsers, delUsers, users } = useUsers();
   const history = useHistory();
   // const { token } = useAuth();
-<<<<<<< HEAD
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxQHRlc3QuY29tIiwiaWF0IjoxNjMxNTYyOTIxLCJleHAiOjE2MzE1NjY1MjEsInN1YiI6IjEifQ.NyAyeMf3ndwAUHn8PBK2G1wuH7bkL34w3L7RL0fgDLs";
-
-  const getUsers = () => {
-    api
-      .get("/users", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => setUsers(res.data))
-      .catch((err) => console.log(`Não Foi!: ${err}`));
-  };
-=======
->>>>>>> developer
 
   const handleDelete = (id: number) => {
     delUsers(id);
