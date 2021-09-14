@@ -1,11 +1,12 @@
 import { Flex } from "@chakra-ui/layout";
 import { Image, Text } from "@chakra-ui/react";
-import { ReactNode } from "toasted-notes/node_modules/@types/react";
+import { ReactNode } from "react";
 import glasses from "../../../assets/icons/test_glasses.svg";
 
 interface ClassData {
   name: string;
   id: number;
+  children?: ReactNode;
 }
 
 const CardClass = (data: ClassData) => {
@@ -40,7 +41,9 @@ const CardClass = (data: ClassData) => {
           flexDirection="column"
           justify="end"
           borderRightRadius="15"
-        ></Flex>
+        >
+          {data.children && data.children}
+        </Flex>
       </Flex>
     </Flex>
   );

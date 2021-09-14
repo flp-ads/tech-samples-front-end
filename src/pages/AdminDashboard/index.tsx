@@ -32,7 +32,7 @@ const AdminDashboard = () => {
   const history = useHistory();
   // const { token } = useAuth();
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxQHRlc3QuY29tIiwiaWF0IjoxNjMxNjA4ODkwLCJleHAiOjE2MzE2MTI0OTAsInN1YiI6IjEifQ.T8LMT8dERMCWQ-NTF_pWpXfXhrIETLfl5TpHfiQuyMk";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxQHRlc3QuY29tIiwiaWF0IjoxNjMxNjIyMDYzLCJleHAiOjE2MzE2MjU2NjMsInN1YiI6IjEifQ.y4m2RBU1o2z-8WCNlS6m-WldrftQWOc6yoGdxkchsVg";
 
   const getUsers = () => {
     api
