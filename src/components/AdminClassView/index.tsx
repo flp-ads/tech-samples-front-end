@@ -10,7 +10,7 @@ import { FiTrash2 } from "react-icons/fi";
 const AdminClassView = () => {
 
   const { id } = useParams<{ id: string }>();
-  const { currentClass, classAnalyses, fetchClass, resetClass, removeClassType, removeClassTypeParams } = useClass();
+  const { currentClass, classAnalyses, fetchClass, resetClass, removeClassType, removeClassTypeParams, updateTrigger } = useClass();
 
   const RefReset = useRef(resetClass);
   const RefFetch = useRef(fetchClass);
@@ -19,7 +19,7 @@ const AdminClassView = () => {
     RefFetch.current(id);
 
     return RefReset.current;
-  }, [id]);
+  }, [id, updateTrigger]);
 
   return (
     <div>
