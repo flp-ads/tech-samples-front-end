@@ -6,7 +6,6 @@ import glasses from "../../../assets/icons/test_glasses.svg";
 interface ClassData {
   name: string;
   id: number;
-  children: ReactNode;
 }
 
 const CardClass = (data: ClassData) => {
@@ -41,9 +40,7 @@ const CardClass = (data: ClassData) => {
           flexDirection="column"
           justify="end"
           borderRightRadius="15"
-        >
-          {data.children}
-        </Flex>
+        ></Flex>
       </Flex>
     </Flex>
   );

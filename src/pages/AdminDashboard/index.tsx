@@ -161,7 +161,11 @@ const AdminDashboard = () => {
               Usuários cadastrados
             </Heading>
             {users.slice(0, MAX_CARDS).map((user) => (
-              <CardUser data={user} delUser={delUser} key={user.id} />
+              <CardUser
+                data={user}
+                delUsers={() => delUser(user.id)}
+                key={user.id}
+              />
             ))}
             <Box textAlign="right" m="4">
               <Button
@@ -187,8 +191,8 @@ const AdminDashboard = () => {
             </Heading>
             {classes.slice(0, MAX_CARDS).map((classData) => (
               <CardClass
-                id={classData.id}
                 name={classData.name}
+                id={classData.id}
                 key={classData.id}
               />
             ))}
