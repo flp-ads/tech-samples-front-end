@@ -35,8 +35,11 @@ export const AdminEditParams = () => {
   return (
     <div>
       <GlobalHeader>
-        <Link to='/'>Cadastrar Produto</Link>
-        <Link to='/'>Cadastrar Usuário</Link>
+        <Link to="/admin">Dashboard</Link>
+        <Link to="/admin/classes">Cadastrar Classe</Link>
+        <Link to="/admin/users">Todos Usuários</Link>
+        <Link to="/admin/user_register">Cadastrar Usuário</Link>
+        <Link to="">Logout</Link>
       </GlobalHeader>
 
       <Flex

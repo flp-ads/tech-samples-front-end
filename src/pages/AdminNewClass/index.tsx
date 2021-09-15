@@ -22,9 +22,10 @@ const NewClass = () => {
   return (
     <div>
       <GlobalHeader>
-        <Link to="/classes">Cadastrar Classe</Link>
-        <Link to="">Editar Parâmetros</Link>
-        <Link to="">Cadastrar Usuário</Link>
+        <Link to="/admin">Dashboard</Link>
+        <Link to="/admin/classes">Cadastrar Classe</Link>
+        <Link to="/admin/users">Todos Usuários</Link>
+        <Link to="/admin/user_register">Cadastrar Usuário</Link>
         <Link to="">Logout</Link>
       </GlobalHeader>
       <Flex
@@ -94,7 +95,7 @@ const NewClass = () => {
       >
         {allClasses.map((item) => (
           <CardClass key={item.id} name={item.name} id={item.id}>
-            <Link to={`/classes/${item.id}/`}>
+            <Link to={`/admin/classes/${item.id}/`}>
               <FaUserEdit />
             </Link>
           </CardClass>

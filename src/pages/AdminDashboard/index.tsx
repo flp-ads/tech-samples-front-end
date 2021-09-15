@@ -5,6 +5,7 @@ import CardClass from "../../components/Cards/CardClass";
 import { Link, useHistory } from "react-router-dom";
 import NavBar from "../../components/GlobalHeader";
 import api from "../../services/api";
+import { useAuth } from "../../providers/Auth";
 
 interface userData {
   email: string;
@@ -30,9 +31,7 @@ const AdminDashboard = () => {
   const [analysis, setAnalysis] = useState<analysisData[]>([]);
   const MAX_CARDS = 2;
   const history = useHistory();
-  // const { token } = useAuth();
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxQHRlc3QuY29tIiwiaWF0IjoxNjMxNjIyMDYzLCJleHAiOjE2MzE2MjU2NjMsInN1YiI6IjEifQ.y4m2RBU1o2z-8WCNlS6m-WldrftQWOc6yoGdxkchsVg";
+  const { token } = useAuth();
 
   const getUsers = () => {
     api
@@ -84,17 +83,11 @@ const AdminDashboard = () => {
     <>
       <Box textAlign="center" fontSize="xs">
         <NavBar>
-          <Link to="/">
-            Cadastra
-            <br /> produto
-          </Link>
-          <Link to="/">
-            Editar <br /> parâmetros
-          </Link>
-          <Link to="/">
-            Cadastrar <br /> usuário
-          </Link>
-          <Link to="/">Logout</Link>
+          <Link to="/admin">Dashboard</Link>
+          <Link to="/admin/classes">Cadastrar Classe</Link>
+          <Link to="/admin/users">Todos Usuários</Link>
+          <Link to="/admin/user_register">Cadastrar Usuário</Link>
+          <Link to="">Logout</Link>
         </NavBar>
       </Box>
 
@@ -172,7 +165,7 @@ const AdminDashboard = () => {
                 variant="link"
                 color="blue.600"
                 _hover={{ color: "blue.300" }}
-                onClick={() => history.push("/users")}
+                onClick={() => history.push("/admin/users")}
               >
                 ver todos
               </Button>

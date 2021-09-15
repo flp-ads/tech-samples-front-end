@@ -1,6 +1,6 @@
 import GlobalHeader from "../../components/GlobalHeader";
-import { Link, useHistory } from "react-router-dom";
-import { Flex, Text, Button } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
+import { Flex, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import CardDescription from "../../components/Cards/CardDescription";
 import { useAnalyses } from "../../providers/Analyses";
@@ -14,7 +14,7 @@ interface AnalysisContent {
   analyses: [];
   isConcluded: boolean;
   userId: number;
-  id: number
+  id: number;
 }
 
 const AnalysesConcluded = () => {
@@ -29,22 +29,16 @@ const AnalysesConcluded = () => {
   };
 
   useEffect(() => {
-    getAllAnalyses()
+    getAllAnalyses();
     dataFilter(analyses);
   }, [analyses]);
 
-  const history = useHistory();
-
-  const handleAnalysis = (id: number) => {
-    history.push(`/analysespending/${id}`);
-  };
 
   return (
     <div>
       <GlobalHeader>
-        <Link to="/">Cadastrar amostra</Link>
-        <Link to="/">Analisar amostra</Link>
-        <Link to="/">Pesquisar amostra</Link>
+        <Link to="/analyst/sample_register">Cadastrar amostra</Link>
+        <Link to="/analyst/pending">Análises Pendentes</Link>
       </GlobalHeader>
       <Flex
         boxShadow="0px 0px 20px rgba(0, 0, 0, 0.1)"
@@ -85,15 +79,7 @@ const AnalysesConcluded = () => {
             made={item.made}
             name={item.name}
             concluded={item.isConcluded}
-          >
-            <Button
-              w="100px"
-              variant="sucess"
-              onClick={() => handleAnalysis(item.id)}
-            >
-              Detalhes
-            </Button>
-          </CardDescription>
+          ></CardDescription>
         ))}
       </Flex>
     </div>

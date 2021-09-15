@@ -45,17 +45,10 @@ const AnalistDashboard = () => {
     <>
       <Box textAlign="center" fontSize="xs">
         <NavBar>
-          <Link to="/">
-            Cadastra
-            <br /> amostra
-          </Link>
-          <Link to="/">
-            Analisar <br /> amostra
-          </Link>
-          <Link to="/">
-            Pesquisar <br /> amostra
-          </Link>
-          <Link to="/">Logout</Link>
+          <Link to="/analyst">Dashboard</Link>
+          <Link to="/analyst/concluded">Amostras Finalizadas</Link>
+          <Link to="/analyst/pending">Amostras Pendentes</Link>
+          <Link to="/analyst/sample_register">Cadastrar Amostra</Link>
         </NavBar>
       </Box>
 
