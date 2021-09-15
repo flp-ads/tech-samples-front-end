@@ -10,7 +10,6 @@ import api from "../../services/api";
 
 interface IClass {
   name: string;
-  category: string;
   analyses: [];
   userId: number;
   id: number;
@@ -48,11 +47,11 @@ export const AllClassProvider = ({ children }: ClassProviderProps) => {
       .then((response) => setAllClasses(response.data));
   };
 
-  const addNewClass = (value: any, userId: number) => {
+  const addNewClass = (name: string, userId: number) => {
     api
       .post(
         "/classes",
-        { name: value, userId: userId, analyses: [] },
+        { name: name, userId: userId, analyses: [] },
         {
           headers: {
             Authorization: `Bearer ${token}`,

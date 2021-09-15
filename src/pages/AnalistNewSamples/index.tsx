@@ -6,41 +6,36 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useAllClass } from "../../providers/AllClass";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-interface IClass {
-  name: string;
-  id: number;
-  userId: number;
-}
 
 interface FormProps {
   name: string;
-  lote: number;
-  fabrication: Date;
+  batch: number;
+  made: Date;
   category: string;
-  class: IClass;
+  class: string;
 }
 
 const NewSamples = () => {
   const { allClasses, getAllClasses } = useAllClass();
-  const [classe, setClasse] = useState<IClass[]>([] as IClass[]);
+  // const [classe, setClasse] = useState<IClass[]>([] as IClass[]);
 
-  const handleClass = (className: string) => {
-    const newClass = allClasses.filter((item) => item.name === className);
-    setClasse(newClass);
-  };
+  // const handleClass = (className: string) => {
+  //   const newClass = allClasses.filter((item) => item.name === className);
+  //   setClasse(newClass);
+  // };
 
   useEffect(() => {
     getAllClasses();
   }, [allClasses]);
 
   const formSchema = yup.object().shape({
-    name: yup.string().required(),
-    batch: yup.number().required(),
-    made: yup.date().required(""),
-    category: yup.string().required(""),
-    class: yup.string().required(),
+    name: yup.string().required("Nome obrigatório"),
+    batch: yup.number().required("Número do lote obrigatório"),
+    made: yup.date().required("Fabricação obrigatória"),
+    category: yup.string().required("Categoria obrigatória"),
+    class: yup.string().required("Classe obrigatória"),
   });
 
   const {
@@ -144,7 +139,6 @@ const NewSamples = () => {
             width={{ base: "100%", sm: "100%", md: "50%" }}
             placeholder="Classe"
             {...register("class")}
-            onChange={(e) => handleClass(e.target.value)}
           >
             {allClasses.map((item) => (
               <option key={item.id} value={item.name}>
