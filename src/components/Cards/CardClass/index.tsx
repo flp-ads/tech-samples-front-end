@@ -1,4 +1,4 @@
-import { Flex, Link } from "@chakra-ui/layout";
+import { Flex } from "@chakra-ui/layout";
 import { Image, Text } from "@chakra-ui/react";
 import { ReactNode } from "react";
 import glasses from "../../../assets/icons/test_glasses.svg";

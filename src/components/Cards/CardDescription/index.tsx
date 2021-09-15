@@ -1,4 +1,5 @@
 import { Image, Text, Flex } from "@chakra-ui/react";
+import { ReactNode } from "react";
 import clipboards from "../../../assets/icons/clipboards.svg";
 import scienceTools from "../../../assets/icons/science_tools.svg";
 
@@ -7,11 +8,10 @@ interface DescriptionData {
   batch: string;
   made: string;
   category: string;
-  class: {
-    className: string;
-  };
+  class: string;
   id: number;
   concluded: boolean;
+  children?: ReactNode;
 }
 
 const CardDescription = (data: DescriptionData) => {
@@ -118,7 +118,7 @@ const CardDescription = (data: DescriptionData) => {
             <Text fontSize="sm" fontWeight="semibold">
               Classe de produto:
             </Text>
-            <Text pl="2"> {data.class.className}</Text>
+            <Text pl="2"> {data.class}</Text>
           </Flex>
           <Flex
             flex="1"
@@ -133,6 +133,11 @@ const CardDescription = (data: DescriptionData) => {
             <Text pl="2"> {data.id}</Text>
           </Flex>
         </Flex>
+        {data.children && (
+          <Flex direction="row" w="100%" justify="end">
+            {data.children}
+          </Flex>
+        )}
       </Flex>
     </Flex>
   );
