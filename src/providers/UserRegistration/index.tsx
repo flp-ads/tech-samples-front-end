@@ -6,7 +6,7 @@ interface UserData {
   username: string;
   email: string;
   password: string;
-  type: string;
+  isAdmin: boolean;
 }
 
 interface Props {
