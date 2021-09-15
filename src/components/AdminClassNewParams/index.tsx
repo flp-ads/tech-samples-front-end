@@ -19,7 +19,7 @@ export interface INewParamsForm {
 const AdminClassNewParams = () => {
 
     const { id } = useParams<{ id: string }>();
-    const { classAnalyses, fetchClass, resetClass, addClassTypeParams } = useClass();
+    const { classAnalyses, fetchClass, resetClass, addClassTypeParams, updateTrigger } = useClass();
 
     const RefReset = useRef(resetClass);
     const RefFetch = useRef(fetchClass);
@@ -28,7 +28,7 @@ const AdminClassNewParams = () => {
         RefFetch.current(id);
     
         return RefReset.current;
-    }, [id, classAnalyses]);
+    }, [id, updateTrigger]);
 
     const formSchema = yup.object().shape({
         an_name: yup
@@ -131,7 +131,3 @@ const AdminClassNewParams = () => {
 }
 
 export default AdminClassNewParams
-// select e input:
-// variant="flushed"
-// marginBottom="1px solid"
-// borderColor="blue.600"

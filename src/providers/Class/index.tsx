@@ -6,6 +6,7 @@ import { INewTypeForm } from "../../components/AdminClassNewType";
 import { INewParamsForm } from "../../components/AdminClassNewParams";
 
 import { toast } from "react-toastify";
+import { string } from "yup/lib/locale";
 
 interface IClassDefaultVals {
   name: "";
@@ -40,14 +41,15 @@ interface ClassProviderProps {
 }
 
 interface ClassProviderData {
-  currentClass: IClass;
-  classAnalyses: IClassAnalyses[];
-
-  fetchClass: (id: string) => void;
-  resetClass: () => void;
-  removeClassType: (id: string, an_name: string) => void;
-  addClassType: (id: string, formData: INewTypeForm) => void;
-  addClassTypeParams: (id: string, formData: INewParamsForm) => void;
+  currentClass: IClass,
+  classAnalyses: IClassAnalyses[],
+  updateTrigger: boolean,
+  fetchClass: (id: string) => void,
+  resetClass: () => void,
+  removeClassType: (id: string, an_name: string) => void,
+  addClassType: ( id: string, formData: INewTypeForm ) => void,
+  addClassTypeParams: (id: string, formData: INewParamsForm) => void,
+  removeClassTypeParams: ( id: string, array: IClassAnalysesParams[], name: string) => void, 
 }
 
 const ClassContext = createContext<ClassProviderData>({} as ClassProviderData);
@@ -57,9 +59,9 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
 
   const [classAnalyses, setClassAnalyses] = useState<IClassAnalyses[]>([]);
 
-  const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlQHRlc3RlLmNvbSIsImlhdCI6MTYzMTU2NjU3NiwiZXhwIjoxNjMxNTcwMTc2LCJzdWIiOiIzIn0.6jNhg1ChytAn7RV_9Jf5BCFD_Q_o-vVwlYwD0suyAVo";
+  const [updateTrigger, setUpdateTrigger] = useState<boolean>(false)
 
+  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxQHRlc3QuY29tIiwiaWF0IjoxNjMxNjM5MDU4LCJleHAiOjE2MzE2NDI2NTgsInN1YiI6IjEifQ.JfgPD6K3IRjmsnPgznwE6Uw-dituURy-gUy1NG80wnE";
 
   const fetchClass = (id: string) => {
     api
@@ -69,8 +71,16 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
         },
       })
       .then((response) => {
+
+        const sortedAnalyses = response.data.analyses
+        .sort((a: IClassAnalyses, b:IClassAnalyses ) => {
+          let nameA = a.an_name.toUpperCase()
+          let nameB = b.an_name.toUpperCase()
+          return (nameA < nameB) ? -1 : (nameA > nameB) ? 1 : 0;
+        })
+
         setCurrentClass(response.data);
-        setClassAnalyses(response.data.analyses);
+        setClassAnalyses(sortedAnalyses);
       })
       .catch((err) => console.log(err));
   };
@@ -96,7 +106,7 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
           },
         }
       )
-      .then((_) => setClassAnalyses(newClassAnalyses))
+      .then((_) => setUpdateTrigger(!updateTrigger))
       .catch((err) => {
         console.log(err);
       });
@@ -111,7 +121,7 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
       parameters: [],
     };
 
-    const newClassAnalyses = [...classAnalyses, newClassType];
+    const newClassAnalyses = [...classAnalyses, newClassType].sort()
 
     if (!alreadyListedTypes.includes(an_name)) {
       api
@@ -128,7 +138,7 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
         )
         .then((_) => {
           console.log(newClassAnalyses);
-          setClassAnalyses(newClassAnalyses);
+          setUpdateTrigger(!updateTrigger);
         })
         .catch((err) => {
           console.log(err);
@@ -141,18 +151,12 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
   const addClassTypeParams = (id: string, formData: INewParamsForm) => {
     const { an_name, name, vmin, vmax, unit } = formData;
 
-    const listedParamsNames = [""];
-    classAnalyses.forEach((item) =>
-      item.parameters.map((item) => listedParamsNames.push(item.name))
-    );
+    const listedParamsNames = ['']
+    classAnalyses.forEach(( analysis ) => analysis.parameters.map( param => listedParamsNames.push(param.name)))
 
-    const removingOldName = classAnalyses.filter(
-      (item) => item.an_name !== an_name
-    );
-
-    const classToReplace = classAnalyses.find(
-      (item) => item.an_name === an_name
-    );
+    const removingOldName = classAnalyses.filter(analysis => analysis.an_name !== an_name)
+    
+    const classToReplace = classAnalyses.find(( analysis ) => analysis.an_name === an_name)
 
     const oldParams = classToReplace?.parameters || [null];
 
@@ -168,7 +172,7 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
       parameters: [...oldParams, newParams],
     };
 
-    const newAnalyses = [...removingOldName, newAnalysis];
+    const newAnalyses = [...removingOldName, newAnalysis].sort()
 
     if (!listedParamsNames.includes(name)) {
       api
@@ -184,33 +188,66 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
           }
         )
         .then((_) => {
-          console.log(removingOldName);
-          console.log(newAnalyses);
+          toast.success('Parâmetro cadrastado com sucesso!')
+          setUpdateTrigger(!updateTrigger)
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err)
         });
+    } else {
+      toast.error('Parâmetro já cadastrado!')
     }
-  };
+  }
 
-  const removeClassTypeParam = (
-    id: string,
-    an_name: string,
-    name: string
-  ) => {};
+  const removeClassTypeParams = ( id: string, array: IClassAnalysesParams[], name: string ) => {
+
+    const parentAnalysis = classAnalyses.find((analysis) => JSON.stringify(analysis.parameters) === JSON.stringify(array))
+
+    const parentAnalysisName = parentAnalysis?.an_name || ''
+
+    const newArray = array.filter((param) => param.name !== name)
+
+    const removingOld = classAnalyses.filter(analysis => analysis.an_name !== parentAnalysisName)
+
+    const newAnalysis = {
+      an_name: parentAnalysisName,
+      parameters: newArray,
+    }
+
+    const newAnalyses = [...removingOld, newAnalysis].sort()
+
+    api
+      .patch(`/classes/${id}`, 
+      {
+        analyses: newAnalyses,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((_) => {
+      
+        setUpdateTrigger(!updateTrigger)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
 
   return (
     <ClassContext.Provider
       value={{
         currentClass,
         classAnalyses,
+        updateTrigger,
         fetchClass,
         resetClass,
-        removeClassType,
         addClassType,
+        removeClassType,
         addClassTypeParams,
-      }}
-    >
+        removeClassTypeParams,
+      }}>
       {children}
     </ClassContext.Provider>
   );
