@@ -19,28 +19,17 @@ import * as yup from "yup";
 
 import { Link } from "react-router-dom";
 import { GlobalHeader } from "../../components/GlobalHeader";
-import { useState } from "react";
 import { useAuth } from "../../providers/Auth";
 
 interface IFormData {
-<<<<<<< HEAD
   email: string;
-=======
-  username: string;
->>>>>>> developer
   password: string;
 }
 
 const Home = () => {
-<<<<<<< HEAD
-  const [error, setError] = useState<boolean>(false);
   const { login } = useAuth();
   const formSchema = yup.object().shape({
     email: yup.string().required("Email obrigatório"),
-=======
-  const formSchema = yup.object().shape({
-    username: yup.string().required("Usuário obrigatório"),
->>>>>>> developer
     password: yup.string().required("Senha obrigatória"),
   });
 
@@ -53,13 +42,7 @@ const Home = () => {
   });
 
   const onFormSubmit = (formData: IFormData) => {
-<<<<<<< HEAD
-    console.log("executou!");
-    console.log(formData);
     login(formData, "Email/Senha incorreto!");
-=======
-    console.log(formData);
->>>>>>> developer
   };
 
   return (
@@ -126,17 +109,10 @@ const Home = () => {
                 variant="flushed"
                 marginBottom="1px solid"
                 borderColor="blue.600"
-<<<<<<< HEAD
                 placeholder="Email"
                 mb="4"
                 {...register("email")}
                 error={errors.email?.message}
-=======
-                placeholder="Usuário"
-                mb="4"
-                {...register("username")}
-                error={errors.username?.message}
->>>>>>> developer
               />
 
               <Input
@@ -309,17 +285,10 @@ const Home = () => {
                     variant="flushed"
                     marginBottom="1px solid"
                     borderColor="blue.600"
-<<<<<<< HEAD
                     placeholder="Email"
                     mb="4"
                     {...register("email")}
                     error={errors.email?.message}
-=======
-                    placeholder="Usuário"
-                    mb="4"
-                    {...register("username")}
-                    error={errors.username?.message}
->>>>>>> developer
                   />
 
                   <Input
