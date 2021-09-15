@@ -36,7 +36,7 @@ export const UserRegistrationProvider = ({ children }: Props) => {
       .then((res) => {
         console.log("Usuário criado com sucesso!", res);
         toastFunction("Usuário criado com sucesso!");
-        history.push("/users");
+        history.push("/admin/users");
       })
       .catch((err) => {
         toastFunction("Erro ao criar Usuário", true);

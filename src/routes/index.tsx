@@ -18,17 +18,18 @@ const Routes = () => {
   return (
     <Switch>
       <Route exact path="/" component={Home} />
-      <Route path="/users" component={AdminAllUsers} isPrivate />
-      <Route path="/register" component={AdminUserRegistration} isPrivate />
-      <Route exact path="/aboutUs" component={AboutUs} />
-      <Route exact path="/classes" component={NewClass} />
-      <Route exact path="/analyses" component={NewSamples} />
+      <Route exact path="/about" component={AboutUs} />
 
-      <Route exact path={"/admindashboard"} component={AdminDashboard} />
-      <Route exact path={`/classes/:id`} component={AdminEditParams} />
-      <Route exact path={"/analistdashboard"} component={AnalistDashboard} />
-      <Route exact path="/analysespending" component={AnalysesPending} />
-      <Route exact path="/analysespending/:id" component={AnalysisDetails} />
+      <Route exact path={"/admin"} component={AdminDashboard} />
+      <Route path="/admin/users" component={AdminAllUsers} isPrivate />
+      <Route path="/admin/user_register" component={AdminUserRegistration} isPrivate />
+      <Route exact path="/admin/classes" component={NewClass} />
+      <Route exact path={`/admin/classes/:id`} component={AdminEditParams} />
+
+      <Route exact path="/analyst/sample_register" component={NewSamples} />
+      <Route exact path={"/analyst"} component={AnalistDashboard} />
+      <Route exact path="/analyst/pending" component={AnalysesPending} />
+      <Route exact path="/analyst/pending/:id" component={AnalysisDetails} />
     </Switch>
   );
 };

@@ -54,7 +54,7 @@ const Home = () => {
       >
         <GlobalHeader>
           <Link to="">Pesquisar Análise</Link>
-          <Link to="/aboutUs">Sobre Nós</Link>
+          <Link to="/about">Sobre Nós</Link>
         </GlobalHeader>
 
         {/* UPPER */}
@@ -183,7 +183,7 @@ const Home = () => {
       >
         <GlobalHeader>
           <Link to="">Pesquisar Análise</Link>
-          <Link to="/aboutUs">Sobre Nós</Link>
+          <Link to="/about">Sobre Nós</Link>
         </GlobalHeader>
 
         {/* MAIN */}

@@ -53,9 +53,10 @@ const NewSamples = () => {
   return (
     <div>
       <GlobalHeader>
-        <Link to="/analyses">Cadastrar Amostra</Link>
-        <Link to="/">Analisar Amostra</Link>
-        <Link to="/">Pesquisar Amostra</Link>
+        <Link to="/analyst">Dashboard</Link>
+        <Link to="/analyst/concluded">Amostras Finalizadas</Link>
+        <Link to="/analyst/pending">Amostras Pendentes</Link>
+        <Link to="/analyst/sample_register">Cadastrar Amostra</Link>
       </GlobalHeader>
       <Flex
         as="form"

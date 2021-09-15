@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }: Props) => {
           JSON.stringify(response.data.user)
         );
         setUser(response.data.user);
-        history.push("/admindashboard");
+        history.push("/admin");
       })
       .catch((err) => {
         console.log(err);

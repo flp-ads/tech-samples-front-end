@@ -83,17 +83,11 @@ const AdminDashboard = () => {
     <>
       <Box textAlign="center" fontSize="xs">
         <NavBar>
-          <Link to="/">
-            Cadastra
-            <br /> produto
-          </Link>
-          <Link to="/">
-            Editar <br /> parâmetros
-          </Link>
-          <Link to="/">
-            Cadastrar <br /> usuário
-          </Link>
-          <Link to="/">Logout</Link>
+          <Link to="/admin">Dashboard</Link>
+          <Link to="/admin/classes">Cadastrar Classe</Link>
+          <Link to="/admin/users">Todos Usuários</Link>
+          <Link to="/admin/user_register">Cadastrar Usuário</Link>
+          <Link to="">Logout</Link>
         </NavBar>
       </Box>
 
@@ -171,7 +165,7 @@ const AdminDashboard = () => {
                 variant="link"
                 color="blue.600"
                 _hover={{ color: "blue.300" }}
-                onClick={() => history.push("/users")}
+                onClick={() => history.push("/admin/users")}
               >
                 ver todos
               </Button>
