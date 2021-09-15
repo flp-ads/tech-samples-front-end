@@ -5,6 +5,7 @@ import CardClass from "../../components/Cards/CardClass";
 import { Link, useHistory } from "react-router-dom";
 import NavBar from "../../components/GlobalHeader";
 import api from "../../services/api";
+import { useAuth } from "../../providers/Auth";
 
 interface userData {
   email: string;
@@ -30,9 +31,7 @@ const AdminDashboard = () => {
   const [analysis, setAnalysis] = useState<analysisData[]>([]);
   const MAX_CARDS = 2;
   const history = useHistory();
-  // const { token } = useAuth();
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxQHRlc3QuY29tIiwiaWF0IjoxNjMxNjIyMDYzLCJleHAiOjE2MzE2MjU2NjMsInN1YiI6IjEifQ.y4m2RBU1o2z-8WCNlS6m-WldrftQWOc6yoGdxkchsVg";
+  const { token } = useAuth();
 
   const getUsers = () => {
     api

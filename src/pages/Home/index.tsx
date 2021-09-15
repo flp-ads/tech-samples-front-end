@@ -19,15 +19,17 @@ import * as yup from "yup";
 
 import { Link } from "react-router-dom";
 import { GlobalHeader } from "../../components/GlobalHeader";
+import { useAuth } from "../../providers/Auth";
 
 interface IFormData {
-  username: string;
+  email: string;
   password: string;
 }
 
 const Home = () => {
+  const { login } = useAuth();
   const formSchema = yup.object().shape({
-    username: yup.string().required("Usuário obrigatório"),
+    email: yup.string().required("Email obrigatório"),
     password: yup.string().required("Senha obrigatória"),
   });
 
@@ -40,7 +42,7 @@ const Home = () => {
   });
 
   const onFormSubmit = (formData: IFormData) => {
-    console.log(formData);
+    login(formData, "Email/Senha incorreto!");
   };
 
   return (
@@ -107,10 +109,10 @@ const Home = () => {
                 variant="flushed"
                 marginBottom="1px solid"
                 borderColor="blue.600"
-                placeholder="Usuário"
+                placeholder="Email"
                 mb="4"
-                {...register("username")}
-                error={errors.username?.message}
+                {...register("email")}
+                error={errors.email?.message}
               />
 
               <Input
@@ -283,10 +285,10 @@ const Home = () => {
                     variant="flushed"
                     marginBottom="1px solid"
                     borderColor="blue.600"
-                    placeholder="Usuário"
+                    placeholder="Email"
                     mb="4"
-                    {...register("username")}
-                    error={errors.username?.message}
+                    {...register("email")}
+                    error={errors.email?.message}
                   />
 
                   <Input

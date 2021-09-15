@@ -62,16 +62,8 @@ const AdminUserRegistration = () => {
     email,
     password,
     isAdmin,
-    type = "",
   }: UserFormData) => {
-    const user = { username, email, password, type };
-
-    if (isAdmin) {
-      user.type = "Admin";
-    }
-    if (!isAdmin) {
-      user.type = "Analist";
-    }
+    const user = { username, email, password, isAdmin };
 
     signup(user, toastFunction);
   };

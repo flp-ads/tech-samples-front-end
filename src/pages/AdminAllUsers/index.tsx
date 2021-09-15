@@ -6,13 +6,12 @@ import { Link, useHistory } from "react-router-dom";
 import CardUser from "../../components/Cards/CardUser";
 import GlobalHeader from "../../components/GlobalHeader";
 import { useUsers } from "../../providers/Users";
-// import { useAuth } from "../../providers/Auth";
+import { useAuth } from "../../providers/Auth";
 
 const AdminAllUsers = () => {
   const [attPage, setAttPage] = useState<boolean>(false);
   const { getUsers, delUsers, users } = useUsers();
   const history = useHistory();
-  // const { token } = useAuth();
 
   const handleDelete = (id: number) => {
     delUsers(id);
