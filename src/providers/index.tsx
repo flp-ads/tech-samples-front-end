@@ -2,6 +2,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { ReactNode } from "react";
 import custonTheme from "../styles/theme";
 import { AllClassProvider } from "./AllClass";
+import { AnalysisProvider } from "./Analyses";
 import { AuthProvider } from "./Auth";
 import { ClassProvider } from "./Class";
 import { UserRegistrationProvider } from "./UserRegistration";
@@ -18,7 +19,9 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         <ClassProvider>
           <AllClassProvider>
             <UserRegistrationProvider>
-              <ChakraProvider theme={custonTheme}>{children}</ChakraProvider>
+              <AnalysisProvider>
+                <ChakraProvider theme={custonTheme}>{children}</ChakraProvider>
+              </AnalysisProvider>
             </UserRegistrationProvider>
           </AllClassProvider>
         </ClassProvider>
