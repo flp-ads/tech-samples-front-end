@@ -23,7 +23,7 @@ interface ClassProviderData {
   allClasses: IClass[];
   getAllClasses: () => void;
   setAllClasses: Dispatch<SetStateAction<IClass[]>>;
-  addNewClass: (value: any, userId: number) => void;
+  addNewClass: (value: string, userId: number) => void;
 }
 
 const AllClassContext = createContext<ClassProviderData>(
@@ -35,7 +35,7 @@ export const AllClassProvider = ({ children }: ClassProviderProps) => {
 //   console.log(allClasses)
   // const token = localStorage.getItem("token") || "[]";
   const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsZXhAdGVzdGUuY29tIiwiaWF0IjoxNjMxNzA0OTk4LCJleHAiOjE2MzE3MDg1OTgsInN1YiI6IjUifQ.Y3sNhSDQH2r6BJEQ9g6GLWx5qb7YFO5NwKf4jUTyabk";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsZXhAdGVzdGUuY29tIiwiaWF0IjoxNjMxNzM5MjU4LCJleHAiOjE2MzE3NDI4NTgsInN1YiI6IjUifQ.gO0moNOH8WxM0d5hMol3qaj3BNB5P_LdpeGZklrFOVc";
 
   const getAllClasses = () => {
     api
