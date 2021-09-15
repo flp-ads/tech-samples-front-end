@@ -10,6 +10,8 @@ import AdminEditParams from "../pages/AdminEditParams";
 import AdminUserRegistration from "../pages/AdminUserRegistration";
 import AnalistDashboard from "../pages/AnalistDashboard";
 import AdminDashboard from "../pages/AdminDashboard";
+import AnalysesPending from "../pages/AnalysesPending";
+import AnalysisDetails from "../pages/AnalysisDetails";
 
 const Routes = () => {
   return (
@@ -22,6 +24,8 @@ const Routes = () => {
       <Route exact path={"/admindashboard"} component={AdminDashboard} />
       <Route exact path={`/classes/:id`} component={AdminEditParams} />
       <Route exact path={"/analistdashboard"} component={AnalistDashboard} />
+      <Route exact path="/analysespending" component={AnalysesPending} />
+      <Route exact path="/analysespending/:id" component={AnalysisDetails} />
     </Switch>
   );
 };
