@@ -27,11 +27,12 @@ const AdminAllUsers = () => {
   return (
     <>
       <GlobalHeader>
-        <Link to="/">Cadastrar Produto</Link>
-        <Link to="/">Editar Parâmetros</Link>
-        <Link to="/">
-          <strong>Usuários</strong>
+        <Link to="/adminProductClass">Cadastrar Produto</Link>
+        <Link to="/classes">Editar Parâmetros</Link>
+        <Link to="/users">
+          <strong>Todos os Usuários</strong>{" "}
         </Link>
+        <Link to="/register">Cadastrar Usuário</Link>
         <Link to="/">Logout</Link>
       </GlobalHeader>
       <Grid templateColumns="repeat(5, 1fr)" gap={4} p={["30px 10px", "30px"]}>
@@ -40,7 +41,7 @@ const AdminAllUsers = () => {
           padding={1}
           w={1}
           borderRadius={15}
-          onClick={() => history.push("/dashboard")}
+          onClick={() => history.push("/admindashboard")}
         >
           <Icon as={BsArrowLeftShort} w="30px" h="30px" />
         </Button>

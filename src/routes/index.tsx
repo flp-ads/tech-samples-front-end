@@ -7,6 +7,7 @@ import AdminAllUsers from "../pages/AdminAllUsers";
 import AboutUs from "../pages/AboutUs";
 import AdminProductClass from "../pages/AdminProductClass";
 import AdminEditParams from "../pages/AdminEditParams";
+import AdminUserRegistration from "../pages/AdminUserRegistration";
 import AnalistDashboard from "../pages/AnalistDashboard";
 import AdminDashboard from "../pages/AdminDashboard";
 import AnalysesPending from "../pages/AnalysesPending";
@@ -17,6 +18,7 @@ const Routes = () => {
     <Switch>
       <Route exact path="/" component={Home} />
       <Route path="/users" component={AdminAllUsers} isPrivate />
+      <Route path="/register" component={AdminUserRegistration} isPrivate />
       <Route exact path="/aboutUs" component={AboutUs} />
       <Route exact path="/adminProductClass" component={AdminProductClass} />
       <Route exact path={"/admindashboard"} component={AdminDashboard} />
