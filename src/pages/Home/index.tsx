@@ -19,7 +19,6 @@ import * as yup from "yup";
 
 import { Link } from "react-router-dom";
 import { GlobalHeader } from "../../components/GlobalHeader";
-import Analysis from "../Analysis";
 
 interface IFormData {
   username: string;
