@@ -79,8 +79,9 @@ const AdminUserRegistration = () => {
   return (
     <Flex flexDir="column">
       <GlobalHeader>
-        <Link to="/">Cadastrar Produto</Link>
+        <Link to="/adminProductClass">Cadastrar Produto</Link>
         <Link to="/classes">Editar Parâmetros</Link>
+        <Link to="/users">Todos os Usuários</Link>
         <Link to="/register">
           <strong>Cadastrar Usuário</strong>
         </Link>
