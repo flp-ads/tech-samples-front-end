@@ -10,7 +10,6 @@ import api from "../../services/api";
 
 interface IClass {
   name: string;
-  category: string;
   analyses: [];
   userId: number;
   id: number;
@@ -36,7 +35,7 @@ export const AllClassProvider = ({ children }: ClassProviderProps) => {
 //   console.log(allClasses)
   // const token = localStorage.getItem("token") || "[]";
   const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlQHRlc3RlLmNvbSIsImlhdCI6MTYzMTYxNzk3NSwiZXhwIjoxNjMxNjIxNTc1LCJzdWIiOiIzIn0.FAKbFOCq5Uif4wpCojYhrXU6JHA0Z03IYq3OrVGrV8c";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsZXhAdGVzdGUuY29tIiwiaWF0IjoxNjMxNzA0OTk4LCJleHAiOjE2MzE3MDg1OTgsInN1YiI6IjUifQ.Y3sNhSDQH2r6BJEQ9g6GLWx5qb7YFO5NwKf4jUTyabk";
 
   const getAllClasses = () => {
     api
@@ -48,11 +47,11 @@ export const AllClassProvider = ({ children }: ClassProviderProps) => {
       .then((response) => setAllClasses(response.data));
   };
 
-  const addNewClass = (value: any, userId: number) => {
+  const addNewClass = (name: string, userId: number) => {
     api
       .post(
         "/classes",
-        { name: value, userId: userId },
+        { name: name, userId: userId, analyses: [] },
         {
           headers: {
             Authorization: `Bearer ${token}`,
