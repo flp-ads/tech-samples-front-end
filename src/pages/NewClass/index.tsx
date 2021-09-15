@@ -2,57 +2,27 @@ import { Flex, Button, Box, Input } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { GlobalHeader } from "../../components/GlobalHeader";
-import api from "../../services/api";
 import CardClass from "../../components/Cards/CardClass";
 import { useEffect } from "react";
 import { FaUserEdit } from "react-icons/fa";
+import { useAllClass } from "../../providers/AllClass";
 
-interface classesTypes {
-  name: string;
-  id: number;
-}
-
-const AdminProductClass = () => {
-  const tokenTeste = localStorage.getItem("token") || "[]";
+const NewClass = () => {
+  const { allClasses, getAllClasses, addNewClass } = useAllClass();
+  // const tokenTeste = localStorage.getItem("token") || "[]";
   const [className, setClassName] = useState<string>("");
-  const [classes, setClasses] = useState<classesTypes[]>([] as classesTypes[]);
+  const userId = 5;
+
+  //pegar userId na hora do login
 
   useEffect(() => {
-    localStorage.setItem(
-      "token",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlQHRlc3RlLmNvbSIsImlhdCI6MTYzMTU1NjU4MSwiZXhwIjoxNjMxNTYwMTgxLCJzdWIiOiIzIn0.bN5HEele1mT1A17fbOgpijjU1Eeeia_pxz0iV4d8iFo"
-    );
-  }, []);
-
-  useEffect(() => {
-    api
-      .get("/classes", {
-        headers: {
-          Authorization: `Bearer ${tokenTeste}`,
-        },
-      })
-      .then((response) => setClasses(response.data));
-  }, [tokenTeste, classes]);
-
-  const addNewClass = (value: any) => {
-    api
-      .post(
-        "/classes",
-        { name: value, userId: 3 },
-        {
-          headers: {
-            Authorization: `Bearer ${tokenTeste}`,
-          },
-        }
-      )
-      .then((response) => console.log(response.data));
-    setClassName("");
-  };
+    getAllClasses();
+  }, [allClasses]);
 
   return (
     <div>
       <GlobalHeader>
-        <Link to="/adminProductClass">Cadastrar Produto</Link>
+        <Link to="/classes">Cadastrar Classe</Link>
         <Link to="">Editar Parâmetros</Link>
         <Link to="">Cadastrar Usuário</Link>
         <Link to="">Logout</Link>
@@ -70,7 +40,7 @@ const AdminProductClass = () => {
       >
         <Box fontSize="xl" fontWeight="500" textAlign="center">
           {" "}
-          Username, existem <strong>{classes.length}</strong> classes de
+          Username, existem <strong>{allClasses.length}</strong> classes de
           produtos cadastrados
         </Box>
         <Flex
@@ -91,7 +61,10 @@ const AdminProductClass = () => {
             marginTop="5"
             variant="default"
             w="fit-content"
-            onClick={() => addNewClass(className)}
+            onClick={() => {
+              addNewClass(className, userId);
+              setClassName("");
+            }}
           >
             Nova Classe
           </Button>
@@ -104,7 +77,6 @@ const AdminProductClass = () => {
         w="90vw"
         margin="0 auto"
         alignItems="center"
-        justifyContent="space-between"
         flexDirection="column"
         marginTop="5"
         overflowY="auto"
@@ -120,9 +92,11 @@ const AdminProductClass = () => {
           },
         }}
       >
-        {classes.map((item) => (
+        {allClasses.map((item) => (
           <CardClass key={item.id} name={item.name} id={item.id}>
-            <Link to=''><FaUserEdit /></Link>
+            <Link to={`/classes/${item.id}/`}>
+              <FaUserEdit />
+            </Link>
           </CardClass>
         ))}
       </Flex>
@@ -130,4 +104,4 @@ const AdminProductClass = () => {
   );
 };
 
-export default AdminProductClass;
+export default NewClass;

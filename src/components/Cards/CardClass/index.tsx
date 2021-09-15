@@ -6,7 +6,7 @@ import glasses from "../../../assets/icons/test_glasses.svg";
 interface ClassData {
   name: string;
   id: number;
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 const CardClass = ({ name, id, children }: ClassData) => {
