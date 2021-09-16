@@ -87,7 +87,6 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
 
         setCurrentClass(response.data);
         setClassAnalyses(sortedAnalyses);
-        sucessFeedback("Classe Carregada");
       })
       .catch(() => errorFeedback("Erro ao carregar classe!"));
   };
