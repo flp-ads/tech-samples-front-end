@@ -6,13 +6,12 @@ import { Link, useHistory } from "react-router-dom";
 import CardUser from "../../components/Cards/CardUser";
 import GlobalHeader from "../../components/GlobalHeader";
 import { useUsers } from "../../providers/Users";
-// import { useAuth } from "../../providers/Auth";
+import { useAuth } from "../../providers/Auth";
 
 const AdminAllUsers = () => {
   const [attPage, setAttPage] = useState<boolean>(false);
   const { getUsers, delUsers, users } = useUsers();
   const history = useHistory();
-  // const { token } = useAuth();
 
   const handleDelete = (id: number) => {
     delUsers(id);
@@ -27,13 +26,11 @@ const AdminAllUsers = () => {
   return (
     <>
       <GlobalHeader>
-        <Link to="/adminProductClass">Cadastrar Produto</Link>
-        <Link to="/classes">Editar Parâmetros</Link>
-        <Link to="/users">
-          <strong>Todos os Usuários</strong>{" "}
-        </Link>
-        <Link to="/register">Cadastrar Usuário</Link>
-        <Link to="/">Logout</Link>
+        <Link to="/admin">Dashboard</Link>
+        <Link to="/admin/classes">Cadastrar Classe</Link>
+        <Link to="/admin/users">Todos Usuários</Link>
+        <Link to="/admin/user_register">Cadastrar Usuário</Link>
+        <Link to="">Logout</Link>
       </GlobalHeader>
       <Grid templateColumns="repeat(5, 1fr)" gap={4} p={["30px 10px", "30px"]}>
         <Button
@@ -41,7 +38,7 @@ const AdminAllUsers = () => {
           padding={1}
           w={1}
           borderRadius={15}
-          onClick={() => history.push("/admindashboard")}
+          onClick={() => history.push("/admin")}
         >
           <Icon as={BsArrowLeftShort} w="30px" h="30px" />
         </Button>
@@ -50,7 +47,7 @@ const AdminAllUsers = () => {
           gridColumnStart={3}
           w={200}
           borderRadius={15}
-          onClick={() => history.push("/register")}
+          onClick={() => history.push("/sample_register")}
         >
           <FaUserPlus />
           <p>Cadastrar Usuário</p>

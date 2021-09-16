@@ -183,9 +183,10 @@ const AnalysisDetails = () => {
   return (
     <>
       <GlobalHeader>
-        <Link to="/">Cadastrar amostra</Link>
-        <Link to="/">Analisar amostra</Link>
-        <Link to="/">Pesquisar amostra</Link>
+        <Link to="/analyst">Dashboard</Link>
+        <Link to="/analyst/concluded">Amostras Finalizadas</Link>
+        <Link to="/analyst/pending">Amostras Pendentes</Link>
+        <Link to="/analyst/sample_register">Cadastrar Amostra</Link>
       </GlobalHeader>
       <Flex
         boxShadow="0px 0px 20px rgba(0, 0, 0, 0.1)"

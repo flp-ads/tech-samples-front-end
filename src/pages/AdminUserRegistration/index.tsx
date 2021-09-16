@@ -62,16 +62,8 @@ const AdminUserRegistration = () => {
     email,
     password,
     isAdmin,
-    type = "",
   }: UserFormData) => {
-    const user = { username, email, password, type };
-
-    if (isAdmin) {
-      user.type = "Admin";
-    }
-    if (!isAdmin) {
-      user.type = "Analist";
-    }
+    const user = { username, email, password, isAdmin };
 
     signup(user, toastFunction);
   };
@@ -79,13 +71,11 @@ const AdminUserRegistration = () => {
   return (
     <Flex flexDir="column">
       <GlobalHeader>
-        <Link to="/adminProductClass">Cadastrar Produto</Link>
-        <Link to="/classes">Editar Parâmetros</Link>
-        <Link to="/users">Todos os Usuários</Link>
-        <Link to="/register">
-          <strong>Cadastrar Usuário</strong>
-        </Link>
-        <Link to="/">Logout</Link>
+        <Link to="/admin">Dashboard</Link>
+        <Link to="/admin/classes">Cadastrar Classe</Link>
+        <Link to="/admin/users">Todos Usuários</Link>
+        <Link to="/admin/user_register">Cadastrar Usuário</Link>
+        <Link to="">Logout</Link>
       </GlobalHeader>
       <Flex p={["30px 10px", "30px"]}>
         <Button
@@ -93,7 +83,7 @@ const AdminUserRegistration = () => {
           padding={1}
           w={1}
           borderRadius={15}
-          onClick={() => history.push("/users")}
+          onClick={() => history.push("/admin/users")}
         >
           <Icon as={BsArrowLeftShort} w="30px" h="30px" />
         </Button>

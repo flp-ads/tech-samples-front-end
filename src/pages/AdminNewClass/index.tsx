@@ -5,14 +5,13 @@ import { GlobalHeader } from "../../components/GlobalHeader";
 import CardClass from "../../components/Cards/CardClass";
 import { useEffect } from "react";
 import { FaUserEdit } from "react-icons/fa";
-import { useAuth } from "../../providers/Auth";
 import { useAllClass } from "../../providers/AllClass";
 
-const AdminProductClass = () => {
+const NewClass = () => {
   const { allClasses, getAllClasses, addNewClass } = useAllClass();
   // const tokenTeste = localStorage.getItem("token") || "[]";
   const [className, setClassName] = useState<string>("");
-  const userId = 3;
+  const userId = 5;
 
   //pegar userId na hora do login
 
@@ -23,9 +22,10 @@ const AdminProductClass = () => {
   return (
     <div>
       <GlobalHeader>
-        <Link to="/adminProductClass">Cadastrar Produto</Link>
-        <Link to="">Editar Parâmetros</Link>
-        <Link to="">Cadastrar Usuário</Link>
+        <Link to="/admin">Dashboard</Link>
+        <Link to="/admin/classes">Cadastrar Classe</Link>
+        <Link to="/admin/users">Todos Usuários</Link>
+        <Link to="/admin/user_register">Cadastrar Usuário</Link>
         <Link to="">Logout</Link>
       </GlobalHeader>
       <Flex
@@ -78,7 +78,6 @@ const AdminProductClass = () => {
         w="90vw"
         margin="0 auto"
         alignItems="center"
-        justifyContent="space-between"
         flexDirection="column"
         marginTop="5"
         overflowY="auto"
@@ -96,7 +95,7 @@ const AdminProductClass = () => {
       >
         {allClasses.map((item) => (
           <CardClass key={item.id} name={item.name} id={item.id}>
-            <Link to={`/classes/${item.id}`}>
+            <Link to={`/admin/classes/${item.id}/`}>
               <FaUserEdit />
             </Link>
           </CardClass>
@@ -106,4 +105,4 @@ const AdminProductClass = () => {
   );
 };
 
-export default AdminProductClass;
+export default NewClass;
