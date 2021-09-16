@@ -2,6 +2,7 @@ import { Flex, Box, Link, Text, Input, Button } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import GlobalHeader from "../../components/GlobalHeader";
 import { useState } from "react";
+import AnalysisDetailsInput from "../../components/AnalysisDetailsInput";
 
 interface IdParams {
   id: string;
@@ -179,6 +180,8 @@ const AnalysisDetails = () => {
 
   const [data, setData] = useState(analysis?.analyses);
 
+  const [parameters, setParameters] = useState();
+
   console.log(data);
   return (
     <>
@@ -226,9 +229,9 @@ const AnalysisDetails = () => {
         bg="blue.300"
         direction="column"
       >
-        {analysis?.analyses.map((item, indexA) => (
+        {analysis?.analyses.map((item, index) => (
           <Flex
-            key={indexA}
+            key={index}
             w="100%"
             direction="column"
             align="center"
@@ -291,75 +294,25 @@ const AnalysisDetails = () => {
                 Resultado
               </Text>
             </Flex>
-            <Flex direction="column" color="white" w="90%">
-              {item.parameters.map((param, indexB) => (
-                <Flex key={indexB} direction={["column", "row", "row"]}>
-                  <Text
-                    flex="1"
-                    align="center"
-                    borderBottom="2px"
-                    fontWeight="semibold"
-                    m="2"
-                  >
-                    {param.name}
-                  </Text>
-                  <Text
-                    flex="1"
-                    align="center"
-                    borderBottom="2px"
-                    fontWeight="semibold"
-                    m="2"
-                  >
-                    {param.vmin}
-                  </Text>
-                  <Text
-                    flex="1"
-                    align="center"
-                    borderBottom="2px"
-                    fontWeight="semibold"
-                    m="2"
-                  >
-                    {param.vmax}
-                  </Text>
-                  <Text
-                    flex="1"
-                    align="center"
-                    borderBottom="2px"
-                    fontWeight="semibold"
-                    m="2"
-                  >
-                    {param.unit}
-                  </Text>
-                  <Input
-                    variant="flushed"
-                    flex="1"
-                    align="center"
-                    borderBottom="2px"
-                    fontWeight="semibold"
-                    m="2"
-                    textAlign="center"
-                    value={param.result}
-                    // onChange={(e) => {
-                    //   setData(currentItem=>{
-                    //     currentItem?.map(x=> x.parameters
-
-                    //       //x.id === p.id ? {
-                    //         //...x,
-                    //         //fisrtName: e.target.value
-                    //         //}
-
-                    //         param.result
-                    //         )
-                    //   }
-                    //   )
-                    // }}
-                  />
-                </Flex>
+            <Flex arrRef={index} direction="column" color="white" w="90%">
+              {item.parameters.map((param) => (
+                <AnalysisDetailsInput
+                  setParameters={setParameters}
+                  param={param}
+                />
               ))}
             </Flex>
-            <Button>Apertaqui</Button>
           </Flex>
         ))}
+        <Button
+          w="180px"
+          bg="blue.600"
+          borderRadius="10px"
+          mt="5"
+          color="white"
+        >
+          Finalizar análise
+        </Button>
       </Flex>
     </>
   );
