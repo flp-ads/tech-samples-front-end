@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { createContext, ReactNode } from "react";
 import { toast } from "react-toastify";
+import { AiOutlineCheckCircle } from "react-icons/ai";
 
 interface Props {
   children: ReactNode;
@@ -15,10 +16,11 @@ const UserFeedbackContext = createContext<FeedbackData>({} as FeedbackData);
 
 export const UserFeedbackProvider = ({ children }: Props) => {
   const sucessFeedback = (message: string) => {
-    toast.success(message, {
-      theme: "colored",
+    toast(message, {
+      icon: <AiOutlineCheckCircle size={36} />,
       style: {
-        backgroundColor: "#002887",
+        color: "#002887",
+        fontWeight: "bold",
       },
     });
   };
