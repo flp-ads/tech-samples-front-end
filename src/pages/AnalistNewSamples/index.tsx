@@ -10,10 +10,9 @@ import { useAllClass } from "../../providers/AllClass";
 import { useEffect } from "react";
 import { useAnalyses } from "../../providers/Analyses";
 
-import { IAnalysis } from '../../providers/Analyses'
+import { IAnalysis } from "../../providers/Analyses";
 
 const NewSamples = () => {
-
   const { allClasses, getAllClasses } = useAllClass();
   const { newAnalysis } = useAnalyses();
 
