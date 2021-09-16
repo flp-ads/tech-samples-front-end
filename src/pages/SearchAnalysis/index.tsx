@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { GlobalHeader } from "../../components/GlobalHeader";
 import { useAllClass } from "../../providers/AllClass";
-import api from "../../services/api";
 import CardDescription from "../../components/Cards/CardDescription";
+import { useAnalyses } from "../../providers/Analyses";
 
 interface IAnalysis {
   name: string;
@@ -20,21 +20,13 @@ interface IAnalysis {
 
 const SearchAnalysis = () => {
   const { allClasses, getAllClasses } = useAllClass();
-  const [analyses, setAnalyses] = useState<IAnalysis[]>([] as IAnalysis[]);
+  const { analyses, getAllAnalyses} = useAnalyses()
 
   const [errorMsg, setErrorMsg] = useState<boolean>(false);
 
   const [filtredAnalysis, setFilteredAnalysis] = useState<IAnalysis[]>(
     [] as IAnalysis[]
   );
-
-  console.log(filtredAnalysis);
-
-  const getAllAnalyses = () => {
-    api.get("/analyses").then((response) => {
-      setAnalyses(response.data);
-    });
-  };
 
   const [sampleNameInput, setSampleNameInput] = useState<string>("");
   const [batchInput, setBatchInput] = useState<string>("");
@@ -73,7 +65,7 @@ const SearchAnalysis = () => {
   useEffect(() => {
     getAllAnalyses();
     getAllClasses();
-  }, []);
+  }, []); //eslint-disable-line
 
   return (
     <div>

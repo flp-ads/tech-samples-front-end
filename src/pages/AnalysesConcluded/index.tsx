@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Flex, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import CardDescription from "../../components/Cards/CardDescription";
-// import { useAnalyses } from "../../providers/Analyses";
+import { useAnalyses } from "../../providers/Analyses";
 
 interface AnalysisContent {
   name: string;
@@ -19,7 +19,7 @@ interface AnalysisContent {
 
 const AnalysesConcluded = () => {
   const [data, setData] = useState<AnalysisContent[]>([] as AnalysisContent[]);
-  // const { analyses, getAllAnalyses } = useAnalyses();
+  const { analyses, getAllAnalyses } = useAnalyses();
 
   const dataFilter = (analyses: AnalysisContent[]) => {
     const dataFiltered = analyses.filter(
@@ -28,10 +28,10 @@ const AnalysesConcluded = () => {
     setData(dataFiltered);
   };
 
-  // useEffect(() => {
-  //   getAllAnalyses();
-  //   dataFilter(analyses);
-  // }, [analyses]);
+  useEffect(() => {
+    getAllAnalyses();
+    dataFilter(analyses);
+  }, [analyses]);
 
 
   return (
