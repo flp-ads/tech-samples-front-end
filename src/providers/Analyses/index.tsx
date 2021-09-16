@@ -1,12 +1,27 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useState, useEffect } from "react";
 
 import api from "../../services/api";
 
 import { useAllClass } from "../AllClass";
 import { useAuth } from '../Auth'
 
+
 interface AnalysesProviderProps {
   children: ReactNode;
+}
+
+export interface IAnalysisClassParams {
+  name: string;
+  unit: string;
+  vmin: string;
+  vmax: string;
+  result: string;
+  isApproved: boolean;
+}
+
+export interface IAnalysisClass {
+  an_name: string,
+  parameters: IAnalysisClassParams[];
 }
 
 export interface IAnalysis {
@@ -15,7 +30,7 @@ export interface IAnalysis {
   made: string;
   category: string;
   class: string;
-  analyses: [];
+  analyses: IAnalysisClass[];
   isConcluded: boolean;
   userId: number;
   id: number,
@@ -31,13 +46,17 @@ const AnalysesContext = createContext<AnalysesProviderData>(
   {} as AnalysesProviderData
 );
 
-export const AnalysisProvider = ({ children }: AnalysesProviderProps) => {
+export const AnalysesProvider = ({ children }: AnalysesProviderProps) => {
 
   const [analyses, setAnalyses] = useState<IAnalysis[]>([] as IAnalysis[]);
-  
+
   const { allClasses } = useAllClass();
   const { token, user } = useAuth()
  
+  useEffect(() => {
+    getAllAnalyses()
+  }, [])
+
   const getAllAnalyses = () => {
     api
       .get("/analyses", {
@@ -56,7 +75,7 @@ export const AnalysisProvider = ({ children }: AnalysesProviderProps) => {
 
     const formDataClass = allClasses.find((item) => item.name === clas)
 
-    const classAnalyses = formDataClass?.analyses || [null]
+    const classAnalyses = formDataClass?.analyses
 
     const newAnalysis = {
       name: name,

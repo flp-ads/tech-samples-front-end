@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import CardDescription from "../../components/Cards/CardDescription";
 import { useAnalyses } from "../../providers/Analyses";
 
+import { IAnalysis } from '../../providers/Analyses'
+
 interface AnalysisContent {
   name: string;
   batch: string;
@@ -18,10 +20,10 @@ interface AnalysisContent {
 }
 
 const AnalysesConcluded = () => {
-  const [data, setData] = useState<AnalysisContent[]>([] as AnalysisContent[]);
+  const [data, setData] = useState<IAnalysis[]>([]);
   const { analyses, getAllAnalyses } = useAnalyses();
 
-  const dataFilter = (analyses: AnalysisContent[]) => {
+  const dataFilter = (analyses: IAnalysis[]) => {
     const dataFiltered = analyses.filter(
       (analysis) => analysis.isConcluded === true
     );

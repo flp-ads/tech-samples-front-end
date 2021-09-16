@@ -1,8 +1,13 @@
-import { Flex, Box, Link, Text, Input, Button } from "@chakra-ui/react";
+import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
+import { useAnalysis } from "../../providers/Analysis";
+
+import { Flex, Box, Text, Input, Button } from "@chakra-ui/react";
+import { Link } from 'react-router-dom'
 import GlobalHeader from "../../components/GlobalHeader";
-import { useState } from "react";
+
 import AnalysisDetailsInput from "../../components/AnalysisDetailsInput";
+import { IAnalysisClass } from '../../providers/Analyses'
 
 interface IdParams {
   id: string;
@@ -29,160 +34,22 @@ interface AnalysisData {
 }
 
 const AnalysisDetails = () => {
+
   const { id } = useParams<IdParams>();
+  const { currentAnalysis, currAnalysisData, fetchAnalysis, resetAnalysis} = useAnalysis()
 
-  const analyses = [
-    {
-      name: "lamen",
-      batch: "654987954",
-      made: "03-12-2021",
-      category: "Produto acabado",
-      class: "macarrão",
-      analyses: [
-        {
-          an_name: "fisio-quimicos",
-          parameters: [
-            {
-              name: "umidade",
-              vmin: "3",
-              vmax: "5",
-              unit: "%",
-              result: "",
-              isAproved: false,
-            },
-            {
-              name: "AW",
-              vmin: "0.10",
-              vmax: "0.45",
-              unit: "P/PO",
-              result: "",
-              isAproved: false,
-            },
-          ],
-        },
-        {
-          an_name: "microbiológicos",
-          parameters: [
-            {
-              name: "coliformes",
-              vmin: "3",
-              vmax: "5",
-              unit: "UFC/g",
-              result: "",
-              isAproved: false,
-            },
-          ],
-        },
-      ],
-      isConcluded: false,
-      userId: 1,
-      id: 1,
-    },
-    {
-      name: "baguete",
-      batch: "879546549",
-      made: "03-12-2021",
-      category: "Produto acabado",
-      class: "pão",
+  const RefReset = useRef(resetAnalysis);
+  const RefFetch = useRef(fetchAnalysis);
 
-      analyses: [
-        {
-          an_name: "fisio-quimicos",
-          parameters: [
-            {
-              name: "umidade",
-              vmin: "3",
-              vmax: "5",
-              unit: "%",
-              result: "",
-              isAproved: false,
-            },
-            {
-              name: "AW",
-              vmin: "0.10",
-              vmax: "0.45",
-              unit: "P/PO",
-              result: "",
-              isAproved: false,
-            },
-          ],
-        },
-        {
-          an_name: "microbiológicos",
-          parameters: [
-            {
-              name: "coliformes",
-              vmin: "3",
-              vmax: "5",
-              unit: "UFC/g",
-              result: "",
-              isAproved: false,
-            },
-          ],
-        },
-      ],
+  const [currentResults, setCurrentResults] = useState<IAnalysisClass[]>([])
 
-      isConcluded: true,
-      userId: 1,
-      id: 2,
-    },
-    {
-      name: "aveia",
-      batch: "687954954",
-      made: "03-12-2021",
-      category: "Matéria prima",
-      class: "cereal",
 
-      analyses: [
-        {
-          an_name: "fisio-quimicos",
-          parameters: [
-            {
-              name: "umidade",
-              vmin: "3",
-              vmax: "5",
-              unit: "%",
-              result: "",
-              isAproved: false,
-            },
-            {
-              name: "AW",
-              vmin: "0.10",
-              vmax: "0.45",
-              unit: "P/PO",
-              result: "",
-              isAproved: false,
-            },
-          ],
-        },
-        {
-          an_name: "microbiológicos",
-          parameters: [
-            {
-              name: "coliformes",
-              vmin: "3",
-              vmax: "5",
-              unit: "UFC/g",
-              result: "",
-              isAproved: false,
-            },
-          ],
-        },
-      ],
+  useEffect(() => {
+    RefFetch.current(id);
+    
+    return RefReset.current;
+  }, [id]);
 
-      isConcluded: false,
-      userId: 1,
-      id: 3,
-    },
-  ];
-
-  const analysis = analyses.find((item) => item.id === Number(id));
-
-  const [data, setData] = useState(analysis?.analyses);
-
-  const [parameters, setParameters] = useState();
-
-  console.log(data);
   return (
     <>
       <GlobalHeader>
@@ -209,13 +76,13 @@ const AnalysisDetails = () => {
             <Text fontWeight="semibold" mr="2">
               Amostra:
             </Text>
-            <Text>{analysis?.name}</Text>
+            <Text>{currentAnalysis.name}</Text>
           </Flex>
           <Flex>
             <Text fontWeight="semibold" mr="2">
               Lote:
             </Text>
-            <Text>{analysis?.batch}</Text>
+            <Text>{currentAnalysis.batch}</Text>
           </Flex>
         </Box>
       </Flex>
@@ -229,7 +96,7 @@ const AnalysisDetails = () => {
         bg="blue.300"
         direction="column"
       >
-        {analysis?.analyses.map((item, index) => (
+        {currAnalysisData.map((item, index) => (
           <Flex
             key={index}
             w="100%"
@@ -296,10 +163,56 @@ const AnalysisDetails = () => {
             </Flex>
             <Flex arrRef={index} direction="column" color="white" w="90%">
               {item.parameters.map((param) => (
-                <AnalysisDetailsInput
-                  setParameters={setParameters}
-                  param={param}
+                <Flex direction={["column", "row", "row"]}>
+                <Text
+                  flex="1"
+                  align="center"
+                  borderBottom="2px"
+                  fontWeight="semibold"
+                  m="2"
+                >
+                  {param.name}
+                </Text>
+                <Text
+                  flex="1"
+                  align="center"
+                  borderBottom="2px"
+                  fontWeight="semibold"
+                  m="2"
+                >
+                  {param.vmin}
+                </Text>
+                <Text
+                  flex="1"
+                  align="center"
+                  borderBottom="2px"
+                  fontWeight="semibold"
+                  m="2"
+                >
+                  {param.vmax}
+                </Text>
+                <Text
+                  flex="1"
+                  align="center"
+                  borderBottom="2px"
+                  fontWeight="semibold"
+                  m="2"
+                >
+                  {param.unit}
+                </Text>
+                <Input
+                  variant="flushed"
+                  flex="1"
+                  align="center"
+                  borderBottom="2px"
+                  fontWeight="semibold"
+                  m="2"
+                  textAlign="center"
+                  // value={param.result}
+                  onChange={(e) => {}}
                 />
+                {console.log(param)}
+              </Flex>
               ))}
             </Flex>
           </Flex>

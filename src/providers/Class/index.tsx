@@ -6,7 +6,6 @@ import { INewTypeForm } from "../../components/AdminClassNewType";
 import { INewParamsForm } from "../../components/AdminClassNewParams";
 
 import { toast } from "react-toastify";
-import { string } from "yup/lib/locale";
 
 interface IClassDefaultVals {
   name: "";
@@ -16,14 +15,14 @@ interface IClassDefaultVals {
   id: -1;
 }
 
-interface IClassAnalysesParams {
+ export interface IClassAnalysesParams {
   name: string;
   unit: string;
   vmin: string;
   vmax: string;
 }
 
-interface IClassAnalyses {
+ export interface IClassAnalyses {
   an_name: string;
   parameters: IClassAnalysesParams[];
 }
