@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useAnalyses } from "../../providers/Analyses";
+import { GlobalHeader } from "../../components/GlobalHeader";
 import api from "../../services/api";
 import { Flex, Box, Text, Heading, Button } from "@chakra-ui/react";
 import "../../styles/print.css";
@@ -35,7 +38,8 @@ const Certificate = () => {
     [] as AnalysisContent[]
   );
 
-  const a_id = 3;
+  const { idNumber } = useAnalyses();
+  const a_id = idNumber;
 
   useEffect(() => {
     api
@@ -48,6 +52,11 @@ const Certificate = () => {
 
   return (
     <>
+      <div className="no-print">
+        <GlobalHeader>
+          <Link to="/search">Pesquisar análise</Link>
+        </GlobalHeader>
+      </div>
       {report.length > 0 ? (
         <>
           <Flex
@@ -57,7 +66,7 @@ const Certificate = () => {
             align="center"
             bg="gray.500"
           >
-            <Box w="80%" textAlign="right" m="3" className="no-print">
+            <Box w="90%" textAlign="right" m="4" className="no-print">
               <Button variant="default" onClick={() => window.print()}>
                 Imprimir laudo
               </Button>
@@ -67,7 +76,6 @@ const Certificate = () => {
               minH="1000px"
               bg="white"
               borderRadius="xl"
-              m="4"
               textAlign="center"
               direction="column"
               align="center"

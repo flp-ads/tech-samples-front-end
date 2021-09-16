@@ -31,7 +31,7 @@ const AdminDashboard = () => {
   const [analysis, setAnalysis] = useState<analysisData[]>([]);
   const MAX_CARDS = 2;
   const history = useHistory();
-  const { token } = useAuth();
+  const { token, user } = useAuth();
 
   const getUsers = () => {
     api
@@ -68,7 +68,7 @@ const AdminDashboard = () => {
 
   const getAnalysis = () => {
     api
-      .get("/analysis")
+      .get("/analyses")
       .then((res) => setAnalysis(res.data))
       .catch((err) => console.log(`erro!: ${err}`));
   };
@@ -99,7 +99,7 @@ const AdminDashboard = () => {
           mt={["8", "6", "4"]}
           ml={["0", "0", "16"]}
         >
-          Bem vindo, <b>UserName</b>
+          Bem vindo, <b>{user.username}</b>
         </Heading>
       </Flex>
       <Flex direction="column" align="center">

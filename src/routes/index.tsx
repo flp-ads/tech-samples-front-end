@@ -15,6 +15,7 @@ import AnalysesPending from "../pages/AnalysesPending";
 import AnalysisDetails from "../pages/AnalysisDetails";
 import AnalysesConcluded from "../pages/AnalysesConcluded";
 import SearchAnalysis from "../pages/SearchAnalysis";
+import Certificate from "../pages/Certificate";
 
 const Routes = () => {
   return (
@@ -22,6 +23,7 @@ const Routes = () => {
       <Route exact path="/" component={Home} />
       <Route exact path="/about" component={AboutUs} />
       <Route exact path="/search" component={SearchAnalysis} />
+      <Route exact path="/certificate/:id" component={Certificate} />
 
       <Route exact path={"/admin"} component={AdminDashboard} />
       <Route path="/admin/users" component={AdminAllUsers} isPrivate />
