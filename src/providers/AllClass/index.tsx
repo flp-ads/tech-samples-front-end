@@ -37,7 +37,7 @@ export const AllClassProvider = ({ children }: ClassProviderProps) => {
   const [allClasses, setAllClasses] = useState<IClass[]>([] as IClass[]);
 
   const { token } = useAuth();
-  const { errorFeedback, sucessFeedback } = UseFeedback();
+  const { errorFeedback, successFeedback } = UseFeedback();
 
   const getAllClasses = () => {
     api
@@ -60,7 +60,7 @@ export const AllClassProvider = ({ children }: ClassProviderProps) => {
           },
         }
       )
-      .then(() => sucessFeedback("Classe Adicionada"))
+      .then(() => successFeedback("Classe Adicionada"))
       .catch(() => errorFeedback("Erro tentar adicionar classe"));
   };
 

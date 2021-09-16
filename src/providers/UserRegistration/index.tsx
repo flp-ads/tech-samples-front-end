@@ -24,13 +24,13 @@ const UserRegistrationContext = createContext<UserRegistrationData>(
 
 export const UserRegistrationProvider = ({ children }: Props) => {
   const history = useHistory();
-  const { errorFeedback, sucessFeedback } = UseFeedback();
+  const { errorFeedback, successFeedback } = UseFeedback();
 
   const signup = (user: UserData) => {
     api
       .post("/register", user)
       .then(() => {
-        sucessFeedback("Usuário criado com sucesso!");
+        successFeedback("Usuário criado com sucesso!");
         history.push("/admin/users");
       })
       .catch(() => {

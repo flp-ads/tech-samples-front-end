@@ -25,7 +25,7 @@ interface AuthProviderData {
   login: (
     userData: UserLoginData,
     errorMessage: string,
-    sucessMessage: string
+    successMessage: string
   ) => void;
   user: UserLocalData;
 }
@@ -42,13 +42,13 @@ export const AuthProvider = ({ children }: Props) => {
     }
     return {};
   });
-  const { errorFeedback, sucessFeedback } = UseFeedback();
+  const { errorFeedback, successFeedback } = UseFeedback();
   const history = useHistory();
 
   const login = (
     userData: UserLoginData,
     errorMessage: string,
-    sucessMessage: string
+    successMessage: string
   ) => {
     api
       .post("/login", userData)
@@ -60,7 +60,7 @@ export const AuthProvider = ({ children }: Props) => {
           JSON.stringify(response.data.user)
         );
         setUser(response.data.user);
-        sucessFeedback(sucessMessage);
+        successFeedback(successMessage);
         history.push("/admin");
       })
       .catch((err) => {

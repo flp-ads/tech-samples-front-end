@@ -34,7 +34,7 @@ const UsersContext = createContext<UsersProviderData>({} as UsersProviderData);
 export const UsersProvider = ({ children }: Props) => {
   const [users, setUsers] = useState<UserData[]>([]);
   const { token } = useAuth();
-  const { errorFeedback, sucessFeedback } = UseFeedback();
+  const { errorFeedback, successFeedback } = UseFeedback();
 
   const getUsers = () => {
     api
@@ -56,7 +56,7 @@ export const UsersProvider = ({ children }: Props) => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then(() => sucessFeedback("Usuário Removido"))
+      .then(() => successFeedback("Usuário Removido"))
       .catch(() => errorFeedback("Erro ao remover usuário!"));
   };
 

@@ -8,15 +8,16 @@ interface Props {
 }
 
 interface FeedbackData {
-  sucessFeedback: (message: string) => void;
+  successFeedback: (message: string) => void;
   errorFeedback: (message: string) => void;
 }
 
 const UserFeedbackContext = createContext<FeedbackData>({} as FeedbackData);
 
 export const UserFeedbackProvider = ({ children }: Props) => {
-  const sucessFeedback = (message: string) => {
+  const successFeedback = (message: string) => {
     toast(message, {
+      autoClose: 1500,
       icon: <AiOutlineCheckCircle size={36} />,
       style: {
         color: "#002887",
@@ -28,7 +29,7 @@ export const UserFeedbackProvider = ({ children }: Props) => {
     toast.error(message);
   };
   return (
-    <UserFeedbackContext.Provider value={{ sucessFeedback, errorFeedback }}>
+    <UserFeedbackContext.Provider value={{ successFeedback, errorFeedback }}>
       {children}
     </UserFeedbackContext.Provider>
   );

@@ -67,7 +67,7 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
 
   const { token } = useAuth();
 
-  const { errorFeedback, sucessFeedback } = UseFeedback();
+  const { errorFeedback, successFeedback } = UseFeedback();
 
   const fetchClass = (id: string) => {
     api
@@ -114,7 +114,7 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
       )
       .then((_) => {
         setUpdateTrigger(!updateTrigger);
-        sucessFeedback("Classe Removida");
+        successFeedback("Classe Removida");
       })
       .catch(() => {
         errorFeedback("Erro ao remover classe!");
@@ -148,7 +148,7 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
         .then((_) => {
           console.log(newClassAnalyses);
           setUpdateTrigger(!updateTrigger);
-          sucessFeedback("Classe Adicionada");
+          successFeedback("Classe Adicionada");
         })
         .catch((err) => {
           errorFeedback("Erro ao adicionar classe!");
@@ -204,7 +204,7 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
           }
         )
         .then((_) => {
-          sucessFeedback("Parâmetro cadrastado com sucesso!");
+          successFeedback("Parâmetro cadrastado com sucesso!");
           setUpdateTrigger(!updateTrigger);
         })
         .catch((err) => {
@@ -254,7 +254,7 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
       )
       .then((_) => {
         setUpdateTrigger(!updateTrigger);
-        sucessFeedback("Parâmetro Removido");
+        successFeedback("Parâmetro Removido");
       })
       .catch((err) => {
         errorFeedback("Erro ao remover parâmetro!");

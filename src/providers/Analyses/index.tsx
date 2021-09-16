@@ -45,7 +45,7 @@ export const AnalysisProvider = ({ children }: AnalysesProviderProps) => {
 
   const { allClasses } = useAllClass();
   const { token, user } = useAuth();
-  const { errorFeedback, sucessFeedback } = UseFeedback();
+  const { errorFeedback, successFeedback } = UseFeedback();
 
   const getAllAnalyses = () => {
     api
@@ -56,7 +56,7 @@ export const AnalysisProvider = ({ children }: AnalysesProviderProps) => {
       })
       .then((response) => {
         setAnalyses(response.data);
-        sucessFeedback("Análises Carregadas");
+        successFeedback("Análises Carregadas");
       })
       .catch(() => errorFeedback("Erro ao carregar análises!"));
   };
@@ -85,7 +85,7 @@ export const AnalysisProvider = ({ children }: AnalysesProviderProps) => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then(() => sucessFeedback("Análise Adicionada"))
+      .then(() => successFeedback("Análise Adicionada"))
       .catch(() => errorFeedback("Erro ao adicionar análise!"));
   };
 
