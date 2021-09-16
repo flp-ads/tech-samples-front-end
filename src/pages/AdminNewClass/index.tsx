@@ -6,18 +6,16 @@ import CardClass from "../../components/Cards/CardClass";
 import { useEffect } from "react";
 import { FaUserEdit } from "react-icons/fa";
 import { useAllClass } from "../../providers/AllClass";
+import { useAuth } from "../../providers/Auth";
 
 const NewClass = () => {
   const { allClasses, getAllClasses, addNewClass } = useAllClass();
-  // const tokenTeste = localStorage.getItem("token") || "[]";
+  const { user } = useAuth()
   const [className, setClassName] = useState<string>("");
-  const userId = 5;
-
-  //pegar userId na hora do login
 
   useEffect(() => {
     getAllClasses();
-  }, [allClasses]);
+  }, [allClasses]); //eslint-disable-line
 
   return (
     <div>
@@ -63,7 +61,7 @@ const NewClass = () => {
             variant="default"
             w="fit-content"
             onClick={() => {
-              addNewClass(className, userId);
+              addNewClass(className, user.id);
               setClassName("");
             }}
           >
