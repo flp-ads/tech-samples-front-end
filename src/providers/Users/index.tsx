@@ -7,7 +7,7 @@ import {
   useState,
 } from "react";
 import api from "../../services/api";
-// import { useAuth } from "../Auth";
+import { useAuth } from "../Auth";
 
 interface Props {
   children: ReactNode;
@@ -32,9 +32,7 @@ const UsersContext = createContext<UsersProviderData>({} as UsersProviderData);
 
 export const UsersProvider = ({ children }: Props) => {
   const [users, setUsers] = useState<UserData[]>([]);
-  //   const { token } = useAuth();
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxQHRlc3QuY29tIiwiaWF0IjoxNjMxNTY2NTY3LCJleHAiOjE2MzE1NzAxNjcsInN1YiI6IjEifQ.79s7fI1V8xNm2Y5fvvRXMN7ZthYz_Mg_e7XbZDVIg4g";
+  const { token } = useAuth();
 
   const getUsers = () => {
     api
