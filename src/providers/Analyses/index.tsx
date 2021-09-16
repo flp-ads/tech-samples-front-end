@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useContext, useState } from "react";
+import { Dispatch, SetStateAction } from "toasted-notes/node_modules/@types/react";
 
 import api from "../../services/api";
 
@@ -25,6 +26,8 @@ interface AnalysesProviderData {
   analyses: IAnalysis[];
   getAllAnalyses: () => void;
   newAnalysis: (analysisData: IAnalysis) => void;
+  idNumber: number;
+  setIdNumber: Dispatch<SetStateAction<number>>;
 }
 
 const AnalysesContext = createContext<AnalysesProviderData>(
@@ -32,6 +35,8 @@ const AnalysesContext = createContext<AnalysesProviderData>(
 );
 
 export const AnalysisProvider = ({ children }: AnalysesProviderProps) => {
+
+  const [idNumber, setIdNumber] = useState<number>(0)
 
   const [analyses, setAnalyses] = useState<IAnalysis[]>([] as IAnalysis[]);
   
@@ -83,7 +88,7 @@ export const AnalysisProvider = ({ children }: AnalysesProviderProps) => {
   };
 
   return (
-    <AnalysesContext.Provider value={{ getAllAnalyses, analyses, newAnalysis }}>
+    <AnalysesContext.Provider value={{ getAllAnalyses, analyses, newAnalysis, idNumber, setIdNumber }}>
       {children}
     </AnalysesContext.Provider>
   );

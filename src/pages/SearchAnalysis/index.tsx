@@ -5,6 +5,7 @@ import { GlobalHeader } from "../../components/GlobalHeader";
 import { useAllClass } from "../../providers/AllClass";
 import CardDescription from "../../components/Cards/CardDescription";
 import { useAnalyses } from "../../providers/Analyses";
+import { useHistory } from "react-router-dom";
 
 interface IAnalysis {
   name: string;
@@ -20,7 +21,7 @@ interface IAnalysis {
 
 const SearchAnalysis = () => {
   const { allClasses, getAllClasses } = useAllClass();
-  const { analyses, getAllAnalyses} = useAnalyses()
+  const { analyses, getAllAnalyses, setIdNumber} = useAnalyses()
 
   const [errorMsg, setErrorMsg] = useState<boolean>(false);
 
@@ -66,6 +67,14 @@ const SearchAnalysis = () => {
     getAllAnalyses();
     getAllClasses();
   }, []); //eslint-disable-line
+
+  const history = useHistory()
+
+  const handlePrint = (id: number) => {
+    setIdNumber(id);
+    history.push(`/certificate/${id}`)
+    // console.log(idNumber)
+  }
 
   return (
     <div>
@@ -224,7 +233,7 @@ const SearchAnalysis = () => {
               name={item.name}
               concluded={item.isConcluded}
             >
-              <Button variant="sucess">Imprimir</Button>
+              <Button variant="sucess" onClick={() => handlePrint(item.id)}>Imprimir</Button>
             </CardDescription>
           ))}
         </Flex>
