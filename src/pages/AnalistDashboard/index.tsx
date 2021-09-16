@@ -6,7 +6,7 @@ import NavBar from "../../components/GlobalHeader";
 import api from "../../services/api";
 import { useAuth } from "../../providers/Auth";
 
-interface AnalysisData {
+interface AnalysesData {
   name: string;
   category: string;
   batch: string;
@@ -14,32 +14,27 @@ interface AnalysisData {
 }
 
 const AnalistDashboard = () => {
-  //   const [user] = useAuth()
-  const user = { email: "user1@test.com", id: 1 };
+  const { user } = useAuth();
 
-  const [analysis, setAnalysis] = useState<AnalysisData[]>([]);
+  const [analyses, setAnalyses] = useState<AnalysesData[]>([]);
   const MAX_CARDS = 2;
   const history = useHistory();
 
   const getAnalysis = () => {
     api
-      .get(`/analysis?userID=${user.id}`)
-      .then((res) => setAnalysis(res.data))
+      .get(`/analyses?userID=${user.id}`)
+      .then((res) => setAnalyses(res.data))
       .catch((err) => console.log(`erro!: ${err}`));
   };
 
-  const isFinished = analysis.filter((analysi) => analysi.concluded === true);
-  const isNotFinished = analysis.filter(
-    (analysi) => analysi.concluded === false
+  const isFinished = analyses.filter((analysis) => analysis.concluded === true);
+  const isNotFinished = analyses.filter(
+    (analysis) => analysis.concluded === false
   );
 
   useEffect(() => {
     getAnalysis();
   }, []);
-
-  console.log(analysis);
-  console.log(isNotFinished);
-  console.log(isFinished);
 
   return (
     <>
@@ -60,7 +55,7 @@ const AnalistDashboard = () => {
           mt={["8", "6", "4"]}
           ml={["0", "0", "16"]}
         >
-          Bem vindo, <b>UserName</b>
+          Bem vindo, <b>{user.username}</b>
         </Heading>
       </Flex>
       <Flex direction="column" align="center">
@@ -85,7 +80,7 @@ const AnalistDashboard = () => {
             <Text fontSize="2xl" color="blue.300" mt="3">
               Você possui <br />
               <Text fontWeight="semibold" color="blue.600">
-                {analysis.length} amostras cadastradas
+                {analyses.length} amostras cadastradas
               </Text>
             </Text>
             <Text fontSize="2xl" color="blue.300" mt="3">
