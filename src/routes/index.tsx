@@ -12,6 +12,7 @@ import AnalistDashboard from "../pages/AnalistDashboard";
 import AdminDashboard from "../pages/AdminDashboard";
 import AnalysesPending from "../pages/AnalysesPending";
 import AnalysisDetails from "../pages/AnalysisDetails";
+import Certificate from "../pages/Certificate";
 
 const Routes = () => {
   return (
@@ -26,6 +27,7 @@ const Routes = () => {
       <Route exact path={"/analistdashboard"} component={AnalistDashboard} />
       <Route exact path="/analysespending" component={AnalysesPending} />
       <Route exact path="/analysespending/:id" component={AnalysisDetails} />
+      <Route exact path={`/certificate/:id`} component={Certificate} />
     </Switch>
   );
 };
