@@ -14,12 +14,14 @@ import AdminDashboard from "../pages/AdminDashboard";
 import AnalysesPending from "../pages/AnalysesPending";
 import AnalysisDetails from "../pages/AnalysisDetails";
 import AnalysesConcluded from "../pages/AnalysesConcluded";
+import SearchAnalysis from "../pages/SearchAnalysis";
 
 const Routes = () => {
   return (
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/about" component={AboutUs} />
+      <Route exact path="/search" component={SearchAnalysis} />
 
       <Route exact path={"/admin"} component={AdminDashboard} />
       <Route path="/admin/users" component={AdminAllUsers} isPrivate />
