@@ -8,6 +8,8 @@ import {
 } from "react";
 import api from "../../services/api";
 
+import { useAuth } from '../Auth'
+
 interface IClass {
   name: string;
   analyses: [];
@@ -32,10 +34,8 @@ const AllClassContext = createContext<ClassProviderData>(
 
 export const AllClassProvider = ({ children }: ClassProviderProps) => {
   const [allClasses, setAllClasses] = useState<IClass[]>([] as IClass[]);
-//   console.log(allClasses)
-  // const token = localStorage.getItem("token") || "[]";
-  const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsZXhAdGVzdGUuY29tIiwiaWF0IjoxNjMxNzM5MjU4LCJleHAiOjE2MzE3NDI4NTgsInN1YiI6IjUifQ.gO0moNOH8WxM0d5hMol3qaj3BNB5P_LdpeGZklrFOVc";
+
+  const { token } = useAuth()
 
   const getAllClasses = () => {
     api

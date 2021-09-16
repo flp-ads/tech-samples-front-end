@@ -5,35 +5,21 @@ import GlobalHeader from "../../components/GlobalHeader";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+
 import { useAllClass } from "../../providers/AllClass";
 import { useEffect } from "react";
 import { useAnalyses } from "../../providers/Analyses";
 
-interface IAnalysis {
-  name: string;
-  batch: string;
-  made: string;
-  category: string;
-  class: string;
-  analyses: [];
-  isConcluded: boolean;
-  userId: number;
-  id: number;
-}
+import { IAnalysis } from '../../providers/Analyses'
 
 const NewSamples = () => {
+
   const { allClasses, getAllClasses } = useAllClass();
   const { newAnalysis } = useAnalyses();
-  // const [classe, setClasse] = useState<IClass[]>([] as IClass[]);
-
-  // const handleClass = (className: string) => {
-  //   const newClass = allClasses.filter((item) => item.name === className);
-  //   setClasse(newClass);
-  // };
 
   useEffect(() => {
     getAllClasses();
-  }, [allClasses]);
+  }, []); //eslint-disable-line
 
   const formSchema = yup.object().shape({
     name: yup.string().required("Nome obrigatório"),
