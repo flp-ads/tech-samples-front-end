@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useAllClass } from "../../providers/AllClass";
 import { useEffect } from "react";
-import { useAnalyses } from "../../providers/Analyses";
+// import { useAnalyses } from "../../providers/Analyses";
 
 interface IAnalysis {
   name: string;
@@ -23,7 +23,7 @@ interface IAnalysis {
 
 const NewSamples = () => {
   const { allClasses, getAllClasses } = useAllClass();
-  const { newAnalysis } = useAnalyses();
+  // const { newAnalysis } = useAnalyses();
   // const [classe, setClasse] = useState<IClass[]>([] as IClass[]);
 
   // const handleClass = (className: string) => {
@@ -52,7 +52,7 @@ const NewSamples = () => {
   });
 
   const onFormSubmit = (formData: IAnalysis) => {
-    newAnalysis(formData);
+    // newAnalysis(formData);
   };
 
   return (
