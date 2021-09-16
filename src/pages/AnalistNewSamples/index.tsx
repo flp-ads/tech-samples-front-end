@@ -1,4 +1,4 @@
-import { Flex, Input, Select, Box, Button } from "@chakra-ui/react";
+import { Flex, Input, Select, Box, Button, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import GlobalHeader from "../../components/GlobalHeader";
 
@@ -23,7 +23,7 @@ const NewSamples = () => {
   const formSchema = yup.object().shape({
     name: yup.string().required("Nome obrigatório"),
     batch: yup.string().required("Número do lote obrigatório"),
-    made: yup.date().required("Fabricação obrigatória"),
+    made: yup.date().required().typeError("Data fabricação obrigatória"),
     category: yup.string().required("Categoria obrigatória"),
     class: yup.string().required("Classe obrigatória"),
   });
@@ -77,66 +77,92 @@ const NewSamples = () => {
           width={{ base: "100%", sm: "100%", md: "90%" }}
           justifyContent="space-between"
         >
-          <Input
-            marginTop={{ base: "4", sm: "4", md: "5" }}
+          <Flex
+            flexDir="column"
             width={{ base: "100%", sm: "100%", md: "45%" }}
-            variant="flushed"
-            marginBottom="1px solid"
-            borderColor="blue.600"
-            placeholder="Nome da Amostra"
-            mb="4"
-            {...register("name")}
-            error={errors.name?.message}
-          />
-          <Input
-            marginTop={{ base: "4", sm: "4", md: "5" }}
-            width={{ base: "100%", sm: "100%", md: "45%" }}
-            variant="flushed"
-            marginBottom="1px solid"
-            borderColor="blue.600"
-            placeholder="Nº do Lote"
-            mb="4"
-            {...register("batch")}
-            error={errors.batch?.message}
-          />
-          <Input
-            marginTop={{ base: "4", sm: "4", md: "5" }}
-            width={{ base: "100%", sm: "100%", md: "45%" }}
-            variant="flushed"
-            marginBottom="1px solid"
-            borderColor="blue.600"
-            placeholder="Data de Fabricação"
-            type="date"
-            mb="4"
-            {...register("made")}
-            error={errors.made?.message}
-          />
-          <Select
-            variant="flushed"
-            marginTop={{ base: "4", sm: "4", md: "5" }}
-            width={{ base: "100%", sm: "100%", md: "45%" }}
-            placeholder="Categoria"
-            {...register("category")}
           >
-            <option value="Matéria-Prima">Matéria Prima</option>
-            <option value="Produto Acabado">Produto Acabado</option>
-            <option value="Produtos em Processo">Produtos em Processo</option>
-            <option value="Embalagem">Embalagem</option>
-            <option value="Outros">Outros</option>
-          </Select>
-          <Select
-            variant="flushed"
+            <Input
+              marginTop={{ base: "4", sm: "4", md: "5" }}
+              variant="flushed"
+              marginBottom="1px solid"
+              borderColor="blue.600"
+              placeholder="Nome da Amostra"
+              mb="4"
+              {...register("name")}
+              error={errors.name?.message}
+            />
+            <Text color="red.600" fontSize={13} h={5}>
+              {errors.name?.message}
+            </Text>
+          </Flex>
+          <Box flexDir="column" width={{ base: "100%", sm: "100%", md: "45%" }}>
+            <Input
+              marginTop={{ base: "4", sm: "4", md: "5" }}
+              variant="flushed"
+              marginBottom="1px solid"
+              borderColor="blue.600"
+              placeholder="Nº do Lote"
+              mb="4"
+              {...register("batch")}
+              error={errors.batch?.message}
+            />
+            <Text color="red.600" fontSize={13} h={5}>
+              {errors.batch?.message}
+            </Text>
+          </Box>
+          <Box flexDir="column" width={{ base: "100%", sm: "100%", md: "45%" }}>
+            <Input
+              marginTop={{ base: "4", sm: "4", md: "5" }}
+              variant="flushed"
+              marginBottom="1px solid"
+              borderColor="blue.600"
+              placeholder="Data de Fabricação"
+              type="date"
+              mb="4"
+              {...register("made")}
+              error={errors.made?.message}
+            />
+            <Text color="red.600" fontSize={13} h={5}>
+              {errors.made?.message}
+            </Text>
+          </Box>
+          <Box flexDir="column" width={{ base: "100%", sm: "100%", md: "45%" }}>
+            <Select
+              variant="flushed"
+              marginTop={{ base: "4", sm: "4", md: "5" }}
+              placeholder="Categoria"
+              {...register("category")}
+            >
+              <option value="Matéria-Prima">Matéria Prima</option>
+              <option value="Produto Acabado">Produto Acabado</option>
+              <option value="Produtos em Processo">Produtos em Processo</option>
+              <option value="Embalagem">Embalagem</option>
+              <option value="Outros">Outros</option>
+            </Select>
+            <Text color="red.600" fontSize={13} h={5}>
+              {errors.category?.message}
+            </Text>
+          </Box>
+          <Box
             margin="20px auto"
-            width={{ base: "100%", sm: "100%", md: "50%" }}
-            placeholder="Classe"
-            {...register("class")}
+            flexDir="column"
+            width={{ base: "100%", sm: "100%", md: "45%" }}
           >
-            {allClasses.map((item) => (
-              <option key={item.id} value={item.name}>
-                {item.name}
-              </option>
-            ))}
-          </Select>
+            <Select
+              variant="flushed"
+              placeholder="Classe"
+              {...register("class")}
+            >
+              {allClasses.map((item) => (
+                <option key={item.id} value={item.name}>
+                  {item.name}
+                </option>
+              ))}
+            </Select>
+            <Text color="red.600" fontSize={13} h={5}>
+              {errors.class?.message}
+            </Text>
+          </Box>
         </Flex>
         <Button
           marginTop={{ base: "4", sm: "4", md: "5" }}
