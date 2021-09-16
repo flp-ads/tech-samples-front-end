@@ -13,6 +13,7 @@ import AnalistDashboard from "../pages/AnalistDashboard";
 import AdminDashboard from "../pages/AdminDashboard";
 import AnalysesPending from "../pages/AnalysesPending";
 import AnalysisDetails from "../pages/AnalysisDetails";
+import AnalysesConcluded from "../pages/AnalysesConcluded";
 
 const Routes = () => {
   return (
@@ -30,6 +31,7 @@ const Routes = () => {
       <Route exact path={"/analyst"} component={AnalistDashboard} />
       <Route exact path="/analyst/pending" component={AnalysesPending} />
       <Route exact path="/analyst/pending/:id" component={AnalysisDetails} />
+      <Route exact path="/analyst/concluded" component={AnalysesConcluded} />
     </Switch>
   );
 };
