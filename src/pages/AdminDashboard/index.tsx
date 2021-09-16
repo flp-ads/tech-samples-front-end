@@ -87,7 +87,6 @@ const AdminDashboard = () => {
           <Link to="/admin/classes">Cadastrar Classe</Link>
           <Link to="/admin/users">Todos Usuários</Link>
           <Link to="/admin/user_register">Cadastrar Usuário</Link>
-          <Link to="">Logout</Link>
         </NavBar>
       </Box>
 

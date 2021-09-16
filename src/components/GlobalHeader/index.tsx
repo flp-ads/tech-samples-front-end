@@ -1,8 +1,9 @@
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { Image } from "@chakra-ui/image";
-import { Box, Flex, Heading } from "@chakra-ui/layout";
+import { Box, Flex } from "@chakra-ui/layout";
 import { Menu, MenuButton, MenuList } from "@chakra-ui/menu";
 import { ReactNode } from "react";
+import { Link } from "react-router-dom";
 import logo from "../../assets/icons/logo_desktop.svg";
 import logoMobile from "../../assets/icons/logo_mobile.svg";
 
@@ -36,22 +37,23 @@ export const GlobalHeader = ({ children }: NavBarProps) => {
         color="white"
         alignItems="center"
         height="fit-content"
-        width="30%"
+        minWidth="50%"
+        maxWidth="50%"
         justifyContent="space-evenly"
         fontFamily="heading"
         fontWeight="semibold"
         fontSize="sm"
         marginRight={{ base: "0", sm: "0", md: "5" }}
-        
       >
         <Flex
           display={{ base: "none", sm: "none", md: "flex" }}
           w="100%"
           justifyContent="space-evenly"
           textAlign="center"
-          alignItems='center'
+          alignItems="center"
         >
           {children}
+          <Link to="/">Logout</Link>
         </Flex>
         <Menu autoSelect={false}>
           <MenuButton
@@ -67,7 +69,7 @@ export const GlobalHeader = ({ children }: NavBarProps) => {
             bg="blue.700"
             _selected={{ bg: "blue.600" }}
             flexDirection="column"
-            paddingLeft='2'
+            paddingLeft="2"
           >
             {children}
           </MenuList>
