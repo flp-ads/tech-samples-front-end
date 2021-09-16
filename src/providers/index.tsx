@@ -5,6 +5,7 @@ import { AllClassProvider } from "./AllClass";
 import { AnalysisProvider } from "./Analyses";
 import { AuthProvider } from "./Auth";
 import { ClassProvider } from "./Class";
+import { LogoutProvider } from "./Logout";
 import { UserRegistrationProvider } from "./UserRegistration";
 import { UsersProvider } from "./Users";
 
@@ -20,7 +21,11 @@ export const AppProvider = ({ children }: AppProviderProps) => {
           <AllClassProvider>
             <UserRegistrationProvider>
               <AnalysisProvider>
-                <ChakraProvider theme={custonTheme}>{children}</ChakraProvider>
+                <LogoutProvider>
+                  <ChakraProvider theme={custonTheme}>
+                    {children}
+                  </ChakraProvider>
+                </LogoutProvider>
               </AnalysisProvider>
             </UserRegistrationProvider>
           </AllClassProvider>
