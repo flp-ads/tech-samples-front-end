@@ -5,34 +5,25 @@ import GlobalHeader from "../../components/GlobalHeader";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+
 import { useAllClass } from "../../providers/AllClass";
 import { useEffect } from "react";
+import { useAnalyses } from "../../providers/Analyses";
 
-
-interface FormProps {
-  name: string;
-  batch: number;
-  made: Date;
-  category: string;
-  class: string;
-}
+import { IAnalysis } from '../../providers/Analyses'
 
 const NewSamples = () => {
-  const { allClasses, getAllClasses } = useAllClass();
-  // const [classe, setClasse] = useState<IClass[]>([] as IClass[]);
 
-  // const handleClass = (className: string) => {
-  //   const newClass = allClasses.filter((item) => item.name === className);
-  //   setClasse(newClass);
-  // };
+  const { allClasses, getAllClasses } = useAllClass();
+  const { newAnalysis } = useAnalyses();
 
   useEffect(() => {
     getAllClasses();
-  }, [allClasses]);
+  }, []); //eslint-disable-line
 
   const formSchema = yup.object().shape({
     name: yup.string().required("Nome obrigatório"),
-    batch: yup.number().required("Número do lote obrigatório"),
+    batch: yup.string().required("Número do lote obrigatório"),
     made: yup.date().required("Fabricação obrigatória"),
     category: yup.string().required("Categoria obrigatória"),
     class: yup.string().required("Classe obrigatória"),
@@ -46,8 +37,8 @@ const NewSamples = () => {
     resolver: yupResolver(formSchema),
   });
 
-  const onFormSubmit = (formData: FormProps) => {
-    console.log(formData);
+  const onFormSubmit = (formData: IAnalysis) => {
+    newAnalysis(formData);
   };
 
   return (

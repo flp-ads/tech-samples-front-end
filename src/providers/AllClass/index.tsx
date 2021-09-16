@@ -8,6 +8,8 @@ import {
 } from "react";
 import api from "../../services/api";
 
+import { useAuth } from '../Auth'
+
 interface IClass {
   name: string;
   analyses: [];
@@ -23,7 +25,7 @@ interface ClassProviderData {
   allClasses: IClass[];
   getAllClasses: () => void;
   setAllClasses: Dispatch<SetStateAction<IClass[]>>;
-  addNewClass: (value: any, userId: number) => void;
+  addNewClass: (value: string, userId: number) => void;
 }
 
 const AllClassContext = createContext<ClassProviderData>(
@@ -32,10 +34,8 @@ const AllClassContext = createContext<ClassProviderData>(
 
 export const AllClassProvider = ({ children }: ClassProviderProps) => {
   const [allClasses, setAllClasses] = useState<IClass[]>([] as IClass[]);
-//   console.log(allClasses)
-  // const token = localStorage.getItem("token") || "[]";
-  const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsZXhAdGVzdGUuY29tIiwiaWF0IjoxNjMxNzA0OTk4LCJleHAiOjE2MzE3MDg1OTgsInN1YiI6IjUifQ.Y3sNhSDQH2r6BJEQ9g6GLWx5qb7YFO5NwKf4jUTyabk";
+
+  const { token } = useAuth()
 
   const getAllClasses = () => {
     api
