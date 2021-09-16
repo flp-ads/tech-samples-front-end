@@ -73,7 +73,6 @@ const SearchAnalysis = () => {
   const handlePrint = (id: number) => {
     setIdNumber(id);
     history.push(`/certificate/${id}`)
-    // console.log(idNumber)
   }
 
   return (
