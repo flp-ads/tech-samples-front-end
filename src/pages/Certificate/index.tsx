@@ -19,7 +19,7 @@ interface AnalysisContent {
           vmin: string;
           vmax: string;
           result: string;
-          isAproved: boolean;
+          isApproved: boolean;
         }
       ];
     }
@@ -128,12 +128,16 @@ const Certificate = () => {
               </Flex>
 
               {report[0].analyses.map((name, index) => (
-                <>
-                  <Heading key={index} as="h2" fontSize="3xl" mt="4">
+                <Flex
+                  direction="column"
+                  w="100%"
+                  align="center"
+                  key={name.an_name}
+                >
+                  <Heading as="h2" fontSize="3xl" mt="4">
                     {name.an_name}
                   </Heading>
                   <Flex
-                    key={name.an_name}
                     m="6"
                     w="90%"
                     boxShadow="0px 0px 20px rgba(0, 0, 0, 0.1)"
@@ -145,7 +149,7 @@ const Certificate = () => {
                   >
                     {name.parameters.map((parameter, index) => (
                       <Flex direction="row" key={parameter.name}>
-                        <Flex w="35%" direction="row" key={index}>
+                        <Flex w="35%" direction="row">
                           <Text as="span" fontWeight="bold" fontSize="md">
                             Análise:
                             <Text
@@ -193,7 +197,7 @@ const Certificate = () => {
                               fontWeight="normal"
                               fontSize="0.875rem"
                             >
-                              {parameter.isAproved === false
+                              {parameter.isApproved === false
                                 ? "Reprovado"
                                 : "Aprovado"}
                             </Text>
@@ -202,7 +206,7 @@ const Certificate = () => {
                       </Flex>
                     ))}
                   </Flex>
-                </>
+                </Flex>
               ))}
               <Flex
                 textAlign="left"
@@ -268,8 +272,9 @@ const Certificate = () => {
               </Flex>
               <Flex width="90%" mt="2">
                 <Text fontSize="0.60rem" textAlign="left">
-                  <b>Legenda:</b> considerar unidade de medida = <b>Un.</b>, Não
-                  aplicável = <b>NA</b>, para análises sensoriais considerar
+                  <b>Legenda:</b> considerar unidade de medida como <b>Un.</b>,
+                  Não aplicável como <b>NA</b>, para análises sensoriais
+                  considerar
                   <b> 1</b> como melhor que o padrão,
                   <b> 2</b> igual ao padrão e <b> 3</b> diferente do padrão.
                 </Text>
