@@ -5,6 +5,7 @@ import { AllClassProvider } from "./AllClass";
 import { AnalysisProvider } from "./Analyses";
 import { AuthProvider } from "./Auth";
 import { ClassProvider } from "./Class";
+import { UserFeedbackProvider } from "./UserFeedback";
 import { UserRegistrationProvider } from "./UserRegistration";
 import { UsersProvider } from "./Users";
 
@@ -14,18 +15,22 @@ interface AppProviderProps {
 
 export const AppProvider = ({ children }: AppProviderProps) => {
   return (
-    <AuthProvider>
-      <UsersProvider>
-        <ClassProvider>
-          <AllClassProvider>
-            <UserRegistrationProvider>
-              <AnalysisProvider>
-                <ChakraProvider theme={custonTheme}>{children}</ChakraProvider>
-              </AnalysisProvider>
-            </UserRegistrationProvider>
-          </AllClassProvider>
-        </ClassProvider>
-      </UsersProvider>
-    </AuthProvider>
+    <UserFeedbackProvider>
+      <AuthProvider>
+        <UsersProvider>
+          <ClassProvider>
+            <AllClassProvider>
+              <UserRegistrationProvider>
+                <AnalysisProvider>
+                  <ChakraProvider theme={custonTheme}>
+                    {children}
+                  </ChakraProvider>
+                </AnalysisProvider>
+              </UserRegistrationProvider>
+            </AllClassProvider>
+          </ClassProvider>
+        </UsersProvider>
+      </AuthProvider>
+    </UserFeedbackProvider>
   );
 };

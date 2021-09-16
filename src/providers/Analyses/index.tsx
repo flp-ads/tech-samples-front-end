@@ -3,7 +3,8 @@ import { createContext, ReactNode, useContext, useState } from "react";
 import api from "../../services/api";
 
 import { useAllClass } from "../AllClass";
-import { useAuth } from '../Auth'
+import { useAuth } from "../Auth";
+import { UseFeedback } from "../UserFeedback";
 
 interface AnalysesProviderProps {
   children: ReactNode;
@@ -18,7 +19,7 @@ export interface IAnalysis {
   analyses: [];
   isConcluded: boolean;
   userId: number;
-  id: number,
+  id: number;
 }
 
 interface AnalysesProviderData {
@@ -32,12 +33,12 @@ const AnalysesContext = createContext<AnalysesProviderData>(
 );
 
 export const AnalysisProvider = ({ children }: AnalysesProviderProps) => {
-
   const [analyses, setAnalyses] = useState<IAnalysis[]>([] as IAnalysis[]);
-  
+
   const { allClasses } = useAllClass();
-  const { token, user } = useAuth()
- 
+  const { token, user } = useAuth();
+  const { errorFeedback, sucessFeedback } = UseFeedback();
+
   const getAllAnalyses = () => {
     api
       .get("/analyses", {
@@ -47,16 +48,17 @@ export const AnalysisProvider = ({ children }: AnalysesProviderProps) => {
       })
       .then((response) => {
         setAnalyses(response.data);
-      });
+        sucessFeedback("Análises Carregadas");
+      })
+      .catch(() => errorFeedback("Erro ao carregar análises!"));
   };
 
   const newAnalysis = (formData: IAnalysis) => {
-
     const { name, batch, category, class: clas, made } = formData;
 
-    const formDataClass = allClasses.find((item) => item.name === clas)
+    const formDataClass = allClasses.find((item) => item.name === clas);
 
-    const classAnalyses = formDataClass?.analyses || [null]
+    const classAnalyses = formDataClass?.analyses || [null];
 
     const newAnalysis = {
       name: name,
@@ -67,19 +69,16 @@ export const AnalysisProvider = ({ children }: AnalysesProviderProps) => {
       analyses: classAnalyses,
       isConcluded: false,
       userId: user.id,
-    }
+    };
 
     api
-      .post(
-        "/analyses/",
-        newAnalysis,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((response) => console.log(response));
+      .post("/analyses/", newAnalysis, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(() => sucessFeedback("Análise Adicionada"))
+      .catch(() => errorFeedback("Erro ao adicionar análise!"));
   };
 
   return (

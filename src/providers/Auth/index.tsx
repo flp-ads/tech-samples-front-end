@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { toast } from "react-toastify";
 import api from "../../services/api";
+import { UseFeedback } from "../UserFeedback";
 
 interface UserLoginData {
   email: string;
@@ -22,7 +22,11 @@ interface UserLocalData {
 interface AuthProviderData {
   token: string;
   setAuth: (value: string) => void;
-  login: (userData: UserLoginData, errorMessage: string) => void;
+  login: (
+    userData: UserLoginData,
+    errorMessage: string,
+    sucessMessage: string
+  ) => void;
   user: UserLocalData;
 }
 
@@ -38,13 +42,17 @@ export const AuthProvider = ({ children }: Props) => {
     }
     return {};
   });
+  const { errorFeedback, sucessFeedback } = UseFeedback();
   const history = useHistory();
 
-  const login = (userData: UserLoginData, errorMessage: string) => {
+  const login = (
+    userData: UserLoginData,
+    errorMessage: string,
+    sucessMessage: string
+  ) => {
     api
       .post("/login", userData)
       .then((response) => {
-        console.log(response);
         localStorage.setItem("@TechSamples/token", response.data.accessToken);
         setAuth(response.data.accessToken);
         localStorage.setItem(
@@ -52,11 +60,11 @@ export const AuthProvider = ({ children }: Props) => {
           JSON.stringify(response.data.user)
         );
         setUser(response.data.user);
+        sucessFeedback(sucessMessage);
         history.push("/admin");
       })
       .catch((err) => {
-        console.log(err);
-        toast.error(errorMessage);
+        errorFeedback(errorMessage);
       });
   };
 

@@ -8,6 +8,7 @@ import {
 } from "react";
 import api from "../../services/api";
 import { useAuth } from "../Auth";
+import { UseFeedback } from "../UserFeedback";
 
 interface Props {
   children: ReactNode;
@@ -33,6 +34,7 @@ const UsersContext = createContext<UsersProviderData>({} as UsersProviderData);
 export const UsersProvider = ({ children }: Props) => {
   const [users, setUsers] = useState<UserData[]>([]);
   const { token } = useAuth();
+  const { errorFeedback, sucessFeedback } = UseFeedback();
 
   const getUsers = () => {
     api
@@ -41,8 +43,10 @@ export const UsersProvider = ({ children }: Props) => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((res) => setUsers(res.data))
-      .catch((err) => console.log(`Não Foi!: ${err}`));
+      .then((res) => {
+        setUsers(res.data);
+      })
+      .catch(() => errorFeedback("Erro ao carregar lista de usuários!"));
   };
 
   const delUsers = (userId: number) => {
@@ -52,7 +56,8 @@ export const UsersProvider = ({ children }: Props) => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .catch((err) => console.log(err));
+      .then(() => sucessFeedback("Usuário Removido"))
+      .catch(() => errorFeedback("Erro ao remover usuário!"));
   };
 
   return (
