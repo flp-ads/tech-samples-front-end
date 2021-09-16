@@ -15,14 +15,14 @@ interface IClassDefaultVals {
   id: -1;
 }
 
- export interface IClassAnalysesParams {
+export interface IClassAnalysesParams {
   name: string;
   unit: string;
   vmin: string;
   vmax: string;
 }
 
- export interface IClassAnalyses {
+export interface IClassAnalyses {
   an_name: string;
   parameters: IClassAnalysesParams[];
 }
@@ -40,15 +40,19 @@ interface ClassProviderProps {
 }
 
 interface ClassProviderData {
-  currentClass: IClass,
-  classAnalyses: IClassAnalyses[],
-  updateTrigger: boolean,
-  fetchClass: (id: string) => void,
-  resetClass: () => void,
-  removeClassType: (id: string, an_name: string) => void,
-  addClassType: ( id: string, formData: INewTypeForm ) => void,
-  addClassTypeParams: (id: string, formData: INewParamsForm) => void,
-  removeClassTypeParams: ( id: string, array: IClassAnalysesParams[], name: string) => void, 
+  currentClass: IClass;
+  classAnalyses: IClassAnalyses[];
+  updateTrigger: boolean;
+  fetchClass: (id: string) => void;
+  resetClass: () => void;
+  removeClassType: (id: string, an_name: string) => void;
+  addClassType: (id: string, formData: INewTypeForm) => void;
+  addClassTypeParams: (id: string, formData: INewParamsForm) => void;
+  removeClassTypeParams: (
+    id: string,
+    array: IClassAnalysesParams[],
+    name: string
+  ) => void;
 }
 
 const ClassContext = createContext<ClassProviderData>({} as ClassProviderData);
@@ -58,9 +62,10 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
 
   const [classAnalyses, setClassAnalyses] = useState<IClassAnalyses[]>([]);
 
-  const [updateTrigger, setUpdateTrigger] = useState<boolean>(false)
+  const [updateTrigger, setUpdateTrigger] = useState<boolean>(false);
 
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxQHRlc3QuY29tIiwiaWF0IjoxNjMxNjM5MDU4LCJleHAiOjE2MzE2NDI2NTgsInN1YiI6IjEifQ.JfgPD6K3IRjmsnPgznwE6Uw-dituURy-gUy1NG80wnE";
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxQHRlc3QuY29tIiwiaWF0IjoxNjMxODE4NzcxLCJleHAiOjE2MzE4MjIzNzEsInN1YiI6IjEifQ.G9Gb7V9ReTg3hD0NlZxhZTW1qDm3T4058hYaWWBCN5s";
 
   const fetchClass = (id: string) => {
     api
@@ -70,13 +75,13 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
         },
       })
       .then((response) => {
-
-        const sortedAnalyses = response.data.analyses
-        .sort((a: IClassAnalyses, b:IClassAnalyses ) => {
-          let nameA = a.an_name.toUpperCase()
-          let nameB = b.an_name.toUpperCase()
-          return (nameA < nameB) ? -1 : (nameA > nameB) ? 1 : 0;
-        })
+        const sortedAnalyses = response.data.analyses.sort(
+          (a: IClassAnalyses, b: IClassAnalyses) => {
+            let nameA = a.an_name.toUpperCase();
+            let nameB = b.an_name.toUpperCase();
+            return nameA < nameB ? -1 : nameA > nameB ? 1 : 0;
+          }
+        );
 
         setCurrentClass(response.data);
         setClassAnalyses(sortedAnalyses);
@@ -120,7 +125,7 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
       parameters: [],
     };
 
-    const newClassAnalyses = [...classAnalyses, newClassType].sort()
+    const newClassAnalyses = [...classAnalyses, newClassType].sort();
 
     if (!alreadyListedTypes.includes(an_name)) {
       api
@@ -150,12 +155,18 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
   const addClassTypeParams = (id: string, formData: INewParamsForm) => {
     const { an_name, name, vmin, vmax, unit } = formData;
 
-    const listedParamsNames = ['']
-    classAnalyses.forEach(( analysis ) => analysis.parameters.map( param => listedParamsNames.push(param.name)))
+    const listedParamsNames = [""];
+    classAnalyses.forEach((analysis) =>
+      analysis.parameters.map((param) => listedParamsNames.push(param.name))
+    );
 
-    const removingOldName = classAnalyses.filter(analysis => analysis.an_name !== an_name)
-    
-    const classToReplace = classAnalyses.find(( analysis ) => analysis.an_name === an_name)
+    const removingOldName = classAnalyses.filter(
+      (analysis) => analysis.an_name !== an_name
+    );
+
+    const classToReplace = classAnalyses.find(
+      (analysis) => analysis.an_name === an_name
+    );
 
     const oldParams = classToReplace?.parameters || [null];
 
@@ -164,6 +175,8 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
       unit: unit,
       vmin: vmin,
       vmax: vmax,
+      result: "",
+      isApproved: false,
     };
 
     const newAnalysis = {
@@ -171,7 +184,7 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
       parameters: [...oldParams, newParams],
     };
 
-    const newAnalyses = [...removingOldName, newAnalysis].sort()
+    const newAnalyses = [...removingOldName, newAnalysis].sort();
 
     if (!listedParamsNames.includes(name)) {
       api
@@ -187,52 +200,61 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
           }
         )
         .then((_) => {
-          toast.success('Parâmetro cadrastado com sucesso!')
-          setUpdateTrigger(!updateTrigger)
+          toast.success("Parâmetro cadrastado com sucesso!");
+          setUpdateTrigger(!updateTrigger);
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         });
     } else {
-      toast.error('Parâmetro já cadastrado!')
+      toast.error("Parâmetro já cadastrado!");
     }
-  }
+  };
 
-  const removeClassTypeParams = ( id: string, array: IClassAnalysesParams[], name: string ) => {
+  const removeClassTypeParams = (
+    id: string,
+    array: IClassAnalysesParams[],
+    name: string
+  ) => {
+    const parentAnalysis = classAnalyses.find(
+      (analysis) =>
+        JSON.stringify(analysis.parameters) === JSON.stringify(array)
+    );
 
-    const parentAnalysis = classAnalyses.find((analysis) => JSON.stringify(analysis.parameters) === JSON.stringify(array))
+    const parentAnalysisName = parentAnalysis?.an_name || "";
 
-    const parentAnalysisName = parentAnalysis?.an_name || ''
+    const newArray = array.filter((param) => param.name !== name);
 
-    const newArray = array.filter((param) => param.name !== name)
-
-    const removingOld = classAnalyses.filter(analysis => analysis.an_name !== parentAnalysisName)
+    const removingOld = classAnalyses.filter(
+      (analysis) => analysis.an_name !== parentAnalysisName
+    );
 
     const newAnalysis = {
       an_name: parentAnalysisName,
       parameters: newArray,
-    }
+    };
 
-    const newAnalyses = [...removingOld, newAnalysis].sort()
+    const newAnalyses = [...removingOld, newAnalysis].sort();
 
     api
-      .patch(`/classes/${id}`, 
-      {
-        analyses: newAnalyses,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      .patch(
+        `/classes/${id}`,
+        {
+          analyses: newAnalyses,
         },
-      })
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((_) => {
-      
-        setUpdateTrigger(!updateTrigger)
+        setUpdateTrigger(!updateTrigger);
       })
       .catch((err) => {
-        console.log(err)
-      })
-  }
+        console.log(err);
+      });
+  };
 
   return (
     <ClassContext.Provider
@@ -246,7 +268,8 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
         removeClassType,
         addClassTypeParams,
         removeClassTypeParams,
-      }}>
+      }}
+    >
       {children}
     </ClassContext.Provider>
   );

@@ -3,11 +3,11 @@ import { useParams } from "react-router-dom";
 import { useAnalysis } from "../../providers/Analysis";
 
 import { Flex, Box, Text, Input, Button } from "@chakra-ui/react";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 import GlobalHeader from "../../components/GlobalHeader";
 
 import AnalysisDetailsInput from "../../components/AnalysisDetailsInput";
-import { IAnalysisClass } from '../../providers/Analyses'
+import { IAnalysisClass } from "../../providers/Analyses";
 
 interface IdParams {
   id: string;
@@ -34,19 +34,18 @@ interface AnalysisData {
 }
 
 const AnalysisDetails = () => {
-
   const { id } = useParams<IdParams>();
-  const { currentAnalysis, currAnalysisData, fetchAnalysis, resetAnalysis} = useAnalysis()
+  const { currentAnalysis, currAnalysisData, fetchAnalysis, resetAnalysis } =
+    useAnalysis();
 
   const RefReset = useRef(resetAnalysis);
   const RefFetch = useRef(fetchAnalysis);
 
-  const [currentResults, setCurrentResults] = useState<IAnalysisClass[]>([])
-
+  const [currentResults, setCurrentResults] = useState<IAnalysisClass[]>([]);
 
   useEffect(() => {
     RefFetch.current(id);
-    
+
     return RefReset.current;
   }, [id]);
 
@@ -164,55 +163,55 @@ const AnalysisDetails = () => {
             <Flex arrRef={index} direction="column" color="white" w="90%">
               {item.parameters.map((param) => (
                 <Flex direction={["column", "row", "row"]}>
-                <Text
-                  flex="1"
-                  align="center"
-                  borderBottom="2px"
-                  fontWeight="semibold"
-                  m="2"
-                >
-                  {param.name}
-                </Text>
-                <Text
-                  flex="1"
-                  align="center"
-                  borderBottom="2px"
-                  fontWeight="semibold"
-                  m="2"
-                >
-                  {param.vmin}
-                </Text>
-                <Text
-                  flex="1"
-                  align="center"
-                  borderBottom="2px"
-                  fontWeight="semibold"
-                  m="2"
-                >
-                  {param.vmax}
-                </Text>
-                <Text
-                  flex="1"
-                  align="center"
-                  borderBottom="2px"
-                  fontWeight="semibold"
-                  m="2"
-                >
-                  {param.unit}
-                </Text>
-                <Input
-                  variant="flushed"
-                  flex="1"
-                  align="center"
-                  borderBottom="2px"
-                  fontWeight="semibold"
-                  m="2"
-                  textAlign="center"
-                  // value={param.result}
-                  onChange={(e) => {}}
-                />
-                {console.log(param)}
-              </Flex>
+                  <Text
+                    flex="1"
+                    align="center"
+                    borderBottom="2px"
+                    fontWeight="semibold"
+                    m="2"
+                  >
+                    {param.name}
+                  </Text>
+                  <Text
+                    flex="1"
+                    align="center"
+                    borderBottom="2px"
+                    fontWeight="semibold"
+                    m="2"
+                  >
+                    {param.vmin}
+                  </Text>
+                  <Text
+                    flex="1"
+                    align="center"
+                    borderBottom="2px"
+                    fontWeight="semibold"
+                    m="2"
+                  >
+                    {param.vmax}
+                  </Text>
+                  <Text
+                    flex="1"
+                    align="center"
+                    borderBottom="2px"
+                    fontWeight="semibold"
+                    m="2"
+                  >
+                    {param.unit}
+                  </Text>
+                  <Input
+                    variant="flushed"
+                    flex="1"
+                    align="center"
+                    borderBottom="2px"
+                    fontWeight="semibold"
+                    m="2"
+                    textAlign="center"
+                    // value={param.result}
+                    onChange={(e) => {}}
+                  />
+                  {console.log(param)}
+                </Flex>
               ))}
             </Flex>
           </Flex>
