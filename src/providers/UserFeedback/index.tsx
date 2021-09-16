@@ -17,12 +17,13 @@ export const UserFeedbackProvider = ({ children }: Props) => {
   const sucessFeedback = (message: string) => {
     toast.success(message, {
       theme: "colored",
+      style: {
+        backgroundColor: "#002887",
+      },
     });
   };
   const errorFeedback = (message: string) => {
-    toast.error(message, {
-      theme: "colored",
-    });
+    toast.error(message);
   };
   return (
     <UserFeedbackContext.Provider value={{ sucessFeedback, errorFeedback }}>
