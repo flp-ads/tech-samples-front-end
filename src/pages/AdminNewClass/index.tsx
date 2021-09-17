@@ -24,7 +24,6 @@ const NewClass = () => {
         <Link to="/admin/classes">Cadastrar Classe</Link>
         <Link to="/admin/users">Todos Usuários</Link>
         <Link to="/admin/user_register">Cadastrar Usuário</Link>
-        <Link to="">Logout</Link>
       </GlobalHeader>
       <Flex
         boxShadow="0px 0px 20px rgba(0, 0, 0, 0.1)"

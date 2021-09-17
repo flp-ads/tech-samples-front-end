@@ -78,7 +78,7 @@ const SearchAnalysis = () => {
   return (
     <div>
       <GlobalHeader>
-        <Link to="/">Login</Link>
+        <Link to="/">Home</Link>
       </GlobalHeader>
       <Flex
         as="form"
