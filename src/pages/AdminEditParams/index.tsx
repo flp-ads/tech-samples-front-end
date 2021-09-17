@@ -7,6 +7,7 @@ import GlobalHeader from "../../components/GlobalHeader";
 import AdminClassView from "../../components/AdminClassView";
 import AdminClassNewType from "../../components/AdminClassNewType";
 import AdminClassNewParams from "../../components/AdminClassNewParams";
+import { useLogout } from "../../providers/Logout";
 
 export const AdminEditParams = () => {
 
@@ -32,6 +33,8 @@ export const AdminEditParams = () => {
     setIsActiveNewParams(true)
   }
 
+  const { logout } = useLogout()
+
   return (
     <div>
       <GlobalHeader>
@@ -39,6 +42,9 @@ export const AdminEditParams = () => {
         <Link to="/admin/classes">Cadastrar Classe</Link>
         <Link to="/admin/users">Todos Usuários</Link>
         <Link to="/admin/user_register">Cadastrar Usuário</Link>
+        <Link to="/" onClick={logout}>
+            Logout
+          </Link>
       </GlobalHeader>
 
       <Flex

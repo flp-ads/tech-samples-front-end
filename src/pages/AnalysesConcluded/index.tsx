@@ -6,6 +6,7 @@ import CardDescription from "../../components/Cards/CardDescription";
 import { useAnalyses } from "../../providers/Analyses";
 import { useAuth } from "../../providers/Auth";
 import { useHistory } from "react-router-dom";
+import { useLogout } from "../../providers/Logout";
 
 interface AnalysisContent {
   name: string;
@@ -41,7 +42,9 @@ const AnalysesConcluded = () => {
   useEffect(() => {
     getAllAnalyses();
     dataFilter(analyses);
-  }, [analyses]);
+  }, [analyses]); // eslint-disable-line
+
+  const { logout } = useLogout()
 
   return (
     <div>
@@ -50,6 +53,9 @@ const AnalysesConcluded = () => {
         <Link to="/analyst/concluded">Amostras Finalizadas</Link>
         <Link to="/analyst/pending">Amostras Pendentes</Link>
         <Link to="/analyst/sample_register">Cadastrar Amostra</Link>
+        <Link to="/" onClick={logout}>
+            Logout
+          </Link>
       </GlobalHeader>
 
       <Flex w="100vw" align="center" justify="center">

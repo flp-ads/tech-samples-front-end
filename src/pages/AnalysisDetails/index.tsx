@@ -1,14 +1,11 @@
-import { Flex, Box, Text, Heading } from "@chakra-ui/react";
+import { Flex, Heading } from "@chakra-ui/react";
 import { Link } from 'react-router-dom'
 import { useState } from 'react';
-import { useParams } from "react-router-dom";
 import GlobalHeader from "../../components/GlobalHeader";
 import AnalisysView from '../../components/AnalysisView';
 import AnalysisResults from '../../components/AnalysisResults';
+import { useLogout } from "../../providers/Logout";
 
-interface Params {
-  id: string;
-}
 
 const AnalysisDetails = () => {
 
@@ -26,6 +23,7 @@ const AnalysisDetails = () => {
     setIsActiveAnalisys(true)
   }
 
+  const { logout } = useLogout()
 
   return (
     <>
@@ -34,6 +32,9 @@ const AnalysisDetails = () => {
         <Link to="/analyst/concluded">Amostras Finalizadas</Link>
         <Link to="/analyst/pending">Amostras Pendentes</Link>
         <Link to="/analyst/sample_register">Cadastrar Amostra</Link>
+        <Link to="/" onClick={logout}>
+            Logout
+          </Link>
       </GlobalHeader>
       
       <Flex
