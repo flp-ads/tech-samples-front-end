@@ -1,17 +1,16 @@
-import { Button, Flex, Grid, Icon } from "@chakra-ui/react";
+import { Flex} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { BsArrowLeftShort } from "react-icons/bs";
-import { FaUserPlus } from "react-icons/fa";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import CardUser from "../../components/Cards/CardUser";
 import GlobalHeader from "../../components/GlobalHeader";
 import { useUsers } from "../../providers/Users";
-import { useAuth } from "../../providers/Auth";
+import { useLogout } from "../../providers/Logout";
 
 const AdminAllUsers = () => {
   const [attPage, setAttPage] = useState<boolean>(false);
   const { getUsers, delUsers, users } = useUsers();
-  const history = useHistory();
+
+  const { logout } = useLogout()
 
   const handleDelete = (id: number) => {
     delUsers(id);
@@ -30,6 +29,9 @@ const AdminAllUsers = () => {
         <Link to="/admin/classes">Cadastrar Classe</Link>
         <Link to="/admin/users">Todos Usuários</Link>
         <Link to="/admin/user_register">Cadastrar Usuário</Link>
+        <Link to="/" onClick={logout}>
+          Logout
+        </Link>
       </GlobalHeader>
 
       <Flex

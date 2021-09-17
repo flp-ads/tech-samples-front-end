@@ -15,6 +15,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useSignup } from "../../providers/UserRegistration";
+import { useLogout } from "../../providers/Logout";
 
 interface UserFormData {
   username: string;
@@ -59,6 +60,8 @@ const AdminUserRegistration = () => {
     signup(user);
   };
 
+  const { logout } = useLogout()
+
   return (
     <Flex flexDir="column">
       <GlobalHeader>
@@ -66,6 +69,9 @@ const AdminUserRegistration = () => {
         <Link to="/admin/classes">Cadastrar Classe</Link>
         <Link to="/admin/users">Todos Usuários</Link>
         <Link to="/admin/user_register">Cadastrar Usuário</Link>
+        <Link to="/" onClick={logout}>
+            Logout
+          </Link>
       </GlobalHeader>
       <Flex p={["30px 10px", "30px"]}>
         <Button

@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import { useAnalyses } from "../../providers/Analyses";
 
 import { IAnalysis } from "../../providers/Analyses";
+import { useLogout } from "../../providers/Logout";
 
 const NewSamples = () => {
   const { allClasses, getAllClasses } = useAllClass();
@@ -40,6 +41,8 @@ const NewSamples = () => {
     newAnalysis(formData);
   };
 
+  const { logout } = useLogout()
+
   return (
     <div>
       <GlobalHeader>
@@ -47,6 +50,9 @@ const NewSamples = () => {
         <Link to="/analyst/concluded">Amostras Finalizadas</Link>
         <Link to="/analyst/pending">Amostras Pendentes</Link>
         <Link to="/analyst/sample_register">Cadastrar Amostra</Link>
+        <Link to="/" onClick={logout}>
+            Logout
+          </Link>
       </GlobalHeader>
       <Flex
         as="form"

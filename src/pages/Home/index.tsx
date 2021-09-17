@@ -56,7 +56,6 @@ const Home = () => {
       >
         <GlobalHeader>
           <Link to="/search">Pesquisar Análise</Link>
-          <Link to="/about">Sobre Nós</Link>
         </GlobalHeader>
 
         {/* UPPER */}

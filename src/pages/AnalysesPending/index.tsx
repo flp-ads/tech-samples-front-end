@@ -4,6 +4,7 @@ import { Flex, Text, Button } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useAnalyses } from "../../providers/Analyses";
 import { useAuth } from "../../providers/Auth";
+import { useLogout } from "../../providers/Logout";
 
 import CardDescription from "../../components/Cards/CardDescription";
 
@@ -24,6 +25,8 @@ const Analyses = () => {
     history.push(`/analyst/pending/${id}`);
   };
 
+  const { logout} = useLogout()
+
   return (
     <div>
       <GlobalHeader>
@@ -31,6 +34,9 @@ const Analyses = () => {
         <Link to="/analyst/concluded">Amostras Finalizadas</Link>
         <Link to="/analyst/pending">Amostras Pendentes</Link>
         <Link to="/analyst/sample_register">Cadastrar Amostra</Link>
+        <Link to="/" onClick={logout}>
+            Logout
+          </Link>
       </GlobalHeader>
       <Flex w="100vw" align="center" justify="center">
         <Flex
