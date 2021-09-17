@@ -5,6 +5,7 @@ import { Link, useHistory } from "react-router-dom";
 import NavBar from "../../components/GlobalHeader";
 import api from "../../services/api";
 import { useAuth } from "../../providers/Auth";
+import { useLogout } from "../../providers/Logout";
 
 interface AnalysesData {
   name: string;
@@ -39,6 +40,8 @@ const AnalistDashboard = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const { logout} = useLogout()
+
   return (
     <>
       <Box textAlign="center" fontSize="xs">
@@ -47,6 +50,9 @@ const AnalistDashboard = () => {
           <Link to="/analyst/concluded">Amostras Finalizadas</Link>
           <Link to="/analyst/pending">Amostras Pendentes</Link>
           <Link to="/analyst/sample_register">Cadastrar Amostra</Link>
+          <Link to="/" onClick={logout}>
+            Logout
+          </Link>
         </NavBar>
       </Box>
 
