@@ -5,8 +5,10 @@ import api from "../../services/api";
 import { INewTypeForm } from "../../components/AdminClassNewType";
 import { INewParamsForm } from "../../components/AdminClassNewParams";
 
+import { useAuth } from "../Auth";
+
 import { toast } from "react-toastify";
-import { string } from "yup/lib/locale";
+
 
 interface IClassDefaultVals {
   name: "";
@@ -21,6 +23,8 @@ interface IClassAnalysesParams {
   unit: string;
   vmin: string;
   vmax: string;
+  result: string;
+  isApproved: boolean;
 }
 
 interface IClassAnalyses {
@@ -61,7 +65,7 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
 
   const [updateTrigger, setUpdateTrigger] = useState<boolean>(false)
 
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxQHRlc3QuY29tIiwiaWF0IjoxNjMxNjM5MDU4LCJleHAiOjE2MzE2NDI2NTgsInN1YiI6IjEifQ.JfgPD6K3IRjmsnPgznwE6Uw-dituURy-gUy1NG80wnE";
+  const { token } = useAuth()
 
   const fetchClass = (id: string) => {
     api
@@ -165,6 +169,8 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
       unit: unit,
       vmin: vmin,
       vmax: vmax,
+      result: '',
+      isApproved: false,
     };
 
     const newAnalysis = {
