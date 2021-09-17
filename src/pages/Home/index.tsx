@@ -20,6 +20,7 @@ import * as yup from "yup";
 import { Link } from "react-router-dom";
 import { GlobalHeader } from "../../components/GlobalHeader";
 import { useAuth } from "../../providers/Auth";
+import { useHistory } from "react-router-dom";
 
 interface IFormData {
   email: string;
@@ -27,6 +28,7 @@ interface IFormData {
 }
 
 const Home = () => {
+  const history = useHistory();
   const { login } = useAuth();
   const formSchema = yup.object().shape({
     email: yup.string().required("Email obrigatório"),
@@ -53,7 +55,7 @@ const Home = () => {
         flexFlow="column nowrap"
       >
         <GlobalHeader>
-          <Link to="">Pesquisar Análise</Link>
+          <Link to="/search">Pesquisar Análise</Link>
           <Link to="/about">Sobre Nós</Link>
         </GlobalHeader>
 
@@ -145,7 +147,13 @@ const Home = () => {
 
               <img width="32px" src={Or} alt="frasco"></img>
 
-              <Button w="260px" variant="default" mb="4" mt="4">
+              <Button
+                w="260px"
+                variant="default"
+                mb="4"
+                mt="4"
+                onClick={() => history.push("/search")}
+              >
                 Pesquise uma amostra
               </Button>
             </Box>
@@ -322,7 +330,13 @@ const Home = () => {
 
                 <img width="32px" src={Or} alt="frasco"></img>
 
-                <Button w="260px" variant="default" mb="4" mt="4">
+                <Button
+                  w="260px"
+                  variant="default"
+                  mb="4"
+                  mt="4"
+                  onClick={() => history.push("/search")}
+                >
                   Pesquise uma amostra
                 </Button>
               </Box>

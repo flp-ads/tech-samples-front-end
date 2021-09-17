@@ -30,7 +30,6 @@ const AdminAllUsers = () => {
         <Link to="/admin/classes">Cadastrar Classe</Link>
         <Link to="/admin/users">Todos Usuários</Link>
         <Link to="/admin/user_register">Cadastrar Usuário</Link>
-        <Link to="">Logout</Link>
       </GlobalHeader>
       <Grid templateColumns="repeat(5, 1fr)" gap={4} p={["30px 10px", "30px"]}>
         <Button
