@@ -6,13 +6,7 @@ import { INewTypeForm } from "../../components/AdminClassNewType";
 import { INewParamsForm } from "../../components/AdminClassNewParams";
 
 import { useAuth } from "../Auth";
-<<<<<<< HEAD
 import { UseFeedback } from "../UserFeedback";
-=======
-
-import { toast } from "react-toastify";
-
->>>>>>> developer
 
 interface IClassDefaultVals {
   name: "";
@@ -73,13 +67,9 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
 
   const [updateTrigger, setUpdateTrigger] = useState<boolean>(false);
 
-<<<<<<< HEAD
   const { token } = useAuth();
 
   const { errorFeedback, successFeedback } = UseFeedback();
-=======
-  const { token } = useAuth()
->>>>>>> developer
 
   const fetchClass = (id: string) => {
     api
@@ -193,7 +183,7 @@ export const ClassProvider = ({ children }: ClassProviderProps) => {
       unit: unit,
       vmin: vmin,
       vmax: vmax,
-      result: '',
+      result: "",
       isApproved: false,
     };
 

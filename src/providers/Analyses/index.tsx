@@ -24,7 +24,7 @@ export interface IAnalysisClassParams {
 }
 
 export interface IAnalysisClass {
-  an_name: string,
+  an_name: string;
   parameters: IAnalysisClassParams[];
 }
 
@@ -52,14 +52,8 @@ const AnalysesContext = createContext<AnalysesProviderData>(
   {} as AnalysesProviderData
 );
 
-<<<<<<< HEAD
-export const AnalysisProvider = ({ children }: AnalysesProviderProps) => {
-  const [idNumber, setIdNumber] = useState<number>(0);
-=======
 export const AnalysesProvider = ({ children }: AnalysesProviderProps) => {
-
-  const [idNumber, setIdNumber] = useState<number>(0)
->>>>>>> developer
+  const [idNumber, setIdNumber] = useState<number>(0);
 
   const [analyses, setAnalyses] = useState<IAnalysis[]>([] as IAnalysis[]);
 
