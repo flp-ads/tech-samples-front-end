@@ -15,7 +15,6 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useSignup } from "../../providers/UserRegistration";
-import { toast } from "react-toastify";
 
 interface UserFormData {
   username: string;
@@ -128,6 +127,7 @@ const AdminUserRegistration = () => {
           </Text>
           <Input
             variant="flushed"
+            type="password"
             marginBottom="1px solid"
             borderColor="blue.600"
             placeholder="Senha"
@@ -143,6 +143,7 @@ const AdminUserRegistration = () => {
             marginBottom="1px solid"
             borderColor="blue.600"
             placeholder="Confirmar Senha"
+            type="password"
             paddingLeft={4}
             {...register("passwordConfirm")}
             isInvalid={!!errors.passwordConfirm}

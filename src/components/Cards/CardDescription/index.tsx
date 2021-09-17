@@ -1,5 +1,6 @@
 import { Image, Text, Flex } from "@chakra-ui/react";
 import { ReactNode } from "react";
+import { parseISO, format } from "date-fns";
 import clipboards from "../../../assets/icons/clipboards.svg";
 import scienceTools from "../../../assets/icons/science_tools.svg";
 
@@ -15,8 +16,14 @@ interface DescriptionData {
 }
 
 const CardDescription = (data: DescriptionData) => {
+  const formatedDate = (date: string) => {
+    const newDate = format(parseISO(date), "dd/MM/yyyy");
+
+    return newDate;
+  };
+
   return (
-    <Flex m="3" minH="100px">
+    <Flex m="4" minH="100px" w="100%">
       <Flex
         w={["5px", "20%", "20%"]}
         minW={["5px", "16px", "16px"]}
@@ -88,7 +95,7 @@ const CardDescription = (data: DescriptionData) => {
             <Text fontSize="sm" fontWeight="semibold">
               Fabricado em:
             </Text>
-            <Text pl="2"> {data.made}</Text>
+            <Text pl="2"> {formatedDate(data.made)}</Text>
           </Flex>
         </Flex>
         <Flex

@@ -143,7 +143,10 @@ const AdminDashboard = () => {
         <Flex direction={["column", "column", "row"]}>
           <Box
             w={["90vw", "90vw", "44vw"]}
-            p={4}
+            pl="6"
+            pr="6"
+            pb="4"
+            pt="4"
             boxShadow="0px 0px 20px rgba(0, 0, 0, 0.1)"
             borderRadius="3xl"
             textAlign="center"
@@ -193,6 +196,7 @@ const AdminDashboard = () => {
                 variant="link"
                 color="blue.600"
                 _hover={{ color: "blue.300" }}
+                onClick={() => history.push("/admin/classes")}
               >
                 ver todos
               </Button>

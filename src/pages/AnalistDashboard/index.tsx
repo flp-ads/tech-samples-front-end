@@ -10,7 +10,7 @@ interface AnalysesData {
   name: string;
   category: string;
   batch: string;
-  concluded: boolean;
+  isConcluded: boolean;
 }
 
 const AnalistDashboard = () => {
@@ -27,9 +27,11 @@ const AnalistDashboard = () => {
       .catch((err) => console.log(`erro!: ${err}`));
   };
 
-  const isFinished = analyses.filter((analysis) => analysis.concluded === true);
+  const isFinished = analyses.filter(
+    (analysis) => analysis.isConcluded === true
+  );
   const isNotFinished = analyses.filter(
-    (analysis) => analysis.concluded === false
+    (analysis) => analysis.isConcluded === false
   );
 
   useEffect(() => {
@@ -114,7 +116,7 @@ const AnalistDashboard = () => {
               <CardAnalysis
                 batch={analysis.batch}
                 category={analysis.category}
-                concluded={analysis.concluded}
+                concluded={analysis.isConcluded}
                 name={analysis.name}
                 key={user.id}
               />
@@ -124,7 +126,7 @@ const AnalistDashboard = () => {
                 variant="link"
                 color="blue.600"
                 _hover={{ color: "blue.300" }}
-                onClick={() => history.push("/")}
+                onClick={() => history.push("analyst/pending")}
               >
                 ver todos
               </Button>
@@ -145,7 +147,7 @@ const AnalistDashboard = () => {
               <CardAnalysis
                 batch={analysis.batch}
                 category={analysis.category}
-                concluded={analysis.concluded}
+                concluded={analysis.isConcluded}
                 name={analysis.name}
                 key={user.id}
               />
@@ -155,7 +157,7 @@ const AnalistDashboard = () => {
                 variant="link"
                 color="blue.600"
                 _hover={{ color: "blue.300" }}
-                onClick={() => history.push("/")}
+                onClick={() => history.push("analyst/concluded")}
               >
                 ver todos
               </Button>
