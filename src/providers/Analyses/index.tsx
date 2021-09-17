@@ -14,6 +14,20 @@ interface AnalysesProviderProps {
   children: ReactNode;
 }
 
+export interface IAnalysisClassParams {
+  name: string;
+  unit: string;
+  vmin: string;
+  vmax: string;
+  result: string;
+  isApproved: boolean;
+}
+
+export interface IAnalysisClass {
+  an_name: string,
+  parameters: IAnalysisClassParams[];
+}
+
 export interface IAnalysis {
   name: string;
   batch: string;
@@ -38,8 +52,14 @@ const AnalysesContext = createContext<AnalysesProviderData>(
   {} as AnalysesProviderData
 );
 
+<<<<<<< HEAD
 export const AnalysisProvider = ({ children }: AnalysesProviderProps) => {
   const [idNumber, setIdNumber] = useState<number>(0);
+=======
+export const AnalysesProvider = ({ children }: AnalysesProviderProps) => {
+
+  const [idNumber, setIdNumber] = useState<number>(0)
+>>>>>>> developer
 
   const [analyses, setAnalyses] = useState<IAnalysis[]>([] as IAnalysis[]);
 
