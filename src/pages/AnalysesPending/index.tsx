@@ -1,48 +1,24 @@
 import GlobalHeader from "../../components/GlobalHeader";
 import { Link, useHistory } from "react-router-dom";
 import { Flex, Text, Button } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { useAnalyses } from '../../providers/Analyses'
+import { useEffect } from "react";
+import { useAnalyses } from "../../providers/Analyses";
+import { useAuth } from "../../providers/Auth";
 
 import CardDescription from "../../components/Cards/CardDescription";
 
-interface AnalysisContent {
-  name: string;
-  batch: string;
-  made: string;
-  category: string;
-  class: string;
-  analyses: [
-    {
-      an_name: string;
-      parameters: [
-        {
-          name: string;
-          unit: string;
-          vmin: string;
-          vmax: string;
-          result: string;
-          isAproved: boolean;
-        }
-      ];
-    }
-  ];
-  isConcluded: boolean;
-  userId: number;
-  id: number;
-}
-
 const Analyses = () => {
-  
-  const { analyses, getAllAnalyses } = useAnalyses()
+  const { analyses, getAllAnalyses } = useAnalyses();
 
-  const analysesPending = analyses.filter((item) => item.isConcluded === false)
+  const analysesPending = analyses.filter((item) => item.isConcluded === false);
 
   useEffect(() => {
-    getAllAnalyses()
-  },[]) //eslint-disable-line
+    getAllAnalyses();
+  }, []); //eslint-disable-line
 
   const history = useHistory();
+
+  const { user } = useAuth();
 
   const handleAnalysis = (id: number) => {
     history.push(`/analyst/pending/${id}`);
@@ -56,24 +32,22 @@ const Analyses = () => {
         <Link to="/analyst/pending">Amostras Pendentes</Link>
         <Link to="/analyst/sample_register">Cadastrar Amostra</Link>
       </GlobalHeader>
-      <Flex
-        boxShadow="0px 0px 20px rgba(0, 0, 0, 0.1)"
-        borderRadius="2xl"
-        p="4"
-        w="90vw"
-        margin="3vw"
-        marginLeft="5vw"
-        align="center"
-        justify="center"
-      >
-        <Text fontWeight="semibold" marginRight="2">
-          Username
-        </Text>
-        <Text marginRight="2">você tem</Text>
-        <Text fontWeight="semibold" marginRight="2">
-          9
-        </Text>
-        <Text marginRight="2"> amostras pendentes</Text>
+      <Flex w="100vw" align="center" justify="center">
+        <Flex
+          boxShadow="0px 0px 20px rgba(0, 0, 0, 0.1)"
+          borderRadius="2xl"
+          p="4"
+          w="90vw"
+          margin="4"
+          textAlign="center"
+          align="center"
+          justify="center"
+        >
+          <Text marginRight="2">
+            <b>{user.username}</b> você tem <b>{analysesPending.length}</b>{" "}
+            amostras pendentes
+          </Text>
+        </Flex>
       </Flex>
       <Flex
         boxShadow="0px 0px 20px rgba(0, 0, 0, 0.1)"

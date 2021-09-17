@@ -70,7 +70,6 @@ export const AnalysesProvider = ({ children }: AnalysesProviderProps) => {
       })
       .then((response) => {
         setAnalyses(response.data);
-        successFeedback("Análises Carregadas");
       })
       .catch(() => errorFeedback("Erro ao carregar análises!"));
   };

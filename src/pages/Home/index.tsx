@@ -122,6 +122,7 @@ const Home = () => {
                 marginBottom="1px solid"
                 borderColor="blue.600"
                 placeholder="Senha"
+                type="password"
                 mb="4"
                 {...register("password")}
                 error={errors.password?.message}
@@ -175,7 +176,7 @@ const Home = () => {
             Por quê a TechSamples?
           </Heading>
 
-          <UnorderedList color="gray.50" textAlign="left">
+          <UnorderedList color="gray.50" textAlign="left" fontWeight="bold">
             <ListItem>Agilidade</ListItem>
             <ListItem>Disponibilidade</ListItem>
             <ListItem>Garantia de resultados</ListItem>
@@ -241,11 +242,23 @@ const Home = () => {
               alignItems="center"
               justifyContent="center"
             >
-              <Heading as="h2" mb="4" color="gray.50" textAlign="center">
+              <Heading
+                as="h2"
+                mb="4"
+                color="gray.50"
+                textAlign="center"
+                fontWeight="extrabold"
+                textShadow="dark-lg"
+              >
                 Por quê a TechSamples?
               </Heading>
 
-              <UnorderedList color="gray.50" textAlign="left">
+              <UnorderedList
+                color="gray.50"
+                textAlign="left"
+                fontWeight="extrabold"
+                textShadow="dark-lg"
+              >
                 <ListItem>Agilidade</ListItem>
                 <ListItem>Disponibilidade</ListItem>
                 <ListItem>Garantia de resultados</ListItem>
@@ -304,6 +317,7 @@ const Home = () => {
                     marginBottom="1px solid"
                     borderColor="blue.600"
                     placeholder="Senha"
+                    type="password"
                     mb="12"
                     {...register("password")}
                     error={errors.password?.message}

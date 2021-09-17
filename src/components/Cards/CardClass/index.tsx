@@ -11,7 +11,7 @@ interface ClassData {
 
 const CardClass = ({ name, id, children }: ClassData) => {
   return (
-    <Flex m="4" minH="100px" maxW="1000px">
+    <Flex m="4" minH="100px" W="100%">
       <Flex
         w="20%"
         minW="16"

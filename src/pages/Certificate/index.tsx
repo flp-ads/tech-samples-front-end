@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useAnalyses } from "../../providers/Analyses";
 import { GlobalHeader } from "../../components/GlobalHeader";
 import api from "../../services/api";
+import { parseISO, format } from "date-fns";
 import { Flex, Box, Text, Heading, Button } from "@chakra-ui/react";
 import "../../styles/print.css";
 
@@ -47,6 +48,12 @@ const Certificate = () => {
       .then((res) => setReport(res.data))
       .catch((err) => console.log(`erro!: ${err}`));
   }, []);
+
+  const formatedDate = (date: string) => {
+    const newDate = format(parseISO(date), "dd/MM/yyyy");
+
+    return newDate;
+  };
 
   console.log(report);
 
@@ -128,7 +135,7 @@ const Certificate = () => {
                     <Text fontWeight="bold" fontSize="xl">
                       Data de análise:
                       <Text ml="2" as="span" fontWeight="normal" fontSize="md">
-                        {report[0].made}
+                        {formatedDate(report[0].made)}
                       </Text>
                     </Text>
                   </Flex>
@@ -279,7 +286,7 @@ const Certificate = () => {
                 </Flex>
               </Flex>
               <Flex width="90%" mt="2">
-                <Text fontSize="0.60rem" textAlign="left">
+                <Text fontSize="0.60rem" textAlign="left" pb="6">
                   <b>Legenda:</b> considerar unidade de medida como <b>Un.</b>,
                   Não aplicável como <b>NA</b>, para análises sensoriais
                   considerar

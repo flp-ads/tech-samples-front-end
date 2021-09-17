@@ -10,7 +10,7 @@ import { useAuth } from "../../providers/Auth";
 
 const NewClass = () => {
   const { allClasses, getAllClasses, addNewClass } = useAllClass();
-  const { user } = useAuth()
+  const { user } = useAuth();
   const [className, setClassName] = useState<string>("");
 
   useEffect(() => {
@@ -37,9 +37,8 @@ const NewClass = () => {
         marginTop="5"
       >
         <Box fontSize="xl" fontWeight="500" textAlign="center">
-          {" "}
-          Username, existem <strong>{allClasses.length}</strong> classes de
-          produtos cadastrados
+          <b>{user.username}</b>, existem <strong>{allClasses.length}</strong>{" "}
+          classes de produtos cadastrados
         </Box>
         <Flex
           flexDirection={{ base: "column", sm: "column", md: "row" }}
@@ -55,17 +54,23 @@ const NewClass = () => {
             onChange={(e) => setClassName(e.target.value)}
             placeholder="Nome da Classe"
           />
-          <Button
-            marginTop="5"
-            variant="default"
-            w="fit-content"
-            onClick={() => {
-              addNewClass(className, user.id);
-              setClassName("");
-            }}
-          >
-            Nova Classe
-          </Button>
+          {className === "" ? (
+            <Button marginTop="5" variant="disabled" disabled w="fit-content">
+              Nova Classe
+            </Button>
+          ) : (
+            <Button
+              marginTop="5"
+              variant="default"
+              w="fit-content"
+              onClick={() => {
+                addNewClass(className, user.id);
+                setClassName("");
+              }}
+            >
+              Nova Classe
+            </Button>
+          )}
         </Flex>
       </Flex>
       <Flex
@@ -77,26 +82,16 @@ const NewClass = () => {
         alignItems="center"
         flexDirection="column"
         marginTop="5"
-        overflowY="auto"
-        height="60vh"
-        overflowX="hidden"
-        css={{
-          "&::-webkit-scrollbar": {
-            width: "6px",
-          },
-          "&::-webkit-scrollbar-thumb": {
-            background: "#0a369d",
-            borderRadius: "24px",
-          },
-        }}
       >
-        {allClasses.map((item) => (
-          <CardClass key={item.id} name={item.name} id={item.id}>
-            <Link to={`/admin/classes/${item.id}/`}>
-              <FaUserEdit />
-            </Link>
-          </CardClass>
-        ))}
+        <Flex w="90vw" p="4" direction="column">
+          {allClasses.map((item) => (
+            <CardClass key={item.id} name={item.name} id={item.id}>
+              <Link to={`/admin/classes/${item.id}/`}>
+                <FaUserEdit />
+              </Link>
+            </CardClass>
+          ))}
+        </Flex>
       </Flex>
     </div>
   );

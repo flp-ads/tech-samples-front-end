@@ -21,7 +21,7 @@ interface IAnalysis {
 
 const SearchAnalysis = () => {
   const { allClasses, getAllClasses } = useAllClass();
-  const { analyses, getAllAnalyses, setIdNumber} = useAnalyses()
+  const { analyses, getAllAnalyses, setIdNumber } = useAnalyses();
 
   const [errorMsg, setErrorMsg] = useState<boolean>(false);
 
@@ -37,6 +37,8 @@ const SearchAnalysis = () => {
   const [classInput, setClassInput] = useState<string>("");
   console.log(dateInput);
 
+  const finishAnalyses = analyses.filter((item) => item.isConcluded === true);
+
   const filterSearch = (
     sampleNameInput: string,
     batchInput: string,
@@ -45,7 +47,7 @@ const SearchAnalysis = () => {
     categoryInput: string,
     classInput: string
   ) => {
-    const newFiltredAnalysis = analyses.filter(
+    const newFiltredAnalysis = finishAnalyses.filter(
       (item) =>
         item.name === sampleNameInput ||
         item.batch === batchInput ||
@@ -68,12 +70,12 @@ const SearchAnalysis = () => {
     getAllClasses();
   }, []); //eslint-disable-line
 
-  const history = useHistory()
+  const history = useHistory();
 
   const handlePrint = (id: number) => {
     setIdNumber(id);
-    history.push(`/certificate/${id}`)
-  }
+    history.push(`/certificate/${id}`);
+  };
 
   return (
     <div>
@@ -232,7 +234,9 @@ const SearchAnalysis = () => {
               name={item.name}
               concluded={item.isConcluded}
             >
-              <Button variant="sucess" onClick={() => handlePrint(item.id)}>Imprimir</Button>
+              <Button variant="sucess" onClick={() => handlePrint(item.id)}>
+                Imprimir
+              </Button>
             </CardDescription>
           ))}
         </Flex>
