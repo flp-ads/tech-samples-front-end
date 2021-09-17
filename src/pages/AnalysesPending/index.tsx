@@ -2,6 +2,8 @@ import GlobalHeader from "../../components/GlobalHeader";
 import { Link, useHistory } from "react-router-dom";
 import { Flex, Text, Button } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { useAnalyses } from '../../providers/Analyses'
+
 import CardDescription from "../../components/Cards/CardDescription";
 
 interface AnalysisContent {
@@ -31,161 +33,14 @@ interface AnalysisContent {
 }
 
 const Analyses = () => {
-  const analyses = [
-    {
-      name: "lamen",
-      batch: "654987954",
-      made: "03-12-2021",
-      category: "Produto acabado",
-      class: "macarrão",
-      analyses: [
-        {
-          an_name: "fisio-quimicos",
-          parameters: [
-            {
-              name: "umidade",
-              vmin: "3",
-              vmax: "5",
-              unit: "%",
-              result: "",
-              isAproved: false,
-            },
-            {
-              name: "AW",
-              vmin: "0.10",
-              vmax: "0.45",
-              unit: "P/PO",
-              result: "",
-              isAproved: false,
-            },
-          ],
-        },
-        {
-          an_name: "microbiológicos",
-          parameters: [
-            {
-              name: "coliformes",
-              vmin: "3",
-              vmax: "5",
-              unit: "UFC/g",
-              result: "",
-              isAproved: false,
-            },
-          ],
-        },
-      ],
-      isConcluded: false,
-      userId: 1,
-      id: 1,
-    },
-    {
-      name: "baguete",
-      batch: "879546549",
-      made: "03-12-2021",
-      category: "Produto acabado",
-      class: "pão",
+  
+  const { analyses, getAllAnalyses } = useAnalyses()
 
-      analyses: [
-        {
-          an_name: "fisio-quimicos",
-          parameters: [
-            {
-              name: "umidade",
-              vmin: "3",
-              vmax: "5",
-              unit: "%",
-              result: "",
-              isAproved: false,
-            },
-            {
-              name: "AW",
-              vmin: "0.10",
-              vmax: "0.45",
-              unit: "P/PO",
-              result: "",
-              isAproved: false,
-            },
-          ],
-        },
-        {
-          an_name: "microbiológicos",
-          parameters: [
-            {
-              name: "coliformes",
-              vmin: "3",
-              vmax: "5",
-              unit: "UFC/g",
-              result: "",
-              isAproved: false,
-            },
-          ],
-        },
-      ],
-
-      isConcluded: true,
-      userId: 1,
-      id: 2,
-    },
-    {
-      name: "aveia",
-      batch: "687954954",
-      made: "03-12-2021",
-      category: "Matéria prima",
-      class: "cereal",
-
-      analyses: [
-        {
-          an_name: "fisio-quimicos",
-          parameters: [
-            {
-              name: "umidade",
-              vmin: "3",
-              vmax: "5",
-              unit: "%",
-              result: "",
-              isAproved: false,
-            },
-            {
-              name: "AW",
-              vmin: "0.10",
-              vmax: "0.45",
-              unit: "P/PO",
-              result: "",
-              isAproved: false,
-            },
-          ],
-        },
-        {
-          an_name: "microbiológicos",
-          parameters: [
-            {
-              name: "coliformes",
-              vmin: "3",
-              vmax: "5",
-              unit: "UFC/g",
-              result: "",
-              isAproved: false,
-            },
-          ],
-        },
-      ],
-
-      isConcluded: false,
-      userId: 1,
-      id: 3,
-    },
-  ];
-
-  const [data, setData] = useState<AnalysisContent[]>([] as AnalysisContent[]);
-
-  const dataFilter = (data: AnalysisContent[]) => {
-    const dataFiltered = data.filter((item) => item.isConcluded === false);
-    setData(dataFiltered);
-  };
+  const analysesPending = analyses.filter((item) => item.isConcluded === false)
 
   useEffect(() => {
-    dataFilter(analyses as AnalysisContent[]);
-  }, []);
+    getAllAnalyses()
+  },[]) //eslint-disable-line
 
   const history = useHistory();
 
@@ -230,7 +85,7 @@ const Analyses = () => {
         justify="center"
         wrap="wrap"
       >
-        {data.map((item) => (
+        {analysesPending.map((item) => (
           <CardDescription
             key={item.id}
             category={item.category}
