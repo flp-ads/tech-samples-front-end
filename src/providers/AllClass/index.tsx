@@ -8,7 +8,8 @@ import {
 } from "react";
 import api from "../../services/api";
 
-import { useAuth } from '../Auth'
+import { useAuth } from "../Auth";
+import { UseFeedback } from "../UserFeedback";
 
 interface IClass {
   name: string;
@@ -35,7 +36,8 @@ const AllClassContext = createContext<ClassProviderData>(
 export const AllClassProvider = ({ children }: ClassProviderProps) => {
   const [allClasses, setAllClasses] = useState<IClass[]>([] as IClass[]);
 
-  const { token } = useAuth()
+  const { token } = useAuth();
+  const { errorFeedback, successFeedback } = UseFeedback();
 
   const getAllClasses = () => {
     api
@@ -58,7 +60,8 @@ export const AllClassProvider = ({ children }: ClassProviderProps) => {
           },
         }
       )
-      .then((response) => console.log(response.data));
+      .then(() => successFeedback("Classe Adicionada"))
+      .catch(() => errorFeedback("Erro tentar adicionar classe"));
   };
 
   return (

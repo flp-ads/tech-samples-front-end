@@ -44,7 +44,7 @@ const Home = () => {
   });
 
   const onFormSubmit = (formData: IFormData) => {
-    login(formData, "Email/Senha incorreto!");
+    login(formData, "Email/Senha incorreto!", "Usuário Autenticado");
   };
 
   return (

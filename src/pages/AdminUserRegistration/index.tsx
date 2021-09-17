@@ -29,14 +29,6 @@ const AdminUserRegistration = () => {
   const { signup } = useSignup();
   const history = useHistory();
 
-  const toastFunction = (msg: string, err: boolean = false) => {
-    if (!err) {
-      toast.success(msg);
-    } else {
-      toast.error(msg);
-    }
-  };
-
   const schema = yup.object().shape({
     username: yup.string().required("Campo obrigatório!"),
     email: yup.string().required("Campo obrigatório!").email("email inválido!"),
@@ -65,7 +57,7 @@ const AdminUserRegistration = () => {
   }: UserFormData) => {
     const user = { username, email, password, isAdmin };
 
-    signup(user, toastFunction);
+    signup(user);
   };
 
   return (

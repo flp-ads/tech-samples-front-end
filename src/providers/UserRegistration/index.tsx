@@ -1,6 +1,7 @@
 import { createContext, ReactNode, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import api from "../../services/api";
+import { UseFeedback } from "../UserFeedback";
 
 interface UserData {
   username: string;
@@ -14,10 +15,7 @@ interface Props {
 }
 
 interface UserRegistrationData {
-  signup: (
-    user: UserData,
-    toastFunction: (msg: string, err?: boolean) => void
-  ) => void;
+  signup: (user: UserData) => void;
 }
 
 const UserRegistrationContext = createContext<UserRegistrationData>(
@@ -26,21 +24,17 @@ const UserRegistrationContext = createContext<UserRegistrationData>(
 
 export const UserRegistrationProvider = ({ children }: Props) => {
   const history = useHistory();
+  const { errorFeedback, successFeedback } = UseFeedback();
 
-  const signup = (
-    user: UserData,
-    toastFunction: (msg: string, err?: boolean) => void
-  ) => {
+  const signup = (user: UserData) => {
     api
       .post("/register", user)
-      .then((res) => {
-        console.log("Usuário criado com sucesso!", res);
-        toastFunction("Usuário criado com sucesso!");
+      .then(() => {
+        successFeedback("Usuário criado com sucesso!");
         history.push("/admin/users");
       })
-      .catch((err) => {
-        toastFunction("Erro ao criar Usuário", true);
-        console.log(err);
+      .catch(() => {
+        errorFeedback("Erro ao criar Usuário");
       });
   };
 

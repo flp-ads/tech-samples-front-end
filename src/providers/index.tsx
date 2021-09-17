@@ -7,6 +7,7 @@ import { AnalysesProvider } from "./Analyses";
 import { AnalysisProvider } from "./Analysis";
 import { AuthProvider } from "./Auth";
 import { ClassProvider } from "./Class";
+import { UserFeedbackProvider } from "./UserFeedback";
 import { LogoutProvider } from "./Logout";
 import { UserRegistrationProvider } from "./UserRegistration";
 import { UsersProvider } from "./Users";
@@ -17,24 +18,26 @@ interface AppProviderProps {
 
 export const AppProvider = ({ children }: AppProviderProps) => {
   return (
-    <AuthProvider>
-      <UsersProvider>
-        <ClassProvider>
-          <AllClassProvider>
-            <UserRegistrationProvider>
-              <AnalysesProvider>
-                <AnalysisProvider>
-                  <LogoutProvider>
-                    <ChakraProvider theme={custonTheme}>
-                      {children}
-                    </ChakraProvider>
-                  </LogoutProvider>
-                </AnalysisProvider>
-              </AnalysesProvider>
-            </UserRegistrationProvider>
-          </AllClassProvider>
-        </ClassProvider>
-      </UsersProvider>
-    </AuthProvider>
+    <UserFeedbackProvider>
+      <AuthProvider>
+        <UsersProvider>
+          <ClassProvider>
+            <AllClassProvider>
+              <UserRegistrationProvider>
+                <AnalysesProvider>
+                  <AnalysisProvider>
+                    <LogoutProvider>
+                      <ChakraProvider theme={custonTheme}>
+                        {children}
+                      </ChakraProvider>
+                    </LogoutProvider>
+                  </AnalysisProvider>
+                </AnalysesProvider>
+              </UserRegistrationProvider>
+            </AllClassProvider>
+          </ClassProvider>
+        </UsersProvider>
+      </AuthProvider>
+    </UserFeedbackProvider>
   );
 };

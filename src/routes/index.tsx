@@ -25,21 +25,55 @@ const Routes = () => {
       <Route exact path="/search" component={SearchAnalysis} />
       <Route exact path="/certificate/:id" component={Certificate} />
 
-      <Route exact path={"/admin"} component={AdminDashboard} />
-      <Route path="/admin/users" component={AdminAllUsers} isPrivate />
+      <Route exact path="/admin" component={AdminDashboard} isPrivate admin />
       <Route
+        exact
+        path="/admin/users"
+        component={AdminAllUsers}
+        isPrivate
+        admin
+      />
+      <Route
+        exact
         path="/admin/user_register"
         component={AdminUserRegistration}
         isPrivate
+        admin
       />
-      <Route exact path="/admin/classes" component={NewClass} />
-      <Route exact path={`/admin/classes/:id`} component={AdminEditParams} />
+      <Route exact path="/admin/classes" component={NewClass} isPrivate admin />
+      <Route
+        exact
+        path="/admin/classes/:id"
+        component={AdminEditParams}
+        isPrivate
+        admin
+      />
 
-      <Route exact path="/analyst/sample_register" component={NewSamples} />
-      <Route exact path={"/analyst"} component={AnalistDashboard} />
-      <Route exact path="/analyst/pending" component={AnalysesPending} />
-      <Route exact path="/analyst/pending/:id" component={AnalysisDetails} />
-      <Route exact path="/analyst/concluded" component={AnalysesConcluded} />
+      <Route
+        exact
+        path="/analyst/sample_register"
+        component={NewSamples}
+        isPrivate
+      />
+      <Route exact path="/analyst" component={AnalistDashboard} isPrivate />
+      <Route
+        exact
+        path="/analyst/pending"
+        component={AnalysesPending}
+        isPrivate
+      />
+      <Route
+        exact
+        path="/analyst/pending/:id"
+        component={AnalysisDetails}
+        isPrivate
+      />
+      <Route
+        exact
+        path="/analyst/concluded"
+        component={AnalysesConcluded}
+        isPrivate
+      />
     </Switch>
   );
 };
