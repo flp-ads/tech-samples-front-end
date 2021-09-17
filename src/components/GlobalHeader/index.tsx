@@ -6,12 +6,14 @@ import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/icons/logo_desktop.svg";
 import logoMobile from "../../assets/icons/logo_mobile.svg";
+import { useLogout } from "../../providers/Logout";
 
 interface NavBarProps {
   children: ReactNode;
 }
 
 export const GlobalHeader = ({ children }: NavBarProps) => {
+  const { logout } = useLogout();
   return (
     <Flex
       bg="blue.700"
@@ -53,7 +55,9 @@ export const GlobalHeader = ({ children }: NavBarProps) => {
           alignItems="center"
         >
           {children}
-          <Link to="/">Logout</Link>
+          <Link to="/" onClick={logout}>
+            Logout
+          </Link>
         </Flex>
         <Menu autoSelect={false}>
           <MenuButton
