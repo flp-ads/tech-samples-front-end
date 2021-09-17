@@ -31,27 +31,7 @@ const AdminAllUsers = () => {
         <Link to="/admin/users">Todos Usuários</Link>
         <Link to="/admin/user_register">Cadastrar Usuário</Link>
       </GlobalHeader>
-      <Grid templateColumns="repeat(5, 1fr)" gap={4} p={["30px 10px", "30px"]}>
-        <Button
-          variant="default"
-          padding={1}
-          w={1}
-          borderRadius={15}
-          onClick={() => history.push("/admin")}
-        >
-          <Icon as={BsArrowLeftShort} w="30px" h="30px" />
-        </Button>
-        <Button
-          variant="default"
-          gridColumnStart={3}
-          w={200}
-          borderRadius={15}
-          onClick={() => history.push("/sample_register")}
-        >
-          <FaUserPlus />
-          <p>Cadastrar Usuário</p>
-        </Button>
-      </Grid>
+
       <Flex
         flexDirection="column"
         alignItems="center"

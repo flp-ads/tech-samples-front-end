@@ -1,6 +1,6 @@
 import { Button, Input, Flex, Select, Text } from "@chakra-ui/react";
 import { useClass } from "../../providers/Class";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { useEffect, useRef } from "react";
 
 import { useForm } from "react-hook-form";
@@ -41,10 +41,11 @@ const AdminClassNewParams = () => {
     vmin: yup.string().required("Campo obrigatório"),
     vmax: yup.string().required("Campo obrigatório"),
   });
-
+  const history = useHistory();
   const {
     register,
     handleSubmit,
+
     formState: { errors },
   } = useForm({
     resolver: yupResolver(formSchema),
