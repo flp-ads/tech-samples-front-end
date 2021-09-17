@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import { Flex, Box, Text, Heading, Button, Stack } from "@chakra-ui/react";
+import { Flex, Box, Text, Heading, Button } from "@chakra-ui/react";
 import CardUser from "../../components/Cards/CardUser";
 import CardClass from "../../components/Cards/CardClass";
 import { Link, useHistory } from "react-router-dom";
 import NavBar from "../../components/GlobalHeader";
 import api from "../../services/api";
 import { useAuth } from "../../providers/Auth";
+import { useLogout } from "../../providers/Logout";
 
 interface userData {
   email: string;
@@ -32,6 +33,8 @@ const AdminDashboard = () => {
   const MAX_CARDS = 2;
   const history = useHistory();
   const { token, user } = useAuth();
+
+  const { logout } = useLogout()
 
   const getUsers = () => {
     api
@@ -77,7 +80,7 @@ const AdminDashboard = () => {
     getUsers();
     getClasses();
     getAnalysis();
-  }, [attPage]);
+  }, [attPage]); //eslint-disable-line
 
   return (
     <>
@@ -87,6 +90,9 @@ const AdminDashboard = () => {
           <Link to="/admin/classes">Cadastrar Classe</Link>
           <Link to="/admin/users">Todos Usuários</Link>
           <Link to="/admin/user_register">Cadastrar Usuário</Link>
+          <Link to="/" onClick={logout}>
+            Logout
+          </Link>
         </NavBar>
       </Box>
 
