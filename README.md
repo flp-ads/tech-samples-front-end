@@ -1,46 +1,120 @@
-# Getting Started with Create React App
+# Tech Samples
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h2>Tabela de Conteúdos</h2>
 
-## Available Scripts
+1. [ Sobre ](#sobre)
+2. [ Links Relevantes ](#links)
+3. [ O Problema a ser solucionado ](#problema)
+4. [ A Solução ](#solucao)
+5. [ Tecnologias](#techs)
+6. [ Features ](#features)
+7. [ termos de uso ](#termos)
 
-In the project directory, you can run:
+<a name="sobre"></a>
 
-### `yarn start`
+## 1. Sobre
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+O projeto foi desenvolvido no terceiro módulo curso de Desenvolvimento Full Stack da Kenzie Academy Brasil, e colocou em prática tanto nossos conhecimentos técnicos quanto a capacidade de trabalho em equipe dos alunos desenvolvedores. A aplicação é uma API que permite funções como Cadastro e Login com diferentes perfis de usuário, criação de classes de amostra, cadrastro de análises com base nas classes existentes , emissão de laudos e mais.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+<a name="links"></a>
 
-### `yarn test`
+## 2. Links Relevantes
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- <a name="deploy-vercel" href="https://tech-samples.vercel.app/" target="_blank">Deploy @ Vercel</a>
 
-### `yarn build`
+<a name="problema"></a>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 3. O Problema A Ser Solucionado
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Identificamos uma escassez de propostas que visam soluções na automatização dos processos de análise e emissão de laudos com foco em laboratórios industriais e particulares.
+Atualmente a emissão de laudos é feita em sua maioria de forma manual através de uma planilha padrão de excel e exportado para PDF gerando os seguintes problemas:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Grande probabilidade de falha operacional ( falhas de digitação, despadronização da planilha, validação manual dos resultados das análises )
+- Probabilidade de indisponibilidade do arquivo padrão parando todo o fluxo de análise ( exclusão acidental da planilha, perda do histórico de análises caso o arquivo seja corrompido )
+- Dificuldade em levantamentos a assertividade de indicadores ( quantidade de análises mensais, análises mais solicitadas)
+- Planilha centralizada, duas análises não conseguem ser feitas ao mesmo tempo por pessoas diferentes podendo travar o fluxo de análise de um colaborador
 
-### `yarn eject`
+<a name="solucao"></a>
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## 4. A Solução
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Uma aplicação que permite o gerenciamento de todo o fluxo de análise e visa resolver ou mitigar os problemas citados acima focando em disponibilidade de dados, agilidade, confidencialidade e garantia dos resultados.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+<a name="techs"></a>
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## 5. Tecnologias
 
-## Learn More
+- <a name="ts" href="https://www.typescriptlang.org" target="_blank">TypeScript</a>
+- <a name="axios" href="https://www.npmjs.com/package/axios" target="_blank">Axios</a>
+- <a name="styled-comp" href="https://chakra-ui.com/" target="_blank">Chakra UI</a>
+- <a name="react-router-dom" href="https://www.npmjs.com/package/react-router-dom" target="_blank">React-Router-DOM</a>
+- <a name="date-fns" href="https://www.npmjs.com/package/date-fns" target="_blank">Date-FNS</a>
+- <a name="framer-motion" href="https://www.npmjs.com/package/framer-motion" target="_blank">Framer Motion</a>
+- <a name="jwt-decode" href="https://www.npmjs.com/package/jwt-decode" target="_blank">JWT Decode</a>
+- <a name="react-hook-form" href="https://www.npmjs.com/package/react-hook-form" target="_blank">React Hook Form</a>
+- <a name="react-icons" href="https://www.npmjs.com/package/react-icons" target="_blank">React Icons</a>
+- <a name="react-toastify" href="https://www.npmjs.com/package/react-toastify" target="_blank">React Toastify</a>
+- <a name="yup" href="https://www.npmjs.com/package/yup" target="_blank">Yup</a>
+- <a name="hookform-resolvers" href="https://www.npmjs.com/package/@hookform/resolvers" target="_blank">@Hookform/Resolvers</a>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<a name="features"></a>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 6. Algumas Features
+
+ <h4 align="center">home page</h4>
+ <div align="center">
+   <img src=https://media.giphy.com/media/xwIk1BLKNabDIULYqJ/giphy.gif></img>
+ </div>
+ <p align="center">
+ Landing Page da aplicação com opções de Login e pesquisa de amostras.
+ </p>
+ 
+ 
+ ##
+ 
+ 
+ <h4 align="center">Página de Dashboard</h4>
+ <div align="center">
+   <img src=https://media.giphy.com/media/jLvejxgy4X3XtQCjwO/giphy.gif></img>
+ </div>
+ <p align="center">
+ Core da aplicação, aqui são dispostas diversas opções de navegação para o usuário.
+ </p>
+ 
+ ##
+ 
+ <h4 align="center">Página de cadastro de amostras</h4>
+ <div align="center">
+   <img src=https://media.giphy.com/media/MFXQTYtsr8CE0zXAhP/giphy.gif></img>
+ </div>
+ <p align="center">
+ Onde o usuário pode cadastrar novas amostras com base nas classes e categorias existentes.
+ </p>
+ 
+ ##
+ 
+ <h4 align="center">Página de análise</h4>
+ <div align="center">
+   <img src=https://media.giphy.com/media/paXpZ4D0C9FA6utWlI/giphy.gif></img>
+ </div>
+ <p align="center">
+ Onde o usuário pode realizar as análises das amostras criadas por ele, os parâmetros das análises são geradas com base na classe de amostra selecionada no momento da criação da amostra
+ </p>
+ 
+ ##
+ 
+ <h4 align="center">Página do laudo</h4>
+ <div align="center">
+   <img src=https://media.giphy.com/media/WTF3dcEnn4UCaKOl39/giphy.gif></img>
+ </div>
+ <p align="center">
+ Aqui os usuários podem visualizar e fazer o download dos laudos gerados a partir de qualquer amostra finalizada por qualquer usuário
+ </p>
+ 
+ ##
+
+<a name="termos"></a>
+
+## 7. Termos de uso
+
+Este é um projeto Open Source para fins educacionais e não comerciais, **Tipo de licença** - <a name="mit" href="https://opensource.org/licenses/MIT" target="_blank">MIT</a>
